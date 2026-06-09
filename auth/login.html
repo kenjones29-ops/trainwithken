@@ -3,109 +3,239 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login — TrainWithKen</title>
+  <title>Login / Sign Up — TrainWithKen</title>
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
-    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--black); }
-    .auth-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; width: 100%; }
-    .auth-left { position: relative; overflow: hidden; }
-    .auth-left img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(0.5) contrast(1.05); }
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--black); }
+    .auth-wrap { display:grid; grid-template-columns:1fr 1fr; min-height:100vh; width:100%; }
+
+    /* LEFT */
+    .auth-left { position:relative; overflow:hidden; }
+    .auth-left img { width:100%; height:100%; object-fit:cover; object-position:center top; filter:brightness(0.5) contrast(1.05); }
     .auth-left-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, transparent 40%, rgba(8,8,8,0.95) 100%);
-      display: flex; flex-direction: column; justify-content: flex-end; padding: 56px;
+      position:absolute; inset:0;
+      background:linear-gradient(to right, transparent 40%, rgba(8,8,8,0.95) 100%);
+      display:flex; flex-direction:column; justify-content:flex-end; padding:56px;
     }
-    .auth-left-overlay h2 { font-family:'Bebas Neue',sans-serif; font-size: 52px; letter-spacing: 4px; color: var(--white); line-height: 1; margin-bottom: 12px; }
-    .auth-left-overlay p { font-size: 14px; color: var(--gray-light); max-width: 340px; line-height: 1.7; }
-    .auth-right { background: var(--dark); display: flex; flex-direction: column; justify-content: center; padding: 64px 56px; }
-    .auth-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; cursor: pointer; }
-    .auth-badge { width: 36px; height: 36px; background: var(--gold); clip-path: polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%); display: flex; align-items: center; justify-content: center; font-family:'Bebas Neue',sans-serif; font-size: 14px; color: var(--black); }
-    .auth-brand { font-family:'Bebas Neue',sans-serif; font-size: 16px; letter-spacing: 3px; color: var(--white); }
-    .auth-sub-brand { font-family:'Barlow Condensed',sans-serif; font-size: 9px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
-    .auth-title { font-family:'Bebas Neue',sans-serif; font-size: 40px; letter-spacing: 4px; color: var(--white); line-height: 1; margin-bottom: 8px; }
-    .auth-desc { font-size: 13px; color: var(--gray); margin-bottom: 36px; }
-    .field { margin-bottom: 20px; }
-    .field label { display: block; font-family:'Barlow Condensed',sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-    .field input { width: 100%; background: var(--dark3); border: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(201,168,76,0.3); color: var(--white); font-family:'Barlow',sans-serif; font-size: 14px; font-weight: 300; padding: 14px 16px; outline: none; transition: border-color 0.2s; }
-    .field input:focus { border-color: rgba(201,168,76,0.7); }
-    .field input::placeholder { color: var(--gray); }
-    .forgot { font-size: 12px; color: var(--gold); float: right; margin-top: -12px; margin-bottom: 24px; cursor: pointer; }
-    .auth-btn { width: 100%; background: var(--gold); color: var(--black); border: none; padding: 16px; font-family:'Bebas Neue',sans-serif; font-size: 16px; letter-spacing: 4px; cursor: pointer; transition: background 0.2s; margin-top: 8px; }
-    .auth-btn:hover { background: var(--gold-light); }
-    .auth-error { background: rgba(224,92,92,0.1); border: 1px solid rgba(224,92,92,0.3); color: #e05c5c; padding: 12px 16px; font-size: 13px; margin-bottom: 20px; display: none; }
-    .auth-footer { margin-top: 28px; font-size: 12px; color: var(--gray); text-align: center; }
-    .auth-footer a { color: var(--gold); }
-    @media (max-width: 768px) { .auth-left { display: none; } .auth-right { padding: 40px 24px; } }
+    .auth-left-overlay h2 { font-family:'Bebas Neue',sans-serif; font-size:52px; letter-spacing:4px; color:var(--white); line-height:1; margin-bottom:12px; }
+    .auth-left-overlay p { font-size:14px; color:var(--gray-light); max-width:340px; line-height:1.7; }
+
+    /* RIGHT */
+    .auth-right { background:var(--dark); display:flex; flex-direction:column; justify-content:center; padding:64px 56px; overflow-y:auto; }
+    .auth-logo { display:flex; align-items:center; gap:10px; margin-bottom:40px; cursor:pointer; }
+    .auth-badge { width:36px; height:36px; background:var(--gold); clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:14px; color:var(--black); }
+    .auth-brand { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px; color:var(--white); }
+    .auth-sub-brand { font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
+
+    /* TABS */
+    .auth-tabs { display:flex; gap:0; margin-bottom:36px; border-bottom:1px solid rgba(255,255,255,0.07); }
+    .auth-tab {
+      font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:3px;
+      color:var(--gray); padding:0 0 14px; margin-right:32px;
+      cursor:pointer; border-bottom:2px solid transparent;
+      transition:all 0.2s; background:none; border-top:none; border-left:none; border-right:none;
+    }
+    .auth-tab.active { color:var(--white); border-bottom-color:var(--gold); }
+
+    /* FIELDS */
+    .field { margin-bottom:18px; }
+    .field label { display:block; font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+    .field input { width:100%; background:var(--dark3); border:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(201,168,76,0.3); color:var(--white); font-family:'Barlow',sans-serif; font-size:14px; font-weight:300; padding:14px 16px; outline:none; transition:border-color 0.2s; }
+    .field input:focus { border-color:rgba(201,168,76,0.7); }
+    .field input::placeholder { color:var(--gray); }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+    .auth-btn { width:100%; background:var(--gold); color:var(--black); border:none; padding:16px; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:4px; cursor:pointer; transition:background 0.2s; margin-top:8px; }
+    .auth-btn:hover { background:var(--gold-light); }
+    .auth-btn:disabled { opacity:0.6; cursor:not-allowed; }
+
+    .auth-error { background:rgba(224,92,92,0.1); border:1px solid rgba(224,92,92,0.3); color:#e05c5c; padding:12px 16px; font-size:13px; margin-bottom:16px; display:none; }
+    .auth-success { background:rgba(76,175,125,0.1); border:1px solid rgba(76,175,125,0.3); color:#4caf7d; padding:12px 16px; font-size:13px; margin-bottom:16px; display:none; }
+
+    .forgot { font-size:12px; color:var(--gold); float:right; margin-top:-12px; margin-bottom:24px; cursor:pointer; }
+
+    .auth-divider { display:flex; align-items:center; gap:12px; margin:20px 0; }
+    .auth-divider::before, .auth-divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.07); }
+    .auth-divider span { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gray); }
+
+    .plan-note { background:rgba(201,168,76,0.07); border-left:2px solid var(--gold-dim); padding:12px 16px; margin-top:20px; }
+    .plan-note p { font-size:12px; color:var(--gray); line-height:1.6; }
+    .plan-note a { color:var(--gold); }
+
+    .pw-hint { font-size:11px; color:var(--gray); margin-top:6px; }
+
+    @media (max-width:768px) {
+      .auth-left { display:none; }
+      .auth-right { padding:40px 24px; }
+      .field-row { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
 <div class="auth-wrap">
+
+  <!-- LEFT -->
   <div class="auth-left">
     <img src="../images/kj-hero.jpg" alt="KJ — TrainWithKen" />
     <div class="auth-left-overlay">
-      <h2>WELCOME<br>BACK</h2>
-      <p>Access your coaching dashboard, training program, and weekly check-ins.</p>
+      <h2 id="leftTitle">WELCOME<br>BACK</h2>
+      <p id="leftSub">Access your coaching dashboard, training program, and weekly check-ins.</p>
     </div>
   </div>
+
+  <!-- RIGHT -->
   <div class="auth-right">
     <div class="auth-logo" onclick="window.location='../index.html'">
       <div class="auth-badge">KJ</div>
       <div><div class="auth-brand">TRAINWITHKEN</div><div class="auth-sub-brand">Client Portal</div></div>
     </div>
-    <h1 class="auth-title">SIGN IN</h1>
-    <p class="auth-desc">Enter your credentials to access your dashboard.</p>
+
+    <!-- TABS -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
+      <button class="auth-tab" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+
     <div class="auth-error" id="authError"></div>
+    <div class="auth-success" id="authSuccess"></div>
+
+    <!-- LOGIN FORM -->
     <form id="loginForm">
-      <div class="field"><label>Email Address</label><input type="email" id="email" placeholder="you@email.com" required /></div>
-      <div class="field"><label>Password</label><input type="password" id="password" placeholder="••••••••" required /></div>
+      <div class="field"><label>Email Address</label><input type="email" id="loginEmail" placeholder="you@email.com" required /></div>
+      <div class="field"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••" required /></div>
       <div class="forgot" onclick="handleForgot()">Forgot password?</div>
       <button class="auth-btn" type="submit" id="loginBtn">SIGN IN</button>
     </form>
-    <div class="auth-footer">Don't have an account? <a href="../pages/programs.html">Choose a plan →</a></div>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" style="display:none;">
+      <div class="field-row">
+        <div class="field"><label>First Name</label><input type="text" id="signupFirst" placeholder="Ken" required /></div>
+        <div class="field"><label>Last Name</label><input type="text" id="signupLast" placeholder="Jones" required /></div>
+      </div>
+      <div class="field"><label>Email Address</label><input type="email" id="signupEmail" placeholder="you@email.com" required /></div>
+      <div class="field"><label>Phone (optional)</label><input type="tel" id="signupPhone" placeholder="(713) 000-0000" /></div>
+      <div class="field"><label>Password</label><input type="password" id="signupPassword" placeholder="Create a password" required minlength="8" /></div>
+      <div class="field"><label>Confirm Password</label><input type="password" id="signupConfirm" placeholder="Repeat password" required /></div>
+      <p class="pw-hint">Minimum 8 characters.</p>
+      <button class="auth-btn" type="submit" id="signupBtn" style="margin-top:16px;">CREATE ACCOUNT</button>
+      <div class="plan-note" style="margin-top:16px;">
+        <p>Creating an account gives you access to the client portal. To activate coaching, <a href="../pages/programs.html">choose a plan →</a></p>
+      </div>
+    </form>
+
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-  const { createClient } = supabase;
-  const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+const { createClient } = supabase;
+const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
 
-  // Redirect if already logged in
-  sb.auth.getSession().then(({ data }) => {
-    if (data.session) redirectUser(data.session.user.id);
+// Check if already logged in
+sb.auth.getSession().then(({ data }) => {
+  if (data.session) redirectUser(data.session.user.id);
+});
+
+// Check URL for tab param
+const urlTab = new URLSearchParams(window.location.search).get('tab');
+if (urlTab === 'signup') switchTab('signup');
+
+async function redirectUser(uid) {
+  const { data } = await sb.from('profiles').select('role').eq('id', uid).single();
+  window.location = data?.role === 'admin' ? '../admin/dashboard.html' : '../client/dashboard.html';
+}
+
+function showError(msg) {
+  const el = document.getElementById('authError');
+  el.textContent = msg; el.style.display = 'block';
+  document.getElementById('authSuccess').style.display = 'none';
+}
+function showSuccess(msg) {
+  const el = document.getElementById('authSuccess');
+  el.textContent = msg; el.style.display = 'block';
+  document.getElementById('authError').style.display = 'none';
+}
+function clearMessages() {
+  document.getElementById('authError').style.display = 'none';
+  document.getElementById('authSuccess').style.display = 'none';
+}
+
+function switchTab(tab) {
+  clearMessages();
+  const isLogin = tab === 'login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabSignup').classList.toggle('active', !isLogin);
+  document.getElementById('loginForm').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = isLogin ? 'none' : 'block';
+  document.getElementById('leftTitle').textContent = isLogin ? 'WELCOME\nBACK' : 'JOIN\nTRAIN\nWITHKEN';
+  document.getElementById('leftSub').textContent = isLogin
+    ? 'Access your coaching dashboard, training program, and weekly check-ins.'
+    : 'Create your account and start your transformation with an IFBB Pro coach.';
+}
+
+// ── LOGIN ──
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  clearMessages();
+  const btn = document.getElementById('loginBtn');
+  btn.textContent = 'SIGNING IN…'; btn.disabled = true;
+
+  const { data, error } = await sb.auth.signInWithPassword({
+    email: document.getElementById('loginEmail').value.trim(),
+    password: document.getElementById('loginPassword').value
   });
 
-  async function redirectUser(userId) {
-    const { data } = await sb.from('profiles').select('role').eq('id', userId).single();
-    window.location = data?.role === 'admin' ? '../admin/dashboard.html' : '../client/dashboard.html';
+  if (error) { showError(error.message); btn.textContent = 'SIGN IN'; btn.disabled = false; return; }
+  await redirectUser(data.user.id);
+});
+
+// ── SIGN UP ──
+document.getElementById('signupForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  clearMessages();
+  const btn = document.getElementById('signupBtn');
+  const pw = document.getElementById('signupPassword').value;
+  const cf = document.getElementById('signupConfirm').value;
+
+  if (pw !== cf) { showError('Passwords do not match.'); return; }
+
+  btn.textContent = 'CREATING ACCOUNT…'; btn.disabled = true;
+
+  const firstName = document.getElementById('signupFirst').value.trim();
+  const lastName  = document.getElementById('signupLast').value.trim();
+  const email     = document.getElementById('signupEmail').value.trim();
+  const phone     = document.getElementById('signupPhone').value.trim();
+
+  const { data, error } = await sb.auth.signUp({
+    email, password: pw,
+    options: { data: { first_name: firstName, last_name: lastName } }
+  });
+
+  if (error) { showError(error.message); btn.textContent = 'CREATE ACCOUNT'; btn.disabled = false; return; }
+
+  // Profile is auto-created by DB trigger — just update phone if provided
+  if (phone && data.user) {
+    await sb.from('profiles').update({ phone }).eq('id', data.user.id);
   }
 
-  document.getElementById('loginForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const btn = document.getElementById('loginBtn');
-    btn.textContent = 'SIGNING IN…'; btn.disabled = true;
-    const err = document.getElementById('authError');
-    err.style.display = 'none';
-
-    const { data, error } = await sb.auth.signInWithPassword({
-      email: document.getElementById('email').value,
-      password: document.getElementById('password').value
-    });
-
-    if (error) {
-      err.textContent = error.message; err.style.display = 'block';
-      btn.textContent = 'SIGN IN'; btn.disabled = false;
-      return;
-    }
+  // If email confirmation required, show message; else redirect
+  if (data.session) {
     await redirectUser(data.user.id);
-  });
-
-  async function handleForgot() {
-    const email = document.getElementById('email').value;
-    if (!email) { alert('Enter your email address first.'); return; }
-    await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://trainwithken.fit/auth/reset.html' });
-    alert('Password reset email sent — check your inbox.');
+  } else {
+    showSuccess('Account created! Check your email to confirm, then sign in.');
+    btn.textContent = 'CREATE ACCOUNT'; btn.disabled = false;
+    setTimeout(() => switchTab('login'), 2000);
   }
+});
+
+// ── FORGOT PASSWORD ──
+async function handleForgot() {
+  const email = document.getElementById('loginEmail').value.trim();
+  if (!email) { showError('Enter your email address first.'); return; }
+  await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://trainwithken.fit/auth/reset.html' });
+  showSuccess('Password reset email sent — check your inbox.');
+}
 </script>
 </body>
 </html>
