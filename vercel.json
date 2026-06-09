@@ -1,8 +1,8 @@
 {
   "functions": {
-    "api/submit-booking.js": {
-      "memory": 128,
-      "maxDuration": 10
-    }
+    "api/create-checkout.js": { "maxDuration": 15 },
+    "api/stripe-webhook.js":  { "maxDuration": 15 },
+    "api/submit-booking.js":  { "maxDuration": 15 },
+    "api/admin-clients.js":   { "maxDuration": 15 }
   }
 }

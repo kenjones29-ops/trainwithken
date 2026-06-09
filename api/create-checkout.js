@@ -1,39 +1,27 @@
-import Stripe from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const PLANS = {
-  'self-led': {
-    name: 'Self-Led System',
-    amount: 9700,
-    mode: 'payment',
-    priceId: process.env.STRIPE_PRICE_SELF_LED
-  },
-  'online': {
-    name: 'Online Coaching',
-    amount: 29700,
-    mode: 'subscription',
-    priceId: process.env.STRIPE_PRICE_ONLINE
-  },
-  'vip': {
-    name: 'VIP Elite Access',
-    amount: 59700,
-    mode: 'subscription',
-    priceId: process.env.STRIPE_PRICE_VIP
-  }
+  'self-led': { name: 'Self-Led System', amount: 9700, mode: 'payment', priceId: process.env.STRIPE_PRICE_SELF_LED },
+  'online':   { name: 'Online Coaching', amount: 29700, mode: 'subscription', priceId: process.env.STRIPE_PRICE_ONLINE },
+  'vip':      { name: 'VIP Elite Access', amount: 59700, mode: 'subscription', priceId: process.env.STRIPE_PRICE_VIP }
 };
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { plan, email, firstName, lastName } = req.body;
   const planConfig = PLANS[plan];
   if (!planConfig) return res.status(400).json({ error: 'Invalid plan' });
 
-  const baseUrl = process.env.SITE_URL || 'https://trainwithken.fit';
+  const baseUrl = process.env.SITE_URL || 'https://trainwithken.vercel.app';
 
   try {
-    const sessionParams = {
+    const session = await stripe.checkout.sessions.create({
       mode: planConfig.mode,
       customer_email: email || undefined,
       metadata: { plan, firstName: firstName || '', lastName: lastName || '' },
@@ -50,12 +38,10 @@ export default async function handler(req, res) {
             },
             quantity: 1
           }]
-    };
-
-    const session = await stripe.checkout.sessions.create(sessionParams);
+    });
     return res.status(200).json({ url: session.url });
   } catch (err) {
-    console.error('Stripe error:', err);
+    console.error('Stripe error:', err.message);
     return res.status(500).json({ error: err.message });
   }
-}
+};
