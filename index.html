@@ -367,25 +367,63 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-left { padding: 60px 40px; }
-      .hero-right { min-height: 60vw; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 64px; }
+      .hero-left { padding: 52px 40px 48px; }
+      .hero-right { min-height: 55vw; order: -1; }
       .feature-strip { grid-template-columns: 1fr 1fr; }
       .feat-item:nth-child(2) { border-right: none; }
       .photo-split { grid-template-columns: 1fr; }
-      .photo-split-content { padding: 60px 40px; }
+      .photo-split-img { min-height: 300px; }
+      .photo-split-content { padding: 52px 40px; }
       #igGrid { grid-template-columns: repeat(4, 1fr); }
       .testi-grid { grid-template-columns: 1fr; gap: 2px; }
       .map-section { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
-      .hero-left { padding: 48px 24px; }
-      .ig-section { padding: 48px 24px; }
-      #igGrid { grid-template-columns: repeat(3, 1fr); }
+      .hero { padding-top: 64px; }
+      .hero-left { padding: 36px 20px 40px; }
+      .hero-right { min-height: 70vw; order: -1; }
+      .hero-h1 { font-size: clamp(44px, 13vw, 72px); margin-bottom: 16px; }
+      .hero-sub { font-size: 14px; margin-bottom: 28px; }
+      .hero-btns { gap: 12px; }
+      .hero-btns a { flex: 1; text-align: center; padding: 14px 16px; font-size: 13px; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 16px; padding-top: 32px; }
+      .hero-stat-num { font-size: 26px; }
+      .hero-stat-label { font-size: 9px; }
+
+      .feature-strip { grid-template-columns: 1fr 1fr; }
+      .feat-item { padding: 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .feat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.05); }
+      .feat-item:nth-last-child(-n+2) { border-bottom: none; }
+      .feat-title { font-size: 12px; }
+      .feat-sub { font-size: 10px; }
+
+      .photo-split-img { min-height: 260px; }
+      .photo-split-content { padding: 36px 20px; }
+      .photo-split-content h2 { font-size: clamp(28px, 9vw, 48px); margin-bottom: 12px; }
+      .photo-split-content p { font-size: 13px; margin-bottom: 20px; }
+
+      .ig-section { padding: 40px 20px; }
+      .ig-header { flex-direction: column; gap: 12px; align-items: flex-start; margin-bottom: 20px; }
+      #igGrid { grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+      .testi-card { padding: 28px 20px; }
+      .testi-text { font-size: 13px; }
+
+      .map-info { padding: 36px 20px; }
+      .map-info h2 { font-size: 36px; }
+      .map-embed iframe { min-height: 260px; }
+    }
+    @media (max-width: 480px) {
+      .hero-right { min-height: 85vw; }
+      .hero-btns { flex-direction: column; }
+      .hero-btns a { width: 100%; text-align: center; }
+      .hero-stats { gap: 12px; }
+      #igGrid { grid-template-columns: repeat(2, 1fr); }
       .feature-strip { grid-template-columns: 1fr; }
-      .feat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .feat-item { border-right: none !important; }
+      .feat-item:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,0.05); }
       .feat-item:last-child { border-bottom: none; }
-      .map-info { padding: 48px 24px; }
     }
   </style>
 </head>
@@ -439,7 +477,7 @@
     </div>
   </div>
   <div class="hero-right">
-    <img src="images/kj-hero.jpg" alt="KJ — IFBB Pro Bodybuilder, TrainWithKen" />
+    <img src="images/kj-gym-1.jpg" alt="KJ — IFBB Pro Bodybuilder, TrainWithKen" />
     <div class="hero-right-overlay"></div>
   </div>
 </section>
