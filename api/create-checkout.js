@@ -9,7 +9,8 @@ module.exports = async function handler(req, res) {
   const PLANS = {
     'self-led': { priceId: process.env.STRIPE_PRICE_SELF_LED, mode: 'payment' },
     'online':   { priceId: process.env.STRIPE_PRICE_ONLINE,   mode: 'subscription' },
-    'vip':      { priceId: process.env.STRIPE_PRICE_VIP,      mode: 'subscription' }
+    'vip':      { priceId: process.env.STRIPE_PRICE_VIP,      mode: 'subscription' },
+    'group':    { priceId: process.env.STRIPE_PRICE_GROUP,     mode: 'subscription' }
   };
 
   const planConfig = PLANS[plan];

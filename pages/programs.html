@@ -14,7 +14,7 @@
     }
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 2px;
       margin-top: 48px;
     }
@@ -184,13 +184,17 @@
     .faq-item.open .faq-a { display: block; }
     .faq-item.open .faq-q::after { content: '−'; }
 
+    @media (max-width: 1280px) {
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 1024px) {
       .pricing-section { padding: 60px 40px; }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
       .framework-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
       .pricing-section { padding: 48px 24px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
       .framework-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -330,6 +334,30 @@
       </ul>
       <button class="btn-outline" onclick="checkout('vip')" style="width:100%;text-align:center;cursor:pointer;">Apply for VIP — $597/mo</button>
     </div>
+
+    <!-- SMALL GROUP TRAINING -->
+    <div class="price-card" style="border-top-color:var(--gold);">
+      <div class="price-tier">Tier 04</div>
+      <div class="price-name">SMALL GROUP<br>TRAINING</div>
+      <div class="price-amount">
+        <div class="price-dollar">$450</div>
+        <div class="price-period">/month</div>
+      </div>
+      <p class="price-desc">Train with KJ in a small group setting — personalized attention, elite programming, and a customized meal plan included. Limited spots per session.</p>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Small group sessions with KJ in-person</li>
+        <li>Custom meal plan — built for your goals</li>
+        <li>Ounce-based macro targets included</li>
+        <li>Available session times: 5:30 AM, 6:30 AM, 7:30 AM, 8:30 AM, 9:30 AM</li>
+        <li>Level One Fitness — Houston TX</li>
+        <li>Limited group size — personalized attention</li>
+        <li>Weekly program adjustments</li>
+        <li>Access to KJ between sessions</li>
+      </ul>
+      <button class="btn-gold" onclick="checkout('group')" style="width:100%;text-align:center;cursor:pointer;">Join a Group — $450/mo</button>
+    </div>
+
   </div>
 </section>
 
