@@ -213,6 +213,7 @@
     <li><a href="apparel.html">Apparel</a></li>
     <li><a href="booking.html">Book a Call</a></li>
   </ul>
+  <a class="nav-login" href="../auth/login.html">Login</a>
   <a class="nav-cta" href="booking.html">Start Now</a>
   <button class="nav-toggle" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -448,13 +449,15 @@
 
 <script src="../js/main.js"></script>
 <script>
+const API_BASE = 'https://trainwithken.vercel.app';
+
 async function checkout(plan) {
   const btn = event.target;
   const orig = btn.textContent;
   btn.textContent = 'LOADING…';
   btn.disabled = true;
   try {
-    const res = await fetch('/api/create-checkout', {
+    const res = await fetch(`${API_BASE}/api/create-checkout`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ plan })

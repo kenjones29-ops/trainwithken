@@ -445,6 +445,7 @@
     <li><a href="pages/apparel.html">Apparel</a></li>
     <li><a href="pages/booking.html">Book a Call</a></li>
   </ul>
+  <a class="nav-login" href="auth/login.html">Login</a>
   <a class="nav-cta" href="pages/booking.html">Start Now</a>
   <button class="nav-toggle" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -647,6 +648,53 @@
     </iframe>
   </div>
 </section>
+
+<!-- CLIENT PORTAL -->
+<section style="background:var(--dark);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);">
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:280px;">
+
+    <!-- Existing clients -->
+    <div style="padding:56px 64px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(255,255,255,0.05);">
+      <div class="sec-label">Already a client?</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3vw,44px);letter-spacing:3px;color:var(--white);line-height:1;margin-bottom:12px;">ACCESS YOUR<br>DASHBOARD</h2>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:28px;max-width:340px;">View your training program, submit weekly check-ins, track progress, and see your nutrition targets.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a class="btn-gold" href="auth/login.html">Client Login</a>
+        <a class="btn-outline" href="auth/login.html" style="font-size:13px;padding:13px 24px;">Admin Panel</a>
+      </div>
+    </div>
+
+    <!-- New clients -->
+    <div style="padding:56px 64px;display:flex;flex-direction:column;justify-content:center;background:var(--dark2);">
+      <div class="sec-label">New here?</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3vw,44px);letter-spacing:3px;color:var(--white);line-height:1;margin-bottom:12px;">START YOUR<br>JOURNEY</h2>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:28px;max-width:340px;">Choose a coaching plan, complete checkout, and get instant access to your personalized dashboard.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a class="btn-gold" href="pages/programs.html">View Plans</a>
+        <a class="btn-outline" href="pages/booking.html" style="font-size:13px;padding:13px 24px;">Book Free Call</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<style>
+@media (max-width: 768px) {
+  .portal-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+<script>
+  document.querySelector('section:has(.sec-label)') && void 0;
+  // Make portal grid responsive
+  const portalSection = document.querySelector('section[style*="grid-template-columns:1fr 1fr"]');
+  if (portalSection) {
+    const grid = portalSection.querySelector('div[style*="grid-template-columns"]');
+    const applyLayout = () => {
+      if (grid) grid.style.gridTemplateColumns = window.innerWidth < 768 ? '1fr' : '1fr 1fr';
+    };
+    applyLayout();
+    window.addEventListener('resize', applyLayout);
+  }
+</script>
 
 <!-- CTA BANNER -->
 <div class="cta-banner">

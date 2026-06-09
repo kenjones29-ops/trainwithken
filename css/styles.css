@@ -101,6 +101,21 @@ nav {
 .nav-links a:hover,
 .nav-links a.active { color: var(--gold); }
 
+.nav-login {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  padding: 8px 18px;
+  transition: all 0.2s;
+}
+.nav-login:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: var(--gold);
+}
+
 .nav-cta {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 13px;
