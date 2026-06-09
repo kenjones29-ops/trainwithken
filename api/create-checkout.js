@@ -17,17 +17,17 @@ module.exports = async function handler(req, res) {
   const planConfig = PLANS[plan];
   if (!planConfig) return res.status(400).json({ error: 'Invalid plan' });
 
-  const baseUrl = 'https://trainwithken.vercel.app';
+  const baseUrl = process.env.SITE_URL || 'https://trainwithken.fit';
   const key = process.env.STRIPE_SECRET_KEY;
 
-  // Build form-encoded body for Stripe REST API
   const params = new URLSearchParams({
     mode: planConfig.mode,
     success_url: `${baseUrl}/auth/setup.html?session_id={CHECKOUT_SESSION_ID}&plan=${plan}`,
-    cancel_url: `${baseUrl}/pages/programs.html`,
+    cancel_url: `${baseUrl}/auth/choose-plan.html`,
     'line_items[0][price]': planConfig.priceId,
     'line_items[0][quantity]': '1',
-    'metadata[plan]': plan
+    'metadata[plan]': plan,
+    allow_promotion_codes: 'true'
   });
 
   try {

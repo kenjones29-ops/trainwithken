@@ -219,9 +219,9 @@ document.getElementById('signupForm').addEventListener('submit', async e => {
     await sb.from('profiles').update({ phone }).eq('id', data.user.id);
   }
 
-  // If email confirmation required, show message; else redirect
+  // After signup → go to plan selection
   if (data.session) {
-    await redirectUser(data.user.id);
+    window.location = 'choose-plan.html';
   } else {
     showSuccess('Account created! Check your email to confirm, then sign in.');
     btn.textContent = 'CREATE ACCOUNT'; btn.disabled = false;
