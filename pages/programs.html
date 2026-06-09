@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programs — TrainWithKen</title>
+  <meta name="description" content="Choose your coaching plan — Self-Led System ($97), Online Coaching ($297/mo), or VIP Elite Access ($597/mo). IFBB Pro-coached training and nutrition." />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ── PRICING ── */
+    .pricing-section {
+      background: var(--black);
+      padding: 100px 80px;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .price-card {
+      background: var(--dark2);
+      border-top: 2px solid var(--gold-dim);
+      padding: 48px 40px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .price-card:hover { border-top-color: var(--gold); }
+    .price-card.featured {
+      background: var(--dark3);
+      border-top-color: var(--gold);
+    }
+    .featured-badge {
+      position: absolute;
+      top: -1px;
+      right: 32px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+    }
+    .price-tier {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .price-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 3px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .price-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .price-dollar {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .price-period {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .price-desc {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 32px;
+      min-height: 48px;
+      line-height: 1.7;
+    }
+    .price-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin-bottom: 28px;
+    }
+    .price-features {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+    .price-features li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 13px;
+      color: var(--gray-light);
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      line-height: 1.5;
+    }
+    .price-features li:last-child { border-bottom: none; }
+    .price-features li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    /* ── FRAMEWORK ── */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .framework-item {
+      background: var(--dark2);
+      border-left: 2px solid var(--gold-dim);
+      padding: 40px 32px;
+    }
+    .framework-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      color: rgba(201,168,76,0.1);
+      letter-spacing: 2px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .framework-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .framework-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 800px; margin-top: 48px; }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 24px 0;
+    }
+    .faq-q {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+    }
+    .faq-q::after {
+      content: '+';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .faq-a {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-top: 12px;
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-q::after { content: '−'; }
+
+    @media (max-width: 1024px) {
+      .pricing-section { padding: 60px 40px; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .framework-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .pricing-section { padding: 48px 24px; }
+      .framework-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="page-wrap">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="window.location='../index.html'">
+    <div class="nav-badge">KJ</div>
+    <div>
+      <div class="nav-brand">TRAINWITHKEN</div>
+      <div class="nav-sub">trainwithken.fit</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="programs.html" class="active">Programs</a></li>
+    <li><a href="apparel.html">Apparel</a></li>
+    <li><a href="booking.html">Book a Call</a></li>
+  </ul>
+  <a class="nav-cta" href="booking.html">Start Now</a>
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-img">
+    <img src="../images/kj-coaching.jpg" alt="KJ — Coaching" />
+  </div>
+  <div class="page-hero-content">
+    <div class="sec-label">Coaching Plans</div>
+    <h1>CHOOSE YOUR<br><span style="color:var(--gold);">PROGRAM</span></h1>
+    <p>Every plan is built on the same IFBB Pro-tested system — scaled to your goals, schedule, and commitment level. From self-led to full VIP access, there's a path for every athlete.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a class="btn-gold" href="#pricing">See Plans</a>
+      <a class="btn-outline" href="booking.html">Free Discovery Call</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Plan Tiers</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$97</div>
+    <div class="stat-label">Starting Price</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">IFBB</div>
+    <div class="stat-label">Pro Methodology</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Custom to You</div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="sec-label">Investment</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,56px);letter-spacing:4px;color:var(--white);line-height:1;">PICK YOUR PLAN</h2>
+  <div class="pricing-grid">
+
+    <!-- SELF-LED -->
+    <div class="price-card">
+      <div class="price-tier">Tier 01</div>
+      <div class="price-name">SELF-LED<br>SYSTEM</div>
+      <div class="price-amount">
+        <div class="price-dollar">$97</div>
+        <div class="price-period">one-time</div>
+      </div>
+      <p class="price-desc">The complete KJ training system delivered as a structured, self-guided program. Perfect for motivated athletes who want the framework without monthly coaching.</p>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Full periodized training program (12 weeks)</li>
+        <li>Ounce-based macro nutrition guide</li>
+        <li>Exercise library with form cues</li>
+        <li>Supplement framework document</li>
+        <li>InBody assessment guide</li>
+        <li>Recovery and sleep protocols</li>
+        <li>Lifetime program access</li>
+      </ul>
+      <a class="btn-outline" href="booking.html" style="width:100%;text-align:center;">Get Started</a>
+    </div>
+
+    <!-- ONLINE COACHING (FEATURED) -->
+    <div class="price-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="price-tier">Tier 02</div>
+      <div class="price-name">ONLINE<br>COACHING</div>
+      <div class="price-amount">
+        <div class="price-dollar">$297</div>
+        <div class="price-period">/month</div>
+      </div>
+      <p class="price-desc">Full coaching relationship with KJ — custom programming, weekly check-ins, nutrition management, and direct access to make adjustments as you progress.</p>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Fully custom training program</li>
+        <li>Custom ounce-based nutrition plan</li>
+        <li>Weekly check-in & progress review</li>
+        <li>Monthly InBody scan analysis</li>
+        <li>Direct messaging with KJ</li>
+        <li>Form video review & feedback</li>
+        <li>Supplement & recovery protocol</li>
+        <li>Program adjustments as needed</li>
+      </ul>
+      <a class="btn-gold" href="booking.html" style="width:100%;text-align:center;">Start Coaching</a>
+    </div>
+
+    <!-- VIP ELITE -->
+    <div class="price-card">
+      <div class="price-tier">Tier 03</div>
+      <div class="price-name">VIP ELITE<br>ACCESS</div>
+      <div class="price-amount">
+        <div class="price-dollar">$597</div>
+        <div class="price-period">/month</div>
+      </div>
+      <p class="price-desc">Maximum access to KJ. Daily communication, priority response, in-person training options, and a fully managed program for athletes who want no ceiling on their results.</p>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Everything in Online Coaching</li>
+        <li>Daily check-in availability</li>
+        <li>Priority direct access to KJ</li>
+        <li>In-person training sessions (Houston)</li>
+        <li>Competition prep protocols (if applicable)</li>
+        <li>Weekly InBody scan analysis</li>
+        <li>Kure Recovery protocol integration</li>
+        <li>Apparel & brand partner discounts</li>
+      </ul>
+      <a class="btn-outline" href="booking.html" style="width:100%;text-align:center;">Apply for VIP</a>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section class="section section-dark">
+  <div class="sec-label">The Method</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:4px;color:var(--white);line-height:1;">THE KJ FRAMEWORK</h2>
+  <div class="framework-grid">
+    <div class="framework-item">
+      <div class="framework-num">01</div>
+      <div class="framework-title">InBody Analysis</div>
+      <p class="framework-desc">Every program starts with a precise body composition baseline using InBody scanning — muscle mass, body fat, hydration, and metabolic rate all measured and tracked.</p>
+    </div>
+    <div class="framework-item">
+      <div class="framework-num">02</div>
+      <div class="framework-title">Ounce-Based Macros</div>
+      <p class="framework-desc">KJ's signature nutrition system uses ounce-based tracking for unmatched precision. No calorie guessing — every food is weighed, measured, and dialed to your specific targets.</p>
+    </div>
+    <div class="framework-item">
+      <div class="framework-num">03</div>
+      <div class="framework-title">Recovery Protocol</div>
+      <p class="framework-desc">Built around KJ's Kure Recovery methodology — sleep optimization, active recovery techniques, and supplement protocols that make sure you're growing between sessions.</p>
+    </div>
+    <div class="framework-item">
+      <div class="framework-num">04</div>
+      <div class="framework-title">Accountability System</div>
+      <p class="framework-desc">Weekly check-ins, progress photos, and direct coach feedback keep the program alive and adapting. Accountability is the variable most programs are missing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-dark2">
+  <div class="sec-label">Common Questions</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:4px;color:var(--white);line-height:1;">FAQ</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">Do I need to train in Houston to work with KJ?</div>
+      <div class="faq-a">No. KJ coaches clients online worldwide. The Online Coaching and Self-Led programs are fully remote. In-person training at Level One Fitness in Houston is available through the VIP Elite plan.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How long until I see results?</div>
+      <div class="faq-a">Most clients notice measurable changes in body composition within 3–4 weeks when they follow the program consistently. Significant transformation typically occurs over a 12–16 week period with full commitment to training and nutrition.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is the nutrition plan flexible for my diet preference?</div>
+      <div class="faq-a">Yes. KJ's ounce-based macro system works with any food preference — whether you eat meat, follow a plant-based diet, or have specific dietary restrictions. The targets are the system, not the specific foods.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What equipment do I need?</div>
+      <div class="faq-a">The standard programs are designed for a commercial gym with barbells, dumbbells, cables, and machines. KJ can adapt the program for home gym setups on request — this is discussed during the onboarding call.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I switch plans after I start?</div>
+      <div class="faq-a">Absolutely. Many clients start with the Self-Led System to learn the method and then upgrade to Online Coaching when they're ready for direct accountability. Upgrades are applied at the next billing cycle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is there a free trial or discovery call?</div>
+      <div class="faq-a">Yes — KJ offers a free 20-minute Discovery Call for anyone considering Online Coaching or VIP Elite. Use the booking page to schedule. No pressure, no commitment — just a conversation about your goals.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="sec-label" style="justify-content:center;">Get Started Today</div>
+  <h2>NOT SURE WHICH<br>PLAN IS RIGHT?</h2>
+  <p>Book a free Discovery Call and KJ will personally walk you through which program fits your goals, schedule, and budget.</p>
+  <div class="btn-row">
+    <a class="btn-gold" href="booking.html">Book Free Discovery Call</a>
+    <a class="btn-outline" href="about.html">Learn About KJ</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-badge">KJ</div>
+      <div class="footer-brand-name">TRAINWITHKEN</div>
+      <div class="footer-brand-sub">trainwithken.fit</div>
+      <p>IFBB Pro-coached training and nutrition programs for athletes of every level. Based in Houston, TX — coaching worldwide.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About KJ</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="apparel.html">Apparel</a></li>
+        <li><a href="booking.html">Book a Call</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ventures</h4>
+      <ul>
+        <li><a href="https://aielifestyle.com" target="_blank" rel="noopener">AIE Lifestyle Wear</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Kure Recovery & Wellness</a></li>
+        <li><a href="https://www.instagram.com/trainwithken" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@trainwithken.fit">info@trainwithken.fit</a></li>
+        <li><a href="booking.html">Book a Session</a></li>
+        <li><a>1803 Cleburne St</a></li>
+        <li><a>Houston TX 77004</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TrainWithKen. All rights reserved.</span>
+    <span>IFBB Pro · Houston TX · H-TWN</span>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      item.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

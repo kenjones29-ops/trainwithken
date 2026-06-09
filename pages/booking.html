@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Call — TrainWithKen</title>
+  <meta name="description" content="Book a free Discovery Call or coaching session with KJ — IFBB Pro coach based in Houston TX. Online and in-person options available." />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ── BOOKING LAYOUT ── */
+    .booking-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 72px);
+    }
+
+    /* ── LEFT SIDE ── */
+    .booking-left {
+      position: relative;
+      overflow: hidden;
+    }
+    .booking-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.5) contrast(1.05);
+    }
+    .booking-left-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 56px;
+    }
+    .booking-left-overlay h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 4vw, 56px);
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .booking-left-overlay p {
+      font-size: 13px;
+      color: var(--gray-light);
+      max-width: 380px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .booking-perks { list-style: none; }
+    .booking-perks li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .booking-perks li:last-child { border-bottom: none; }
+    .booking-perks li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── RIGHT SIDE / FORM ── */
+    .booking-right {
+      background: var(--dark);
+      padding: 64px 56px;
+      overflow-y: auto;
+    }
+
+    .form-header { margin-bottom: 40px; }
+    .form-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 3vw, 48px);
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .form-header p {
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    /* ── FORM FIELDS ── */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(201,168,76,0.7);
+      background: #1a1a1a;
+    }
+    .form-group select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+    .form-group select option {
+      background: var(--dark3);
+      color: var(--white);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--gray); }
+
+    .form-submit {
+      margin-top: 8px;
+    }
+    .form-submit button {
+      width: 100%;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 18px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px;
+      letter-spacing: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .form-submit button:hover { background: var(--gold-light); }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── SUCCESS STATE ── */
+    #bookingSuccess {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .success-badge {
+      width: 72px;
+      height: 72px;
+      background: var(--gold);
+      clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--black);
+      margin: 0 auto 24px;
+    }
+    #bookingSuccess h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      letter-spacing: 4px;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    #bookingSuccess p {
+      font-size: 14px;
+      color: var(--gray-light);
+      max-width: 360px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    /* ── SERVICES INFO ── */
+    .services-strip {
+      background: var(--dark2);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .service-item {
+      padding: 32px 28px;
+      border-right: 1px solid rgba(255,255,255,0.05);
+    }
+    .service-item:last-child { border-right: none; }
+    .service-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .service-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .service-note {
+      font-size: 11px;
+      color: var(--gray);
+    }
+
+    @media (max-width: 1024px) {
+      .booking-wrap { grid-template-columns: 1fr; }
+      .booking-left { min-height: 50vw; }
+      .booking-right { padding: 48px 40px; }
+      .services-strip { grid-template-columns: 1fr 1fr; }
+      .service-item:nth-child(2) { border-right: none; }
+    }
+    @media (max-width: 768px) {
+      .booking-right { padding: 40px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .services-strip { grid-template-columns: 1fr; }
+      .service-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .service-item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body class="page-wrap">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="window.location='../index.html'">
+    <div class="nav-badge">KJ</div>
+    <div>
+      <div class="nav-brand">TRAINWITHKEN</div>
+      <div class="nav-sub">trainwithken.fit</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="programs.html">Programs</a></li>
+    <li><a href="apparel.html">Apparel</a></li>
+    <li><a href="booking.html" class="active">Book a Call</a></li>
+  </ul>
+  <a class="nav-cta" href="booking.html">Start Now</a>
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- BOOKING LAYOUT -->
+<div class="booking-wrap">
+
+  <!-- LEFT -->
+  <div class="booking-left">
+    <img src="../images/kj-gym-2.jpg" alt="KJ — Level One Fitness, Houston TX" />
+    <div class="booking-left-overlay">
+      <div class="sec-label">Get Started</div>
+      <h2>LET'S BUILD<br>YOUR PLAN</h2>
+      <p>Every coaching relationship starts with a conversation. Tell KJ where you are, where you want to be, and he'll map out exactly how to get there.</p>
+      <ul class="booking-perks">
+        <li>Free 20-minute Discovery Call</li>
+        <li>No commitment required</li>
+        <li>Online worldwide or in-person Houston</li>
+        <li>Custom plan built to your schedule</li>
+        <li>Direct access to an IFBB Pro</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="booking-right">
+    <div class="form-header">
+      <div class="sec-label">Booking Form</div>
+      <h1>BOOK YOUR<br>SESSION</h1>
+      <p>Fill out the form below and KJ's team will reach out within 24 hours to confirm your appointment.</p>
+    </div>
+
+    <form id="bookingForm" action="/api/submit-booking" method="POST">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="Ken" required />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Jones" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(713) 000-0000" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="service">Service / Program</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Select a service…</option>
+          <option value="discovery">Discovery Call — Free (20 min)</option>
+          <option value="online">Online Coaching — $297/month</option>
+          <option value="vip">VIP Elite Access — $597/month</option>
+          <option value="self-led">Self-Led System — $97 one-time</option>
+          <option value="in-person">In-Person Training — Houston TX</option>
+          <option value="comp-prep">Competition Prep</option>
+          <option value="nutrition">Nutrition Only Coaching</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" name="date" />
+        </div>
+        <div class="form-group">
+          <label for="time">Preferred Time</label>
+          <select id="time" name="time">
+            <option value="" disabled selected>Select a time…</option>
+            <option value="morning">Morning (8am – 12pm)</option>
+            <option value="afternoon">Afternoon (12pm – 4pm)</option>
+            <option value="evening">Evening (4pm – 7pm)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="goal">Primary Goal</label>
+        <textarea id="goal" name="goal" placeholder="Describe your main goal — fat loss, muscle gain, competition prep, overall health…"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="source">How Did You Hear About KJ?</label>
+        <select id="source" name="source">
+          <option value="" disabled selected>Select one…</option>
+          <option value="instagram">Instagram — @trainwithken</option>
+          <option value="referral">Friend / Client Referral</option>
+          <option value="google">Google Search</option>
+          <option value="youtube">YouTube</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-submit">
+        <button type="submit">SUBMIT BOOKING REQUEST</button>
+      </div>
+      <p class="form-note">By submitting, you agree to be contacted by the TrainWithKen team.<br>No spam. Your info is never shared.</p>
+
+    </form>
+
+    <!-- SUCCESS -->
+    <div id="bookingSuccess">
+      <div class="success-badge">✓</div>
+      <h2>REQUEST<br>RECEIVED</h2>
+      <p>KJ's team will reach out within 24 hours to confirm your booking. Check your email for a confirmation.</p>
+      <a class="btn-gold" href="programs.html">View Programs While You Wait</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- SERVICES STRIP -->
+<div class="services-strip">
+  <div class="service-item">
+    <div class="service-name">Discovery Call</div>
+    <div class="service-price">FREE</div>
+    <div class="service-note">20 minutes · No commitment</div>
+  </div>
+  <div class="service-item">
+    <div class="service-name">Online Coaching</div>
+    <div class="service-price">$297</div>
+    <div class="service-note">Per month · Cancel anytime</div>
+  </div>
+  <div class="service-item">
+    <div class="service-name">VIP Elite</div>
+    <div class="service-price">$597</div>
+    <div class="service-note">Per month · Full access</div>
+  </div>
+  <div class="service-item">
+    <div class="service-name">Self-Led System</div>
+    <div class="service-price">$97</div>
+    <div class="service-note">One-time · Lifetime access</div>
+  </div>
+</div>
+
+<!-- MAP -->
+<section style="display:grid;grid-template-columns:1fr 1fr;min-height:400px;">
+  <div style="background:var(--dark2);padding:64px;display:flex;flex-direction:column;justify-content:center;">
+    <div class="sec-label">In-Person Location</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:4px;color:var(--white);line-height:1;margin-bottom:24px;">LEVEL ONE<br>FITNESS</h2>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:6px;">1803 Cleburne St</p>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:24px;">Houston, TX 77004</p>
+    <p style="font-size:13px;color:var(--gray-light);line-height:1.7;max-width:340px;margin-bottom:28px;">In-person training is available through the VIP Elite plan. Sessions take place at Level One Fitness in Houston's Third Ward.</p>
+    <a class="btn-outline" style="align-self:flex-start;" href="https://www.google.com/maps/place/1803+Cleburne+St,+Houston,+TX+77004" target="_blank" rel="noopener">Get Directions</a>
+  </div>
+  <div style="overflow:hidden;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3464.8!2d-95.3726!3d29.7263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640be6fce392e3d%3A0x1e7e4b6f7e2e4b6f!2s1803+Cleburne+St%2C+Houston%2C+TX+77004!5e0!3m2!1sen!2sus!4v1700000000"
+      width="100%" height="100%" style="min-height:400px;border:none;filter:grayscale(90%) contrast(1.1) brightness(0.5);"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      title="Level One Fitness — Houston TX">
+    </iframe>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-badge">KJ</div>
+      <div class="footer-brand-name">TRAINWITHKEN</div>
+      <div class="footer-brand-sub">trainwithken.fit</div>
+      <p>IFBB Pro-coached training and nutrition programs for athletes of every level. Based in Houston, TX — coaching worldwide.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About KJ</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="apparel.html">Apparel</a></li>
+        <li><a href="booking.html">Book a Call</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ventures</h4>
+      <ul>
+        <li><a href="https://aielifestyle.com" target="_blank" rel="noopener">AIE Lifestyle Wear</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Kure Recovery & Wellness</a></li>
+        <li><a href="https://www.instagram.com/trainwithken" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@trainwithken.fit">info@trainwithken.fit</a></li>
+        <li><a href="booking.html">Book a Session</a></li>
+        <li><a>1803 Cleburne St</a></li>
+        <li><a>Houston TX 77004</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TrainWithKen. All rights reserved.</span>
+    <span>IFBB Pro · Houston TX · H-TWN</span>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

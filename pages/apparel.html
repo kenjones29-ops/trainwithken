@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apparel — AIE Lifestyle Wear | TrainWithKen</title>
+  <meta name="description" content="Shop AIE Lifestyle Wear — KJ's premium athletic apparel brand. Performance gear built for the gym and the lifestyle." />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ── PRODUCT GRID ── */
+    .product-section {
+      padding: 100px 80px;
+      background: var(--black);
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .product-card {
+      background: var(--dark2);
+      border-top: 2px solid var(--gold-dim);
+      overflow: hidden;
+      transition: border-top-color 0.2s;
+    }
+    .product-card:hover { border-top-color: var(--gold); }
+    .product-img {
+      aspect-ratio: 4/3;
+      background: var(--dark3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .product-img-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      color: rgba(201,168,76,0.08);
+      letter-spacing: 4px;
+      line-height: 1;
+    }
+    .product-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+    }
+    .product-info {
+      padding: 24px 28px 32px;
+    }
+    .product-category {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .product-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .product-desc {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .product-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+
+    /* ── BRAND STORY ── */
+    .brand-story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+    }
+    .brand-story-img {
+      position: relative;
+      overflow: hidden;
+      background: var(--dark3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-story-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.65) contrast(1.05);
+      transition: transform 0.5s;
+    }
+    .brand-story-img:hover img { transform: scale(1.03); }
+    .aie-watermark {
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 120px;
+      color: rgba(201,168,76,0.05);
+      letter-spacing: 8px;
+      pointer-events: none;
+    }
+    .brand-story-content {
+      background: var(--dark);
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .brand-story-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 4vw, 56px);
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .brand-story-content p {
+      font-size: 14px;
+      color: var(--gray-light);
+      line-height: 1.8;
+      margin-bottom: 16px;
+      max-width: 480px;
+    }
+
+    /* ── COLLECTION CALLOUTS ── */
+    .collection-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .collection-item {
+      background: var(--dark3);
+      padding: 40px;
+      border-bottom: 2px solid var(--gold-dim);
+      text-align: center;
+      transition: border-bottom-color 0.2s;
+    }
+    .collection-item:hover { border-bottom-color: var(--gold); }
+    .collection-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    .collection-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .collection-desc {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1024px) {
+      .product-section { padding: 60px 40px; }
+      .product-grid { grid-template-columns: 1fr 1fr; }
+      .brand-story { grid-template-columns: 1fr; }
+      .brand-story-content { padding: 60px 40px; }
+      .collection-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .product-section { padding: 48px 24px; }
+      .product-grid { grid-template-columns: 1fr; max-width: 400px; }
+    }
+  </style>
+</head>
+<body class="page-wrap">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="window.location='../index.html'">
+    <div class="nav-badge">KJ</div>
+    <div>
+      <div class="nav-brand">TRAINWITHKEN</div>
+      <div class="nav-sub">trainwithken.fit</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="programs.html">Programs</a></li>
+    <li><a href="apparel.html" class="active">Apparel</a></li>
+    <li><a href="booking.html">Book a Call</a></li>
+  </ul>
+  <a class="nav-cta" href="booking.html">Start Now</a>
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-img">
+    <img src="../images/kj-coaching.jpg" alt="AIE Lifestyle Wear" />
+  </div>
+  <div class="page-hero-content">
+    <div class="sec-label">AIE Lifestyle Wear</div>
+    <h1>WEAR THE<br><span style="color:var(--gold);">LIFESTYLE</span></h1>
+    <p>KJ's premium athletic apparel brand — built for the gym, designed for the lifestyle. Every piece carries the same standard of excellence KJ brings to the stage.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a class="btn-gold" href="https://aielifestyle.com" target="_blank" rel="noopener">Shop at aielifestyle.com</a>
+      <a class="btn-outline" href="#products">Preview Collection</a>
+    </div>
+  </div>
+</div>
+
+<!-- COLLECTION CALLOUTS -->
+<div class="collection-row">
+  <div class="collection-item">
+    <div class="collection-icon">👕</div>
+    <div class="collection-name">PERFORMANCE TOPS</div>
+    <p class="collection-desc">Moisture-wicking, form-fitting athletic tops engineered for heavy training sessions and all-day wear.</p>
+  </div>
+  <div class="collection-item">
+    <div class="collection-icon">🩳</div>
+    <div class="collection-name">TRAINING SHORTS</div>
+    <p class="collection-desc">Flexible, durable shorts designed for maximum range of motion through squats, deadlifts, and conditioning work.</p>
+  </div>
+  <div class="collection-item">
+    <div class="collection-icon">🧢</div>
+    <div class="collection-name">ACCESSORIES</div>
+    <p class="collection-desc">Hats, bags, and lifestyle accessories that carry the AIE brand identity beyond the gym floor.</p>
+  </div>
+</div>
+
+<!-- BRAND STORY -->
+<div class="brand-story">
+  <div class="brand-story-img">
+    <img src="../images/kj-hero.jpg" alt="KJ — AIE Lifestyle" />
+    <div class="aie-watermark">AIE</div>
+  </div>
+  <div class="brand-story-content">
+    <div class="sec-label">The Brand</div>
+    <h2>ATHLETICISM<br>IS THE<br><span style="color:var(--gold);">IDENTITY</span></h2>
+    <p>AIE Lifestyle Wear is more than apparel — it's an expression of the athlete identity. KJ built AIE to reflect what it actually feels like to train with purpose, compete with discipline, and live the lifestyle 24/7.</p>
+    <p>Every drop is designed to bridge the gap between peak performance gear and everyday wear — so you look the part whether you're in the gym, on stage, or in the streets of H-TWN.</p>
+    <div style="margin-top:8px;">
+      <a class="btn-gold" href="https://aielifestyle.com" target="_blank" rel="noopener">Visit aielifestyle.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT PREVIEW -->
+<section class="product-section" id="products">
+  <div class="sec-label">Current Collection</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:4px;color:var(--white);line-height:1;">AIE SIGNATURE<br>COLLECTION</h2>
+  <div class="product-grid">
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">
+          <div class="product-img-num">01</div>
+        </div>
+        <div class="product-tag">New</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Tops</div>
+        <div class="product-name">AIE SIGNATURE TEE</div>
+        <p class="product-desc">Heavyweight 100% cotton tee with the AIE wordmark. Relaxed fit for the lifestyle — cut for the athlete.</p>
+        <div class="product-bottom">
+          <div class="product-price">$42</div>
+          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">
+          <div class="product-img-num">02</div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Tops</div>
+        <div class="product-name">PRO COMPRESSION TOP</div>
+        <p class="product-desc">Performance compression top with AIE branding. Designed to support muscle groups and enhance blood flow during heavy training.</p>
+        <div class="product-bottom">
+          <div class="product-price">$58</div>
+          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">
+          <div class="product-img-num">03</div>
+        </div>
+        <div class="product-tag">Best Seller</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Bottoms</div>
+        <div class="product-name">ELITE TRAINING SHORTS</div>
+        <p class="product-desc">7" inseam training shorts with a 4-way stretch fabric. Built for squats, lunges, and conditioning circuits.</p>
+        <div class="product-bottom">
+          <div class="product-price">$54</div>
+          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">
+          <div class="product-img-num">04</div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Outerwear</div>
+        <div class="product-name">AIE LIFESTYLE HOODIE</div>
+        <p class="product-desc">Premium heavyweight hoodie with the full AIE branding. Built for recovery days, travel, and everyday wear.</p>
+        <div class="product-bottom">
+          <div class="product-price">$78</div>
+          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">
+          <div class="product-img-num">05</div>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Accessories</div>
+        <div class="product-name">SNAPBACK CAP</div>
+        <p class="product-desc">Structured snapback with embroidered AIE logo. One size fits all. Available in black/gold and all-black colorways.</p>
+        <div class="product-bottom">
+          <div class="product-price">$36</div>
+          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">
+          <div class="product-img-num">06</div>
+        </div>
+        <div class="product-tag">Limited</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Bundle</div>
+        <div class="product-name">KJ SIGNATURE BUNDLE</div>
+        <p class="product-desc">The complete AIE starter pack — signature tee, training shorts, and snapback. Handpicked by KJ. Limited quantities.</p>
+        <div class="product-bottom">
+          <div class="product-price">$118</div>
+          <a class="btn-gold" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Bundle</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="sec-label" style="justify-content:center;">Shop the Full Store</div>
+  <h2>VIEW THE FULL<br>AIE COLLECTION</h2>
+  <p>New drops, limited editions, and the complete AIE Lifestyle Wear catalog are available at the official store.</p>
+  <div class="btn-row">
+    <a class="btn-gold" href="https://aielifestyle.com" target="_blank" rel="noopener">Shop aielifestyle.com</a>
+    <a class="btn-outline" href="programs.html">View Coaching Plans</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-badge">KJ</div>
+      <div class="footer-brand-name">TRAINWITHKEN</div>
+      <div class="footer-brand-sub">trainwithken.fit</div>
+      <p>IFBB Pro-coached training and nutrition programs for athletes of every level. Based in Houston, TX — coaching worldwide.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About KJ</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="apparel.html">Apparel</a></li>
+        <li><a href="booking.html">Book a Call</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ventures</h4>
+      <ul>
+        <li><a href="https://aielifestyle.com" target="_blank" rel="noopener">AIE Lifestyle Wear</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Kure Recovery & Wellness</a></li>
+        <li><a href="https://www.instagram.com/trainwithken" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@trainwithken.fit">info@trainwithken.fit</a></li>
+        <li><a href="booking.html">Book a Session</a></li>
+        <li><a>1803 Cleburne St</a></li>
+        <li><a>Houston TX 77004</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TrainWithKen. All rights reserved.</span>
+    <span>IFBB Pro · Houston TX · H-TWN</span>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

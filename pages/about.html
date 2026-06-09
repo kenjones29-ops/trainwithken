@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About KJ — TrainWithKen</title>
+  <meta name="description" content="Meet Ken Jones (KJ) — IFBB Pro bodybuilder, Certified Sports Nutritionist, CEO of Kure Recovery, and founder of AIE Lifestyle Wear." />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* ── CREDENTIALS ── */
+    .cred-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 40px;
+    }
+    .cred {
+      background: var(--dark3);
+      border-left: 2px solid var(--gold-dim);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .cred-ico {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .cred-t {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+    .cred-d {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    /* ── PHOTO STRIP ── */
+    .photo-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: 420px;
+    }
+    .strip-cell {
+      position: relative;
+      overflow: hidden;
+    }
+    .strip-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.65) contrast(1.1);
+      transition: transform 0.5s;
+    }
+    .strip-cell:hover img { transform: scale(1.04); }
+    .strip-label {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 3px;
+      color: var(--white);
+    }
+    .strip-label span {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    /* ── VENTURES ── */
+    .ventures-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .venture-card {
+      background: var(--dark2);
+      border-top: 2px solid var(--gold-dim);
+      padding: 40px;
+      transition: border-color 0.2s;
+    }
+    .venture-card:hover { border-top-color: var(--gold); }
+    .venture-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 60px;
+      color: rgba(201,168,76,0.1);
+      letter-spacing: 2px;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .venture-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 3px;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+    .venture-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .venture-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .venture-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold-dim);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .venture-link:hover { border-color: var(--gold); }
+
+    /* ── TIMELINE ── */
+    .timeline { padding: 80px; background: var(--dark); }
+    .timeline-inner { max-width: 800px; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding-bottom: 40px;
+      position: relative;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: 38px;
+      top: 28px;
+      bottom: 0;
+      width: 1px;
+      background: rgba(201,168,76,0.15);
+    }
+    .tl-item:last-child::before { display: none; }
+    .tl-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      padding-top: 4px;
+      text-align: right;
+    }
+    .tl-dot {
+      position: absolute;
+      left: 32px;
+      top: 6px;
+      width: 13px;
+      height: 13px;
+      border: 2px solid var(--gold);
+      background: var(--black);
+    }
+    .tl-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .tl-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+    @media (max-width: 768px) {
+      .cred-grid { grid-template-columns: 1fr; }
+      .photo-strip { grid-template-columns: 1fr; height: auto; }
+      .strip-cell { height: 240px; }
+      .ventures-grid { grid-template-columns: 1fr; }
+      .timeline { padding: 48px 24px; }
+    }
+  </style>
+</head>
+<body class="page-wrap">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="window.location='../index.html'">
+    <div class="nav-badge">KJ</div>
+    <div>
+      <div class="nav-brand">TRAINWITHKEN</div>
+      <div class="nav-sub">trainwithken.fit</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="programs.html">Programs</a></li>
+    <li><a href="apparel.html">Apparel</a></li>
+    <li><a href="booking.html">Book a Call</a></li>
+  </ul>
+  <a class="nav-cta" href="booking.html">Start Now</a>
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-img">
+    <img src="../images/kj-coaching.jpg" alt="KJ — Coach & IFBB Pro" />
+  </div>
+  <div class="page-hero-content">
+    <div class="sec-label">IFBB Pro · Houston TX</div>
+    <h1>THE MAN<br>BEHIND THE<br><span style="color:var(--gold);">BRAND</span></h1>
+    <p>Ken Jones — known as KJ — is an IFBB Pro bodybuilder in the Men's Physique division, Certified Sports Nutritionist, and one of Houston's most recognized fitness brands.</p>
+    <a class="btn-gold" href="booking.html">Work With KJ</a>
+
+    <div class="cred-grid">
+      <div class="cred">
+        <div class="cred-ico">🏆</div>
+        <div>
+          <div class="cred-t">IFBB Pro</div>
+          <div class="cred-d">Men's Physique Division</div>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico">🥗</div>
+        <div>
+          <div class="cred-t">Certified Nutritionist</div>
+          <div class="cred-d">Sports Nutrition Specialist</div>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico">🎓</div>
+        <div>
+          <div class="cred-t">Master's Degree</div>
+          <div class="cred-d">Healthcare Admin — Texas Southern</div>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-ico">🏈</div>
+        <div>
+          <div class="cred-t">Pro Athlete</div>
+          <div class="cred-d">Former college & pro football player</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="stat-num">IFBB</div>
+    <div class="stat-label">Pro Status</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100K+</div>
+    <div class="stat-label">Social Following</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2026</div>
+    <div class="stat-label">Olympia Target</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">M.S.</div>
+    <div class="stat-label">Healthcare Admin</div>
+  </div>
+</div>
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip">
+  <div class="strip-cell">
+    <img src="../images/kj-hero.jpg" alt="KJ physique" />
+    <div class="strip-label"><span>Physique</span>COMPETITION READY</div>
+  </div>
+  <div class="strip-cell">
+    <img src="../images/kj-coaching.jpg" alt="KJ coaching" />
+    <div class="strip-label"><span>Coaching</span>ELITE METHOD</div>
+  </div>
+  <div class="strip-cell">
+    <img src="../images/kj-gym-1.jpg" alt="Level One Fitness" />
+    <div class="strip-label"><span>Facility</span>LEVEL ONE FITNESS</div>
+  </div>
+</div>
+
+<!-- BIO SECTION -->
+<section class="section section-dark">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1100px;">
+    <div>
+      <div class="sec-label">Background</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:4px;color:var(--white);line-height:1;margin-bottom:24px;">FROM THE<br>FIELD TO<br>THE STAGE</h2>
+      <p style="margin-bottom:16px;">Before the stage, KJ was a college and professional football player — building the discipline, work ethic, and competitive mindset that now defines how he coaches.</p>
+      <p style="margin-bottom:16px;">After football, KJ transitioned into bodybuilding, earning his IFBB Pro card in Men's Physique — the sport's highest amateur honor. He is now actively competing on the pro circuit, targeting the <strong style="color:var(--white);">2026 Olympia Open in Las Vegas</strong> and the <strong style="color:var(--white);">2027 Masters Olympia in Japan</strong>.</p>
+      <p>KJ completed his Master's degree in Healthcare Administration from Texas Southern University — giving him a unique lens to approach fitness through both performance and health outcomes.</p>
+    </div>
+    <div>
+      <div class="sec-label">Philosophy</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:4px;color:var(--white);line-height:1;margin-bottom:24px;">PRO-BUILT<br>SCIENCE-<br>BACKED</h2>
+      <p style="margin-bottom:16px;">KJ's coaching isn't built from theory — it's built from the same protocols he uses to step on the Olympia stage. Every client gets a competition-grade system adapted to their life, their body, and their goals.</p>
+      <p style="margin-bottom:16px;">His nutrition approach uses ounce-based macro tracking — a precision system that removes guesswork and scales to any diet style. Combined with InBody body composition scans, every decision is data-driven.</p>
+      <p>The result: clients who don't just look better — they understand their bodies and have the tools to maintain results for life.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<div class="timeline">
+  <div class="sec-label">Career Highlights</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:4px;color:var(--white);margin-bottom:48px;line-height:1;">THE JOURNEY</h2>
+  <div class="timeline-inner">
+    <div class="tl-item">
+      <div class="tl-year">Early</div>
+      <div style="position:relative;">
+        <div class="tl-dot"></div>
+        <div class="tl-title">College & Pro Football</div>
+        <div class="tl-desc">Competed at the college and professional level, developing elite athletic discipline and performance habits that carried into every chapter of KJ's career.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">TSU</div>
+      <div style="position:relative;">
+        <div class="tl-dot"></div>
+        <div class="tl-title">Master's Degree — Healthcare Administration</div>
+        <div class="tl-desc">Earned an M.S. in Healthcare Administration from Texas Southern University, blending performance science with health systems knowledge.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">Stage</div>
+      <div style="position:relative;">
+        <div class="tl-dot"></div>
+        <div class="tl-title">IFBB Pro Card — Men's Physique</div>
+        <div class="tl-desc">Earned IFBB Pro status in the Men's Physique division — the culmination of years of elite-level training, nutrition precision, and competitive bodybuilding.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">Brand</div>
+      <div style="position:relative;">
+        <div class="tl-dot"></div>
+        <div class="tl-title">TrainWithKen + AIE Lifestyle Wear Founded</div>
+        <div class="tl-desc">Launched TrainWithKen as a coaching brand and AIE Lifestyle Wear (aielifestyle.com) as a premium athletic apparel line — extending KJ's vision beyond the gym.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">CEO</div>
+      <div style="position:relative;">
+        <div class="tl-dot"></div>
+        <div class="tl-title">Kure Recovery & Wellness — CEO</div>
+        <div class="tl-desc">Founded and leads Kure Recovery & Wellness, a health and recovery brand that reflects KJ's commitment to performance longevity and total-body wellness.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026</div>
+      <div style="position:relative;">
+        <div class="tl-dot"></div>
+        <div class="tl-title">2026 Olympia Open — Las Vegas</div>
+        <div class="tl-desc">Actively competing in the 2026 season, targeting the Mr. Olympia Open in Las Vegas — the most prestigious stage in professional bodybuilding.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2027</div>
+      <div style="position:relative;">
+        <div class="tl-dot"></div>
+        <div class="tl-title">2027 Masters Olympia — Japan</div>
+        <div class="tl-desc">Targeting the Masters Olympia in Japan — a global stage where experience, mastery, and condition define greatness.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VENTURES -->
+<section class="section section-dark2">
+  <div class="sec-label">The Ecosystem</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:4px;color:var(--white);line-height:1;">KJ'S VENTURES</h2>
+  <div class="ventures-grid">
+    <div class="venture-card">
+      <div class="venture-num">01</div>
+      <div class="venture-title">TRAINWITHKEN</div>
+      <div class="venture-sub">Coaching & Nutrition</div>
+      <p class="venture-desc">Elite online and in-person coaching programs built on IFBB Pro competition protocols. Custom training, ounce-based nutrition, InBody analysis, and weekly accountability.</p>
+      <a class="venture-link" href="programs.html">View Programs →</a>
+    </div>
+    <div class="venture-card">
+      <div class="venture-num">02</div>
+      <div class="venture-title">AIE LIFESTYLE WEAR</div>
+      <div class="venture-sub">Premium Athletic Apparel</div>
+      <p class="venture-desc">KJ's signature apparel brand — premium athletic wear built for performance and lifestyle. Designed with the same precision and intention KJ brings to every client.</p>
+      <a class="venture-link" href="https://aielifestyle.com" target="_blank" rel="noopener">Shop AIE →</a>
+    </div>
+    <div class="venture-card">
+      <div class="venture-num">03</div>
+      <div class="venture-title">KURE RECOVERY</div>
+      <div class="venture-sub">Recovery & Wellness</div>
+      <p class="venture-desc">KJ's recovery and wellness brand focused on performance longevity. Holistic protocols, recovery tools, and wellness services designed to keep athletes performing at their peak.</p>
+      <a class="venture-link" href="#">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="sec-label" style="justify-content:center;">Work With KJ</div>
+  <h2>READY TO TRAIN<br>LIKE A PRO?</h2>
+  <p>Get access to the exact systems KJ uses to prep for the Olympia stage — adapted to your body and your goals.</p>
+  <div class="btn-row">
+    <a class="btn-gold" href="programs.html">View Programs</a>
+    <a class="btn-outline" href="booking.html">Book a Free Call</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-badge">KJ</div>
+      <div class="footer-brand-name">TRAINWITHKEN</div>
+      <div class="footer-brand-sub">trainwithken.fit</div>
+      <p>IFBB Pro-coached training and nutrition programs for athletes of every level. Based in Houston, TX — coaching worldwide.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About KJ</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="apparel.html">Apparel</a></li>
+        <li><a href="booking.html">Book a Call</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ventures</h4>
+      <ul>
+        <li><a href="https://aielifestyle.com" target="_blank" rel="noopener">AIE Lifestyle Wear</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Kure Recovery & Wellness</a></li>
+        <li><a href="https://www.instagram.com/trainwithken" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@trainwithken.fit">info@trainwithken.fit</a></li>
+        <li><a href="booking.html">Book a Session</a></li>
+        <li><a>1803 Cleburne St</a></li>
+        <li><a>Houston TX 77004</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TrainWithKen. All rights reserved.</span>
+    <span>IFBB Pro · Houston TX · H-TWN</span>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

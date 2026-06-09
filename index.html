@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrainWithKen — IFBB Pro Coach | Houston TX</title>
+  <meta name="description" content="Train with KJ — IFBB Pro Men's Physique, Certified Sports Nutritionist, and elite coach based in Houston TX. Online and in-person coaching available." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+    }
+    .hero-left {
+      background: var(--dark);
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+    .hero-h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 6vw, 88px);
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--gray-light);
+      max-width: 440px;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 40px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .hero-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: #111;
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.72) contrast(1.05);
+    }
+    .hero-right-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(15,15,15,0.6) 0%, transparent 60%);
+    }
+
+    /* ── FEATURE STRIP ── */
+    .feature-strip {
+      background: var(--dark2);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .feat-item {
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-right: 1px solid rgba(255,255,255,0.05);
+    }
+    .feat-item:last-child { border-right: none; }
+    .feat-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+    .feat-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    .feat-sub {
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── PHOTO SPLIT SECTION ── */
+    .photo-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+    .photo-split-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-split-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.7) contrast(1.05);
+      transition: transform 0.5s;
+    }
+    .photo-split-img:hover img { transform: scale(1.03); }
+    .photo-split-content {
+      background: var(--dark);
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .photo-split-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 4vw, 56px);
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .photo-split-content p {
+      font-size: 14px;
+      color: var(--gray-light);
+      max-width: 440px;
+      margin-bottom: 32px;
+    }
+    .stat-list {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+    .stat-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px;
+    }
+    .stat-list li strong {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      min-width: 64px;
+    }
+
+    /* ── IG FEED ── */
+    .ig-section { background: var(--black); padding: 80px; }
+    .ig-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 32px;
+    }
+    .ig-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 1;
+    }
+    .ig-handle {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    #igGrid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 3px;
+    }
+    .ig-cell { display: block; aspect-ratio: 1; overflow: hidden; position: relative; }
+    .ig-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--dark2);
+      border: 1px solid rgba(201,168,76,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .ig-cell:hover .ig-placeholder { border-color: rgba(201,168,76,0.4); }
+    .ig-num {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: rgba(201,168,76,0.12);
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .ig-cap {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+    .ig-overlay {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: var(--gold-dim);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .ig-cell:hover .ig-overlay { opacity: 1; }
+
+    /* ── TESTIMONIALS ── */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .testi-card {
+      background: var(--dark2);
+      padding: 40px;
+      border-left: 2px solid var(--gold-dim);
+      position: relative;
+    }
+    .testi-quote {
+      font-size: 48px;
+      color: var(--gold-dim);
+      font-family: Georgia, serif;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .testi-text {
+      font-size: 14px;
+      color: var(--gray-light);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .testi-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .testi-detail {
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ── MAP ── */
+    .map-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+    }
+    .map-info {
+      background: var(--dark2);
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .map-info h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 4px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .map-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .map-detail-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--gold-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+    .map-detail-text strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+    .map-detail-text span {
+      font-size: 13px;
+      color: var(--gray);
+    }
+    .map-embed { overflow: hidden; }
+    .map-embed iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 480px;
+      border: none;
+      filter: grayscale(90%) contrast(1.1) brightness(0.5);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 60px 40px; }
+      .hero-right { min-height: 60vw; }
+      .feature-strip { grid-template-columns: 1fr 1fr; }
+      .feat-item:nth-child(2) { border-right: none; }
+      .photo-split { grid-template-columns: 1fr; }
+      .photo-split-content { padding: 60px 40px; }
+      #igGrid { grid-template-columns: repeat(4, 1fr); }
+      .testi-grid { grid-template-columns: 1fr; gap: 2px; }
+      .map-section { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-left { padding: 48px 24px; }
+      .ig-section { padding: 48px 24px; }
+      #igGrid { grid-template-columns: repeat(3, 1fr); }
+      .feature-strip { grid-template-columns: 1fr; }
+      .feat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .feat-item:last-child { border-bottom: none; }
+      .map-info { padding: 48px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="window.location='index.html'">
+    <div class="nav-badge">KJ</div>
+    <div>
+      <div class="nav-brand">TRAINWITHKEN</div>
+      <div class="nav-sub">trainwithken.fit</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="pages/about.html">About</a></li>
+    <li><a href="pages/programs.html">Programs</a></li>
+    <li><a href="pages/apparel.html">Apparel</a></li>
+    <li><a href="pages/booking.html">Book a Call</a></li>
+  </ul>
+  <a class="nav-cta" href="pages/booking.html">Start Now</a>
+  <button class="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">IFBB Pro Men's Physique</div>
+    <h1 class="hero-h1">BUILT BY<br>A <em>PRO</em><br>FOR RESULTS</h1>
+    <p class="hero-sub">KJ is an IFBB Pro bodybuilder, Certified Sports Nutritionist, and elite coach training clients online worldwide and in-person in Houston, TX.</p>
+    <div class="hero-btns">
+      <a class="btn-gold" href="pages/programs.html">View Plans</a>
+      <a class="btn-outline" href="pages/booking.html">Book a Free Call</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">100K+</div>
+        <div class="hero-stat-label">Social Following</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">IFBB</div>
+        <div class="hero-stat-label">Pro Status</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">2026</div>
+        <div class="hero-stat-label">Olympia Bound</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="images/kj-hero.jpg" alt="KJ — IFBB Pro Bodybuilder, TrainWithKen" />
+    <div class="hero-right-overlay"></div>
+  </div>
+</section>
+
+<!-- FEATURE STRIP -->
+<div class="feature-strip">
+  <div class="feat-item">
+    <div class="feat-icon">🏆</div>
+    <div>
+      <div class="feat-title">IFBB Pro Coach</div>
+      <div class="feat-sub">Competition-tested methods</div>
+    </div>
+  </div>
+  <div class="feat-item">
+    <div class="feat-icon">🥗</div>
+    <div>
+      <div class="feat-title">Certified Nutritionist</div>
+      <div class="feat-sub">Ounce-based macro protocols</div>
+    </div>
+  </div>
+  <div class="feat-item">
+    <div class="feat-icon">🌐</div>
+    <div>
+      <div class="feat-title">Online & In-Person</div>
+      <div class="feat-sub">Houston TX + worldwide</div>
+    </div>
+  </div>
+  <div class="feat-item">
+    <div class="feat-icon">📊</div>
+    <div>
+      <div class="feat-title">InBody Analysis</div>
+      <div class="feat-sub">Data-driven body composition</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO SPLIT 1 -->
+<section class="photo-split">
+  <div class="photo-split-img">
+    <img src="images/kj-gym-1.jpg" alt="KJ — Maximum Muscle Protocol" />
+  </div>
+  <div class="photo-split-content" style="background:var(--dark);">
+    <div class="sec-label">The System</div>
+    <h2>MAXIMUM MUSCLE<br>PROTOCOL</h2>
+    <p>A periodized training system built from KJ's IFBB Pro competition prep — applied to every client regardless of goal.</p>
+    <ul class="stat-list">
+      <li><strong>4–6x</strong> structured training days per week</li>
+      <li><strong>100%</strong> custom macro and meal targets</li>
+      <li><strong>InBody</strong> scan baseline & monthly reassess</li>
+      <li><strong>Weekly</strong> check-in and form review</li>
+      <li><strong>Direct</strong> coach access — no middlemen</li>
+    </ul>
+    <a class="btn-gold" href="pages/programs.html">See the Plans</a>
+  </div>
+</section>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="stat-num">100K+</div>
+    <div class="stat-label">Social Following</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">IFBB</div>
+    <div class="stat-label">Pro Certified</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2026</div>
+    <div class="stat-label">Olympia Season</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">H-TWN</div>
+    <div class="stat-label">Houston Bred</div>
+  </div>
+</div>
+
+<!-- PHOTO SPLIT 2 (reversed) -->
+<section class="photo-split">
+  <div class="photo-split-content" style="background:var(--dark2);">
+    <div class="sec-label">The Pro Behind the Plan</div>
+    <h2>KEN JONES<br><span style="color:var(--gold);">KJ</span></h2>
+    <p>IFBB Pro Men's Physique competitor, Certified Sports Nutritionist, and CEO of Kure Recovery & Wellness. KJ has built his brand from the ground up — competing at the highest level while coaching clients around the world.</p>
+    <p style="margin-bottom:32px;">With a Master's in Healthcare Administration from Texas Southern University and 100K+ followers across social media, KJ bridges elite performance with accessible, science-backed coaching.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a class="btn-gold" href="pages/about.html">Learn About KJ</a>
+      <a class="btn-outline" href="pages/booking.html">Work With KJ</a>
+    </div>
+  </div>
+  <div class="photo-split-img">
+    <img src="images/kj-gym-2.jpg" alt="KJ — Houston TX" />
+  </div>
+</section>
+
+<!-- INSTAGRAM FEED -->
+<section class="ig-section">
+  <div class="ig-header">
+    <div>
+      <div class="sec-label">Follow the Journey</div>
+      <h2 class="ig-head" style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:4px;color:var(--white);line-height:1;">@TRAINWITHKEN</h2>
+    </div>
+    <a class="ig-handle" href="https://www.instagram.com/trainwithken" target="_blank" rel="noopener">View on Instagram ↗</a>
+  </div>
+  <div id="igGrid"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-dark">
+  <div class="sec-label">Client Results</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:4px;color:var(--white);margin-bottom:48px;line-height:1;">WHAT CLIENTS SAY</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">KJ's programming is unlike anything I've done before. 14 weeks in and I've dropped 22 lbs while actually building muscle. The macro system is a game-changer — no guessing.</p>
+      <div class="testi-name">Ced M.</div>
+      <div class="testi-detail">Online Coaching Client — Houston, TX</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">I've worked with three coaches before KJ. Nobody has brought the level of detail, accountability, or real expertise that he does. The InBody check-ins keep everything honest.</p>
+      <div class="testi-name">Scott T.</div>
+      <div class="testi-detail">VIP Elite Client — Atlanta, GA</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">As a woman who was intimidated by the gym, KJ made the process feel manageable. His nutrition knowledge is top-tier and the weekly check-ins kept me accountable every step.</p>
+      <div class="testi-name">Ronita P.</div>
+      <div class="testi-detail">Online Coaching Client — Dallas, TX</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+  <div class="map-info">
+    <div class="sec-label">Train In-Person</div>
+    <h2>LEVEL ONE<br>FITNESS</h2>
+    <div class="map-detail">
+      <div class="map-detail-icon">📍</div>
+      <div class="map-detail-text">
+        <strong>Address</strong>
+        <span>1803 Cleburne St, Houston TX 77004</span>
+      </div>
+    </div>
+    <div class="map-detail">
+      <div class="map-detail-icon">📧</div>
+      <div class="map-detail-text">
+        <strong>Email</strong>
+        <span>info@trainwithken.fit</span>
+      </div>
+    </div>
+    <div class="map-detail">
+      <div class="map-detail-icon">📱</div>
+      <div class="map-detail-text">
+        <strong>Instagram</strong>
+        <span>@trainwithken</span>
+      </div>
+    </div>
+    <div style="margin-top:32px;">
+      <a class="btn-gold" href="pages/booking.html">Book In-Person Session</a>
+    </div>
+  </div>
+  <div class="map-embed">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3464.8!2d-95.3726!3d29.7263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640be6fce392e3d%3A0x1e7e4b6f7e2e4b6f!2s1803+Cleburne+St%2C+Houston%2C+TX+77004!5e0!3m2!1sen!2sus!4v1700000000"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      title="Level One Fitness — Houston TX">
+    </iframe>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="sec-label" style="justify-content:center;">Ready to Start</div>
+  <h2>START YOUR<br>TRANSFORMATION</h2>
+  <p>Choose a plan that fits your goals — from self-led programs to full VIP coaching with direct access to an IFBB Pro.</p>
+  <div class="btn-row">
+    <a class="btn-gold" href="pages/programs.html">View Plans</a>
+    <a class="btn-outline" href="pages/booking.html">Book a Free Call</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-badge">KJ</div>
+      <div class="footer-brand-name">TRAINWITHKEN</div>
+      <div class="footer-brand-sub">trainwithken.fit</div>
+      <p>IFBB Pro-coached training and nutrition programs for athletes of every level. Based in Houston, TX — coaching worldwide.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pages/about.html">About KJ</a></li>
+        <li><a href="pages/programs.html">Programs</a></li>
+        <li><a href="pages/apparel.html">Apparel</a></li>
+        <li><a href="pages/booking.html">Book a Call</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ventures</h4>
+      <ul>
+        <li><a href="https://aielifestyle.com" target="_blank" rel="noopener">AIE Lifestyle Wear</a></li>
+        <li><a href="#" target="_blank" rel="noopener">Kure Recovery & Wellness</a></li>
+        <li><a href="https://www.instagram.com/trainwithken" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@trainwithken.fit">info@trainwithken.fit</a></li>
+        <li><a href="pages/booking.html">Book a Session</a></li>
+        <li><a>1803 Cleburne St</a></li>
+        <li><a>Houston TX 77004</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TrainWithKen. All rights reserved.</span>
+    <span>IFBB Pro · Houston TX · H-TWN</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
