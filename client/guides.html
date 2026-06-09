@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Guides — TrainWithKen</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <style>
+    .guide-card {
+      background: var(--dark2);
+      border-top: 2px solid var(--gold-dim);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding: 32px 40px;
+      transition: border-top-color 0.2s;
+    }
+    .guide-card:hover { border-top-color: var(--gold); }
+    .guide-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px; letter-spacing: 3px; color: var(--white);
+      margin-bottom: 8px; line-height: 1;
+    }
+    .guide-meta {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .guide-desc { font-size: 13px; color: var(--gray); line-height: 1.7; max-width: 500px; }
+    .guide-stats {
+      display: flex; gap: 20px; margin-top: 12px;
+    }
+    .guide-stat-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; color: var(--gold); line-height: 1;
+    }
+    .guide-stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray);
+    }
+    .locked-card {
+      background: var(--dark2);
+      border-top: 2px solid rgba(255,255,255,0.05);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding: 32px 40px;
+      opacity: 0.6;
+    }
+    .lock-icon {
+      font-size: 28px; text-align: center; color: var(--gray);
+    }
+    @media (max-width: 768px) {
+      .guide-card, .locked-card { grid-template-columns: 1fr; gap: 20px; padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle"><span></span><span></span><span></span></button>
+<div class="dash-wrap">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-badge">KJ</div>
+      <div><div class="sidebar-brand">TRAINWITHKEN</div><div class="sidebar-sub">Client Portal</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Training</div>
+      <a class="sidebar-link" href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+      <a class="sidebar-link" href="program.html"><span class="icon">💪</span> My Program</a>
+      <a class="sidebar-link" href="nutrition.html"><span class="icon">🥗</span> Nutrition</a>
+      <a class="sidebar-link" href="check-in.html"><span class="icon">📋</span> Weekly Check-In</a>
+      <a class="sidebar-link" href="progress.html"><span class="icon">📈</span> Progress</a>
+      <a class="sidebar-link active" href="guides.html"><span class="icon">📖</span> My Guides</a>
+      <div class="sidebar-section">Account</div>
+      <a class="sidebar-link" href="profile.html"><span class="icon">👤</span> Profile</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user"><strong id="userName">Loading…</strong></div>
+      <button class="btn-signout" id="signOutBtn">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <div><h1>MY GUIDES</h1><p>Your purchased training guides and protocols</p></div>
+    </div>
+    <div class="dash-body">
+
+      <div id="guidesContainer">
+        <p style="color:var(--gray);font-size:13px;">Loading your guides…</p>
+      </div>
+
+      <!-- SHOP MORE -->
+      <div class="panel" style="margin-top:32px;">
+        <div class="panel-header"><span class="panel-title">MORE GUIDES COMING SOON</span></div>
+        <div class="panel-body">
+          <p style="font-size:13px;color:var(--gray);margin-bottom:16px;">KJ is building out more single-day protocols, full week programs, and nutrition guides. Check back regularly.</p>
+          <a class="btn-outline" href="../pages/programs.html">Browse All Plans & Guides</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+
+const GUIDES = {
+  'glute-ham-day': {
+    title: 'GLUTE & HAMSTRING GROWTH DAY',
+    meta: 'Single-Day Protocol · 5 Phases',
+    desc: 'A full-intensity session designed to hit every muscle fiber in your glutes and hamstrings — from activation through burnout. Includes Coach KJ form cues and post-workout nutrition protocol.',
+    stats: [['9','Exercises'],['~75','Minutes'],['5','Phases'],['100%','Effort']],
+    url: '../twk-glute-ham-day.html'
+  }
+};
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location = '../auth/login.html'; return; }
+  const uid = session.user.id;
+
+  const { data: profile } = await sb.from('profiles').select('first_name').eq('id', uid).single();
+  document.getElementById('userName').textContent = profile?.first_name || 'Athlete';
+
+  const { data: purchases } = await sb.from('guide_purchases').select('guide_slug').eq('user_id', uid);
+  const owned = new Set((purchases || []).map(p => p.guide_slug));
+
+  const container = document.getElementById('guidesContainer');
+  let html = '';
+
+  // Owned guides
+  const ownedGuides = Object.entries(GUIDES).filter(([slug]) => owned.has(slug));
+  if (ownedGuides.length) {
+    html += `<div class="sec-label" style="margin-bottom:16px;">Your Guides (${ownedGuides.length})</div>`;
+    ownedGuides.forEach(([slug, g]) => {
+      html += `
+        <div class="guide-card" style="margin-bottom:2px;">
+          <div>
+            <div class="guide-meta">${g.meta}</div>
+            <div class="guide-title">${g.title}</div>
+            <p class="guide-desc">${g.desc}</p>
+            <div class="guide-stats">
+              ${g.stats.map(([v,l]) => `<div><div class="guide-stat-val">${v}</div><div class="guide-stat-label">${l}</div></div>`).join('')}
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <a class="btn btn-gold" href="${g.url}" target="_blank" style="white-space:nowrap;display:block;margin-bottom:8px;">Open Guide</a>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;color:var(--green);text-transform:uppercase;">✓ Purchased</div>
+          </div>
+        </div>`;
+    });
+  } else {
+    html += `
+      <div class="panel" style="margin-bottom:2px;">
+        <div class="panel-body" style="text-align:center;padding:48px;">
+          <div style="font-size:40px;margin-bottom:16px;">📖</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--white);margin-bottom:8px;">NO GUIDES YET</div>
+          <p style="color:var(--gray);font-size:13px;margin-bottom:24px;">You haven't purchased any guides yet. Pick one up on the programs page.</p>
+          <a class="btn btn-gold" href="../pages/programs.html">Browse Guides</a>
+        </div>
+      </div>`;
+  }
+
+  // Available to buy (not owned)
+  const available = Object.entries(GUIDES).filter(([slug]) => !owned.has(slug));
+  if (available.length) {
+    html += `<div class="sec-label" style="margin-top:32px;margin-bottom:16px;">Available to Purchase</div>`;
+    available.forEach(([slug, g]) => {
+      html += `
+        <div class="locked-card" style="margin-bottom:2px;">
+          <div>
+            <div class="guide-meta">${g.meta}</div>
+            <div class="guide-title">${g.title}</div>
+            <p class="guide-desc">${g.desc}</p>
+          </div>
+          <div style="text-align:center;">
+            <a class="btn btn-gold" href="../pages/programs.html#guides" style="white-space:nowrap;display:block;margin-bottom:8px;">Buy — $47</a>
+          </div>
+        </div>`;
+    });
+  }
+
+  container.innerHTML = html;
+}
+
+document.getElementById('signOutBtn').addEventListener('click', async () => { await sb.auth.signOut(); window.location = '../auth/login.html'; });
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+init();
+</script>
+</body>
+</html>
