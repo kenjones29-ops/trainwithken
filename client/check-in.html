@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weekly Check-In — TrainWithKen</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle"><span></span><span></span><span></span></button>
+<div class="dash-wrap">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-badge">KJ</div>
+      <div><div class="sidebar-brand">TRAINWITHKEN</div><div class="sidebar-sub">Client Portal</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Training</div>
+      <a class="sidebar-link" href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+      <a class="sidebar-link" href="program.html"><span class="icon">💪</span> My Program</a>
+      <a class="sidebar-link" href="nutrition.html"><span class="icon">🥗</span> Nutrition</a>
+      <a class="sidebar-link active" href="check-in.html"><span class="icon">📋</span> Weekly Check-In</a>
+      <a class="sidebar-link" href="progress.html"><span class="icon">📈</span> Progress</a>
+      <div class="sidebar-section">Account</div>
+      <a class="sidebar-link" href="profile.html"><span class="icon">👤</span> Profile</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user"><strong id="userName">Loading…</strong></div>
+      <button class="btn-signout" id="signOutBtn">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <div><h1>WEEKLY CHECK-IN</h1><p>Submit your weekly progress to KJ</p></div>
+      <span class="badge badge-gold" id="weekBadge">Week —</span>
+    </div>
+    <div class="dash-body">
+
+      <div id="successMsg" style="display:none;" class="panel">
+        <div class="panel-body" style="text-align:center;padding:48px;">
+          <div style="font-size:48px;margin-bottom:16px;">✅</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:var(--white);margin-bottom:8px;">CHECK-IN SUBMITTED</div>
+          <p style="color:var(--gray);font-size:14px;margin-bottom:24px;">KJ will review your check-in and respond within 24–48 hours.</p>
+          <a class="btn btn-gold" href="dashboard.html">Back to Dashboard</a>
+        </div>
+      </div>
+
+      <form id="checkinForm">
+      <div class="grid-2">
+
+        <!-- BODY METRICS -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">BODY METRICS</span></div>
+          <div class="panel-body">
+            <div class="field"><label>Weight (lbs)</label><input type="number" id="weight" step="0.1" placeholder="e.g. 185.5" /></div>
+            <div class="field"><label>Body Fat % (optional)</label><input type="number" id="bodyFat" step="0.1" placeholder="e.g. 12.5" /></div>
+          </div>
+        </div>
+
+        <!-- COMPLIANCE -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">COMPLIANCE</span></div>
+          <div class="panel-body">
+            <div class="field">
+              <label>Workout Compliance (%)</label>
+              <input type="range" id="workoutComp" min="0" max="100" value="80" oninput="document.getElementById('wcVal').textContent=this.value+'%'" style="width:100%;accent-color:var(--gold);margin:8px 0;" />
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);" id="wcVal">80%</div>
+            </div>
+            <div class="field">
+              <label>Nutrition Compliance (%)</label>
+              <input type="range" id="nutritionComp" min="0" max="100" value="80" oninput="document.getElementById('ncVal').textContent=this.value+'%'" style="width:100%;accent-color:var(--gold);margin:8px 0;" />
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);" id="ncVal">80%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ENERGY & SLEEP -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">ENERGY & SLEEP</span></div>
+          <div class="panel-body">
+            <div class="field">
+              <label>Energy Level (1–10)</label>
+              <div class="rating-row" id="energyRating"></div>
+            </div>
+            <div class="field" style="margin-top:20px;">
+              <label>Sleep Quality (1–10)</label>
+              <div class="rating-row" id="sleepRating"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTES -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">YOUR NOTES TO KJ</span></div>
+          <div class="panel-body">
+            <div class="field">
+              <label>How was your week?</label>
+              <textarea id="notes" rows="6" placeholder="How did training feel? Any issues? What went well? What do you need help with?"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="panel">
+        <div class="panel-body" style="display:flex;gap:12px;align-items:center;">
+          <button type="submit" class="btn btn-gold" id="submitBtn">SUBMIT CHECK-IN TO KJ</button>
+          <a href="dashboard.html" class="btn btn-outline">Cancel</a>
+          <span id="formError" style="color:#e05c5c;font-size:13px;display:none;"></span>
+        </div>
+      </div>
+      </form>
+
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+
+let uid, weekNum = 1;
+const ratings = { energy: 5, sleep: 5 };
+
+function buildRating(id, key) {
+  const el = document.getElementById(id);
+  for (let i = 1; i <= 10; i++) {
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'rating-btn'; btn.textContent = i;
+    if (i === 5) btn.classList.add('selected');
+    btn.onclick = () => {
+      ratings[key] = i;
+      el.querySelectorAll('.rating-btn').forEach((b,idx) => b.classList.toggle('selected', idx+1 === i));
+    };
+    el.appendChild(btn);
+  }
+}
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location = '../auth/login.html'; return; }
+  uid = session.user.id;
+
+  const { data: profile } = await sb.from('profiles').select('first_name,start_date').eq('id', uid).single();
+  document.getElementById('userName').textContent = profile?.first_name || 'Athlete';
+
+  if (profile?.start_date) {
+    weekNum = Math.max(1, Math.ceil((Date.now() - new Date(profile.start_date)) / (7*24*60*60*1000)));
+  }
+  document.getElementById('weekBadge').textContent = `Week ${weekNum}`;
+
+  buildRating('energyRating', 'energy');
+  buildRating('sleepRating', 'sleep');
+}
+
+document.getElementById('checkinForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const err = document.getElementById('formError');
+  btn.textContent = 'SUBMITTING…'; btn.disabled = true; err.style.display = 'none';
+
+  const { error } = await sb.from('check_ins').insert({
+    client_id: uid,
+    week_number: weekNum,
+    weight_lbs: parseFloat(document.getElementById('weight').value) || null,
+    body_fat_pct: parseFloat(document.getElementById('bodyFat').value) || null,
+    energy_level: ratings.energy,
+    sleep_quality: ratings.sleep,
+    workout_compliance: parseInt(document.getElementById('workoutComp').value),
+    nutrition_compliance: parseInt(document.getElementById('nutritionComp').value),
+    notes: document.getElementById('notes').value || null
+  });
+
+  if (error) {
+    err.textContent = error.message; err.style.display = 'inline';
+    btn.textContent = 'SUBMIT CHECK-IN TO KJ'; btn.disabled = false;
+    return;
+  }
+  document.getElementById('checkinForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+});
+
+document.getElementById('signOutBtn').addEventListener('click', async () => { await sb.auth.signOut(); window.location = '../auth/login.html'; });
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+
+init();
+</script>
+</body>
+</html>

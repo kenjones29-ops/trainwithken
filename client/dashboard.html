@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — TrainWithKen</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle"><span></span><span></span><span></span></button>
+<div class="dash-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-badge">KJ</div>
+      <div><div class="sidebar-brand">TRAINWITHKEN</div><div class="sidebar-sub">Client Portal</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Training</div>
+      <a class="sidebar-link active" href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+      <a class="sidebar-link" href="program.html"><span class="icon">💪</span> My Program</a>
+      <a class="sidebar-link" href="nutrition.html"><span class="icon">🥗</span> Nutrition</a>
+      <a class="sidebar-link" href="check-in.html"><span class="icon">📋</span> Weekly Check-In</a>
+      <a class="sidebar-link" href="progress.html"><span class="icon">📈</span> Progress</a>
+      <div class="sidebar-section">Account</div>
+      <a class="sidebar-link" href="profile.html"><span class="icon">👤</span> Profile</a>
+      <a class="sidebar-link" href="https://trainwithken.fit" target="_blank"><span class="icon">🌐</span> Main Site</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user"><strong id="userName">Loading…</strong><span id="userPlan"></span></div>
+      <button class="btn-signout" id="signOutBtn">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="dash-main">
+    <div class="dash-header">
+      <div><h1 id="greeting">WELCOME BACK</h1><p id="headerSub">Here's your training overview</p></div>
+      <a href="check-in.html" class="btn btn-gold btn-sm">Submit Check-In</a>
+    </div>
+
+    <div class="dash-body">
+
+      <!-- STAT CARDS -->
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-card-label">Current Plan</div>
+          <div class="stat-card-value" id="statPlan">—</div>
+          <div class="stat-card-sub" id="statPlanStatus">Loading…</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Weeks Active</div>
+          <div class="stat-card-value" id="statWeeks">—</div>
+          <div class="stat-card-sub">Since start date</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Check-Ins Done</div>
+          <div class="stat-card-value" id="statCheckins">—</div>
+          <div class="stat-card-sub">Total submitted</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-label">Latest Weight</div>
+          <div class="stat-card-value" id="statWeight">—</div>
+          <div class="stat-card-sub">lbs — last check-in</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- TODAY'S PROGRAM -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">TODAY'S WORKOUT</span>
+            <a href="program.html" class="btn btn-outline btn-sm">Full Program</a>
+          </div>
+          <div class="panel-body" id="todayWorkout">
+            <p style="color:var(--gray);font-size:13px;">Loading your program…</p>
+          </div>
+        </div>
+
+        <!-- MACROS TODAY -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">TODAY'S TARGETS</span>
+            <a href="nutrition.html" class="btn btn-outline btn-sm">Full Plan</a>
+          </div>
+          <div class="panel-body" id="macroPanel">
+            <p style="color:var(--gray);font-size:13px;">Loading nutrition targets…</p>
+          </div>
+        </div>
+
+        <!-- RECENT CHECK-INS -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">RECENT CHECK-INS</span>
+            <a href="progress.html" class="btn btn-outline btn-sm">View All</a>
+          </div>
+          <div class="panel-body">
+            <table class="dash-table" id="recentCheckins">
+              <thead><tr><th>Week</th><th>Weight</th><th>Body Fat</th><th>Submitted</th></tr></thead>
+              <tbody id="checkinsBody"><tr><td colspan="4" style="color:var(--gray);">No check-ins yet.</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- COACH NOTES -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">COACH NOTES</span></div>
+          <div class="panel-body" id="coachNotes">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <div style="width:40px;height:40px;background:var(--gold);clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--black);flex-shrink:0;">KJ</div>
+              <div><div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--white);">Ken Jones</div><div style="font-size:11px;color:var(--gold);">Your Coach</div></div>
+            </div>
+            <p id="coachNoteText" style="font-size:13px;color:var(--gray-light);line-height:1.8;">No coach notes yet. KJ will add notes after your first check-in.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">QUICK ACTIONS</span></div>
+        <div class="panel-body" style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn btn-gold" href="check-in.html">Submit Weekly Check-In</a>
+          <a class="btn btn-outline" href="program.html">View Full Program</a>
+          <a class="btn btn-outline" href="nutrition.html">View Nutrition Plan</a>
+          <a class="btn btn-outline" href="progress.html">Track Progress</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+
+const planLabels = {'self-led':'Self-Led','online':'Online Coaching','vip':'VIP Elite'};
+const planColors = {'self-led':'','online':'plan-online','vip':'plan-vip'};
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location = '../auth/login.html'; return; }
+
+  const uid = session.user.id;
+
+  // Load profile
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', uid).single();
+  if (!profile) return;
+
+  const name = [profile.first_name, profile.last_name].filter(Boolean).join(' ') || 'Athlete';
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'GOOD MORNING' : hour < 17 ? 'GOOD AFTERNOON' : 'GOOD EVENING';
+  document.getElementById('greeting').textContent = `${greet}, ${(profile.first_name || 'ATHLETE').toUpperCase()}`;
+  document.getElementById('userName').textContent = name;
+  document.getElementById('userPlan').textContent = planLabels[profile.plan] || 'No active plan';
+  document.getElementById('statPlan').textContent = planLabels[profile.plan] || '—';
+  document.getElementById('statPlanStatus').textContent = profile.plan_status === 'active' ? '✓ Active' : profile.plan_status || '—';
+
+  // Weeks active
+  if (profile.start_date) {
+    const weeks = Math.floor((Date.now() - new Date(profile.start_date)) / (7*24*60*60*1000));
+    document.getElementById('statWeeks').textContent = weeks;
+  }
+
+  // Check-ins
+  const { data: checkins } = await sb.from('check_ins').select('*').eq('client_id', uid).order('week_number', { ascending: false });
+  if (checkins?.length) {
+    document.getElementById('statCheckins').textContent = checkins.length;
+    document.getElementById('statWeight').textContent = checkins[0].weight_lbs ? `${checkins[0].weight_lbs}` : '—';
+    const rows = checkins.slice(0, 4).map(c => `
+      <tr>
+        <td>Week ${c.week_number}</td>
+        <td>${c.weight_lbs ? c.weight_lbs + ' lbs' : '—'}</td>
+        <td>${c.body_fat_pct ? c.body_fat_pct + '%' : '—'}</td>
+        <td>${new Date(c.submitted_at).toLocaleDateString()}</td>
+      </tr>`).join('');
+    document.getElementById('checkinsBody').innerHTML = rows;
+
+    // Coach notes from latest check-in
+    if (checkins[0].coach_notes) {
+      document.getElementById('coachNoteText').textContent = checkins[0].coach_notes;
+    }
+  } else {
+    document.getElementById('statCheckins').textContent = '0';
+  }
+
+  // Macros
+  const { data: macros } = await sb.from('macros').select('*').eq('client_id', uid).order('created_at', { ascending: false }).limit(1);
+  if (macros?.length) {
+    const m = macros[0];
+    document.getElementById('macroPanel').innerHTML = `
+      <div class="grid-3" style="gap:12px;">
+        ${[['Calories','🔥',m.calories,'kcal'],['Protein','🥩',m.protein_oz,'oz'],['Carbs','🍚',m.carbs_oz,'oz'],['Fat','🥑',m.fat_oz,'oz']].map(([l,i,v,u])=>`
+        <div style="background:var(--dark3);padding:16px;border-top:1px solid var(--gold-dim);text-align:center;">
+          <div style="font-size:20px;margin-bottom:6px;">${i}</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);">${v||'—'}</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gray);text-transform:uppercase;">${l} ${u}</div>
+        </div>`).join('')}
+      </div>
+      ${m.notes ? `<p style="font-size:12px;color:var(--gray);margin-top:16px;">${m.notes}</p>` : ''}
+    `;
+  } else {
+    document.getElementById('macroPanel').innerHTML = `<p style="color:var(--gray);font-size:13px;">KJ hasn't set your macros yet. They'll appear here after your first check-in.</p>`;
+  }
+
+  // Program / Today's workout
+  const { data: programs } = await sb.from('programs').select('*').eq('client_id', uid).eq('status','active').limit(1);
+  if (programs?.length) {
+    const prog = programs[0];
+    const dayOfWeek = new Date().getDay();
+    const { data: workouts } = await sb.from('workouts').select('*, exercises(*)').eq('program_id', prog.id).eq('day_number', dayOfWeek || 1).limit(1);
+    if (workouts?.length) {
+      const w = workouts[0];
+      document.getElementById('todayWorkout').innerHTML = `
+        <div style="margin-bottom:16px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--white);letter-spacing:2px;">${w.name}</div>
+          <div style="font-size:11px;color:var(--gold);font-family:'Barlow Condensed',sans-serif;letter-spacing:2px;text-transform:uppercase;">${prog.name} — Week ${prog.weeks}</div>
+        </div>
+        ${w.exercises?.length ? w.exercises.map(ex=>`
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;">
+            <span style="color:var(--white);">${ex.name}</span>
+            <span style="color:var(--gold);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">${ex.sets}×${ex.reps}</span>
+          </div>`).join('') : '<p style="color:var(--gray);font-size:13px;">Rest day — recovery and nutrition focus.</p>'}
+      `;
+    } else {
+      document.getElementById('todayWorkout').innerHTML = `<p style="color:var(--gray);font-size:13px;">Rest day — recovery focus. See your full program for the week.</p>`;
+    }
+  } else {
+    document.getElementById('todayWorkout').innerHTML = `<p style="color:var(--gray);font-size:13px;">KJ hasn't assigned your program yet. You'll be notified when it's ready.</p>`;
+  }
+}
+
+document.getElementById('signOutBtn').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  window.location = '../auth/login.html';
+});
+
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — TrainWithKen</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle"><span></span><span></span><span></span></button>
+<div class="dash-wrap">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-badge">KJ</div>
+      <div><div class="sidebar-brand">TRAINWITHKEN</div><div class="sidebar-sub">Admin Panel</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Overview</div>
+      <a class="sidebar-link active" href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+      <a class="sidebar-link" href="clients.html"><span class="icon">👥</span> All Clients</a>
+      <a class="sidebar-link" href="check-ins.html"><span class="icon">📋</span> Check-Ins</a>
+      <a class="sidebar-link" href="revenue.html"><span class="icon">💰</span> Revenue</a>
+      <div class="sidebar-section">Site</div>
+      <a class="sidebar-link" href="../index.html" target="_blank"><span class="icon">🌐</span> View Site</a>
+      <a class="sidebar-link" href="../pages/programs.html" target="_blank"><span class="icon">💪</span> Programs Page</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user"><strong>Ken Jones</strong>Admin</div>
+      <button class="btn-signout" id="signOutBtn">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <div><h1>ADMIN DASHBOARD</h1><p>TrainWithKen — client overview</p></div>
+      <a href="clients.html" class="btn btn-gold btn-sm">View All Clients</a>
+    </div>
+    <div class="dash-body">
+
+      <!-- STATS -->
+      <div class="stat-cards">
+        <div class="stat-card"><div class="stat-card-label">Active Clients</div><div class="stat-card-value" id="statActive">—</div><div class="stat-card-sub">Paying subscribers</div></div>
+        <div class="stat-card"><div class="stat-card-label">Monthly Revenue</div><div class="stat-card-value" id="statMRR">—</div><div class="stat-card-sub">Estimated MRR</div></div>
+        <div class="stat-card"><div class="stat-card-label">Check-Ins</div><div class="stat-card-value" id="statCheckins">—</div><div class="stat-card-sub">This week</div></div>
+        <div class="stat-card"><div class="stat-card-label">Total Clients</div><div class="stat-card-value" id="statTotal">—</div><div class="stat-card-sub">All time</div></div>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- RECENT CHECK-INS -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">RECENT CHECK-INS</span>
+            <a href="check-ins.html" class="btn btn-outline btn-sm">View All</a>
+          </div>
+          <div class="panel-body" style="padding:0;">
+            <table class="dash-table">
+              <thead><tr><th>Client</th><th>Week</th><th>Weight</th><th>Submitted</th><th></th></tr></thead>
+              <tbody id="recentCheckins"><tr><td colspan="5" style="text-align:center;color:var(--gray);padding:24px;">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ACTIVE CLIENTS -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">ACTIVE CLIENTS</span>
+            <a href="clients.html" class="btn btn-outline btn-sm">View All</a>
+          </div>
+          <div class="panel-body" style="padding:0;">
+            <table class="dash-table">
+              <thead><tr><th>Name</th><th>Plan</th><th>Status</th><th></th></tr></thead>
+              <tbody id="activeClients"><tr><td colspan="4" style="text-align:center;color:var(--gray);padding:24px;">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- NEW BOOKINGS -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">NEW BOOKING REQUESTS</span>
+          </div>
+          <div class="panel-body" style="padding:0;">
+            <table class="dash-table">
+              <thead><tr><th>Name</th><th>Service</th><th>Date</th><th>Email</th></tr></thead>
+              <tbody id="bookingsBody"><tr><td colspan="4" style="text-align:center;color:var(--gray);padding:24px;">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PLAN BREAKDOWN -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">PLAN BREAKDOWN</span></div>
+          <div class="panel-body" id="planBreakdown">
+            <p style="color:var(--gray);font-size:13px;">Loading…</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+
+const planLabels = {'self-led':'Self-Led','online':'Online','vip':'VIP Elite'};
+const planMRR = {'online':297,'vip':597};
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location = '../auth/login.html'; return; }
+
+  // Verify admin
+  const { data: profile } = await sb.from('profiles').select('role').eq('id', session.user.id).single();
+  if (profile?.role !== 'admin') { window.location = '../client/dashboard.html'; return; }
+
+  // Load all clients
+  const { data: clients } = await sb.from('profiles').select('*').eq('role','client').order('created_at', { ascending: false });
+  if (!clients) return;
+
+  const active = clients.filter(c => c.plan_status === 'active');
+  document.getElementById('statTotal').textContent = clients.length;
+  document.getElementById('statActive').textContent = active.length;
+
+  // Estimated MRR
+  const mrr = active.reduce((sum, c) => sum + (planMRR[c.plan] || 0), 0);
+  document.getElementById('statMRR').textContent = mrr ? '$' + mrr.toLocaleString() : '$0';
+
+  // Active clients table
+  document.getElementById('activeClients').innerHTML = active.slice(0,8).map(c => `
+    <tr>
+      <td><strong>${[c.first_name,c.last_name].filter(Boolean).join(' ') || c.email}</strong></td>
+      <td><span class="badge badge-gold">${planLabels[c.plan]||'—'}</span></td>
+      <td><span class="badge badge-green">Active</span></td>
+      <td><a href="client.html?id=${c.id}" class="btn btn-outline btn-sm">View</a></td>
+    </tr>`).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--gray);padding:24px;">No active clients yet.</td></tr>';
+
+  // Plan breakdown
+  const counts = { 'self-led':0, 'online':0, 'vip':0 };
+  active.forEach(c => { if (counts[c.plan] !== undefined) counts[c.plan]++; });
+  document.getElementById('planBreakdown').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      ${[['VIP Elite','vip',597],['Online Coaching','online',297],['Self-Led','self-led',97]].map(([label,key,price])=>`
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">${label}</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);">${counts[key]} clients</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width:${active.length ? (counts[key]/active.length*100).toFixed(0) : 0}%"></div></div>
+        </div>`).join('')}
+    </div>`;
+
+  // Recent check-ins
+  const { data: checkins } = await sb.from('check_ins').select('*, profiles(first_name,last_name)').order('submitted_at', { ascending: false }).limit(8);
+  const thisWeekStart = new Date(); thisWeekStart.setDate(thisWeekStart.getDate() - 7);
+  const thisWeekCheckins = checkins?.filter(c => new Date(c.submitted_at) > thisWeekStart) || [];
+  document.getElementById('statCheckins').textContent = thisWeekCheckins.length;
+
+  document.getElementById('recentCheckins').innerHTML = checkins?.length ? checkins.map(c => `
+    <tr>
+      <td><strong>${[c.profiles?.first_name, c.profiles?.last_name].filter(Boolean).join(' ') || '—'}</strong></td>
+      <td>Week ${c.week_number}</td>
+      <td>${c.weight_lbs ? c.weight_lbs+' lbs' : '—'}</td>
+      <td>${new Date(c.submitted_at).toLocaleDateString()}</td>
+      <td><a href="client.html?id=${c.client_id}" class="btn btn-outline btn-sm">Review</a></td>
+    </tr>`).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:24px;">No check-ins yet.</td></tr>';
+
+  // Booking requests
+  const { data: bookings } = await sb.from('bookings').select('*').order('created_at', { ascending: false }).limit(5);
+  document.getElementById('bookingsBody').innerHTML = bookings?.length ? bookings.map(b => `
+    <tr>
+      <td><strong>${b.first_name} ${b.last_name}</strong></td>
+      <td>${b.service}</td>
+      <td>${b.preferred_date || '—'}</td>
+      <td><a href="mailto:${b.email}" style="color:var(--gold);">${b.email}</a></td>
+    </tr>`).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--gray);padding:24px;">No new bookings.</td></tr>';
+}
+
+document.getElementById('signOutBtn').addEventListener('click', async () => { await sb.auth.signOut(); window.location = '../auth/login.html'; });
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+init();
+</script>
+</body>
+</html>

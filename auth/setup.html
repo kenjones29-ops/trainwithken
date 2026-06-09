@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Set Up Your Account — TrainWithKen</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--black); }
+    .setup-wrap { width:100%; max-width:480px; padding:40px 24px; }
+    .setup-badge { width:56px; height:56px; background:var(--gold); clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--black); margin:0 auto 24px; }
+    .setup-title { font-family:'Bebas Neue',sans-serif; font-size:44px; letter-spacing:4px; color:var(--white); line-height:1; text-align:center; margin-bottom:8px; }
+    .setup-desc { font-size:13px; color:var(--gray); text-align:center; margin-bottom:36px; line-height:1.7; }
+    .plan-badge { display:inline-block; background:rgba(201,168,76,0.1); border:1px solid var(--gold-dim); color:var(--gold); font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; padding:4px 14px; margin-bottom:32px; }
+    .field { margin-bottom:20px; }
+    .field label { display:block; font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+    .field input { width:100%; background:var(--dark3); border:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(201,168,76,0.3); color:var(--white); font-family:'Barlow',sans-serif; font-size:14px; font-weight:300; padding:14px 16px; outline:none; transition:border-color 0.2s; }
+    .field input:focus { border-color:rgba(201,168,76,0.7); }
+    .field input::placeholder { color:var(--gray); }
+    .setup-btn { width:100%; background:var(--gold); color:var(--black); border:none; padding:16px; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:4px; cursor:pointer; transition:background 0.2s; margin-top:8px; }
+    .setup-btn:hover { background:var(--gold-light); }
+    .auth-error { background:rgba(224,92,92,0.1); border:1px solid rgba(224,92,92,0.3); color:#e05c5c; padding:12px 16px; font-size:13px; margin-bottom:20px; display:none; }
+    .pw-hint { font-size:11px; color:var(--gray); margin-top:6px; }
+  </style>
+</head>
+<body>
+<div class="setup-wrap">
+  <div class="setup-badge" id="planBadgeIcon">KJ</div>
+  <h1 class="setup-title">SET UP YOUR<br>ACCOUNT</h1>
+  <p class="setup-desc">Your payment was successful. Create your password to access your coaching dashboard.</p>
+  <div style="text-align:center;margin-bottom:24px;"><span class="plan-badge" id="planLabel">Loading…</span></div>
+  <div class="auth-error" id="setupError"></div>
+  <form id="setupForm">
+    <div class="field"><label>Password</label><input type="password" id="password" placeholder="Create a strong password" required minlength="8" /></div>
+    <div class="field"><label>Confirm Password</label><input type="password" id="confirm" placeholder="Repeat password" required /></div>
+    <p class="pw-hint">Minimum 8 characters.</p>
+    <button class="setup-btn" type="submit" id="setupBtn" style="margin-top:24px;">ACCESS MY DASHBOARD</button>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  const { createClient } = supabase;
+  const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get('plan') || '';
+  const planLabels = { 'self-led':'Self-Led System','online':'Online Coaching','vip':'VIP Elite Access' };
+  document.getElementById('planLabel').textContent = planLabels[plan] || 'TrainWithKen';
+
+  // If user arrived from Supabase magic link (password reset flow), they're already authed
+  sb.auth.getSession().then(({ data }) => {
+    if (data.session) {
+      // Already logged in — just go to dashboard
+      window.location = '../client/dashboard.html';
+    }
+  });
+
+  document.getElementById('setupForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('setupBtn');
+    const err = document.getElementById('setupError');
+    const pw = document.getElementById('password').value;
+    const cf = document.getElementById('confirm').value;
+    err.style.display = 'none';
+
+    if (pw !== cf) { err.textContent = 'Passwords do not match.'; err.style.display = 'block'; return; }
+
+    btn.textContent = 'SETTING UP…'; btn.disabled = true;
+
+    // Update password for the user (they come from webhook-created account)
+    const { error } = await sb.auth.updateUser({ password: pw });
+    if (error) {
+      err.textContent = error.message; err.style.display = 'block';
+      btn.textContent = 'ACCESS MY DASHBOARD'; btn.disabled = false;
+      return;
+    }
+    window.location = '../client/dashboard.html';
+  });
+</script>
+</body>
+</html>

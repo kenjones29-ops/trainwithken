@@ -280,7 +280,7 @@
         <li>Recovery and sleep protocols</li>
         <li>Lifetime program access</li>
       </ul>
-      <a class="btn-outline" href="booking.html" style="width:100%;text-align:center;">Get Started</a>
+      <button class="btn-outline" onclick="checkout('self-led')" style="width:100%;text-align:center;cursor:pointer;">Get Started — $97</button>
     </div>
 
     <!-- ONLINE COACHING (FEATURED) -->
@@ -304,7 +304,7 @@
         <li>Supplement & recovery protocol</li>
         <li>Program adjustments as needed</li>
       </ul>
-      <a class="btn-gold" href="booking.html" style="width:100%;text-align:center;">Start Coaching</a>
+      <button class="btn-gold" onclick="checkout('online')" style="width:100%;text-align:center;cursor:pointer;">Start Coaching — $297/mo</button>
     </div>
 
     <!-- VIP ELITE -->
@@ -327,7 +327,7 @@
         <li>Kure Recovery protocol integration</li>
         <li>Apparel & brand partner discounts</li>
       </ul>
-      <a class="btn-outline" href="booking.html" style="width:100%;text-align:center;">Apply for VIP</a>
+      <button class="btn-outline" onclick="checkout('vip')" style="width:100%;text-align:center;cursor:pointer;">Apply for VIP — $597/mo</button>
     </div>
   </div>
 </section>
@@ -447,6 +447,27 @@
 </footer>
 
 <script src="../js/main.js"></script>
+<script>
+async function checkout(plan) {
+  const btn = event.target;
+  const orig = btn.textContent;
+  btn.textContent = 'LOADING…';
+  btn.disabled = true;
+  try {
+    const res = await fetch('/api/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan })
+    });
+    const data = await res.json();
+    if (data.url) { window.location = data.url; }
+    else { alert('Something went wrong. Please try again.'); btn.textContent = orig; btn.disabled = false; }
+  } catch {
+    alert('Something went wrong. Please try again.');
+    btn.textContent = orig; btn.disabled = false;
+  }
+}
+</script>
 <script>
   document.querySelectorAll('.faq-q').forEach(q => {
     q.addEventListener('click', () => {

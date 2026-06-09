@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutrition — TrainWithKen</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle"><span></span><span></span><span></span></button>
+<div class="dash-wrap">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-badge">KJ</div>
+      <div><div class="sidebar-brand">TRAINWITHKEN</div><div class="sidebar-sub">Client Portal</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Training</div>
+      <a class="sidebar-link" href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+      <a class="sidebar-link" href="program.html"><span class="icon">💪</span> My Program</a>
+      <a class="sidebar-link active" href="nutrition.html"><span class="icon">🥗</span> Nutrition</a>
+      <a class="sidebar-link" href="check-in.html"><span class="icon">📋</span> Weekly Check-In</a>
+      <a class="sidebar-link" href="progress.html"><span class="icon">📈</span> Progress</a>
+      <div class="sidebar-section">Account</div>
+      <a class="sidebar-link" href="profile.html"><span class="icon">👤</span> Profile</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user"><strong id="userName">Loading…</strong></div>
+      <button class="btn-signout" id="signOutBtn">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <div><h1>NUTRITION PLAN</h1><p>Your ounce-based macro targets set by KJ</p></div>
+    </div>
+    <div class="dash-body">
+
+      <!-- MACRO TARGETS -->
+      <div id="noMacros" class="panel" style="display:none;">
+        <div class="panel-body" style="text-align:center;padding:48px;">
+          <div style="font-size:48px;margin-bottom:16px;">🥗</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--white);margin-bottom:8px;">MACROS PENDING</div>
+          <p style="color:var(--gray);font-size:14px;">KJ will set your custom nutrition targets after reviewing your intake form and first check-in.</p>
+        </div>
+      </div>
+
+      <div id="macroContent" style="display:none;">
+        <div class="stat-cards" style="grid-template-columns:repeat(4,1fr);">
+          <div class="stat-card"><div class="stat-card-label">Calories</div><div class="stat-card-value" id="mCalories">—</div><div class="stat-card-sub">kcal per day</div></div>
+          <div class="stat-card"><div class="stat-card-label">Protein</div><div class="stat-card-value" id="mProtein">—</div><div class="stat-card-sub">oz per day</div></div>
+          <div class="stat-card"><div class="stat-card-label">Carbs</div><div class="stat-card-value" id="mCarbs">—</div><div class="stat-card-sub">oz per day</div></div>
+          <div class="stat-card"><div class="stat-card-label">Fat</div><div class="stat-card-value" id="mFat">—</div><div class="stat-card-sub">oz per day</div></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="panel">
+            <div class="panel-header"><span class="panel-title">COACH NOTES</span></div>
+            <div class="panel-body">
+              <p id="macroNotes" style="font-size:14px;color:var(--gray-light);line-height:1.8;">—</p>
+              <p id="macroDate" style="font-size:11px;color:var(--gray);margin-top:16px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase;"></p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header"><span class="panel-title">HOW TO USE OUNCE TRACKING</span></div>
+            <div class="panel-body">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <div style="width:28px;height:28px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--black);flex-shrink:0;">1</div>
+                  <div style="font-size:13px;color:var(--gray-light);">Weigh all food raw on a food scale in <strong style="color:var(--white);">ounces</strong> before cooking.</div>
+                </div>
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <div style="width:28px;height:28px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--black);flex-shrink:0;">2</div>
+                  <div style="font-size:13px;color:var(--gray-light);">Hit your <strong style="color:var(--white);">protein target first</strong> — fill carbs and fats around it.</div>
+                </div>
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <div style="width:28px;height:28px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--black);flex-shrink:0;">3</div>
+                  <div style="font-size:13px;color:var(--gray-light);">Spread meals across <strong style="color:var(--white);">4–6 eating windows</strong> for optimal nutrient timing.</div>
+                </div>
+                <div style="display:flex;gap:12px;align-items:flex-start;">
+                  <div style="width:28px;height:28px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--black);flex-shrink:0;">4</div>
+                  <div style="font-size:13px;color:var(--gray-light);">Log compliance in your <strong style="color:var(--white);">weekly check-in</strong> — KJ adjusts based on your data.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TRAINING VS REST DAY -->
+          <div class="panel">
+            <div class="panel-header"><span class="panel-title">TRAINING DAYS</span></div>
+            <div class="panel-body" id="trainingDayTargets">
+              <p style="color:var(--gray);font-size:13px;">Use your full macro targets on training days.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header"><span class="panel-title">REST DAYS</span></div>
+            <div class="panel-body" id="restDayTargets">
+              <p style="color:var(--gray);font-size:13px;">On rest days reduce carbs by ~25% and maintain protein. KJ will specify if different.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location = '../auth/login.html'; return; }
+  const uid = session.user.id;
+
+  const { data: profile } = await sb.from('profiles').select('first_name').eq('id', uid).single();
+  document.getElementById('userName').textContent = profile?.first_name || 'Athlete';
+
+  const { data: macros } = await sb.from('macros').select('*').eq('client_id', uid).order('created_at', { ascending: false }).limit(1);
+  if (!macros?.length) { document.getElementById('noMacros').style.display = 'block'; return; }
+
+  document.getElementById('macroContent').style.display = 'block';
+  const m = macros[0];
+  document.getElementById('mCalories').textContent = m.calories || '—';
+  document.getElementById('mProtein').textContent = m.protein_oz ? `${m.protein_oz}` : '—';
+  document.getElementById('mCarbs').textContent = m.carbs_oz ? `${m.carbs_oz}` : '—';
+  document.getElementById('mFat').textContent = m.fat_oz ? `${m.fat_oz}` : '—';
+  if (m.notes) document.getElementById('macroNotes').textContent = m.notes;
+  document.getElementById('macroDate').textContent = `Last updated: ${new Date(m.created_at).toLocaleDateString()}`;
+
+  // Training day targets
+  document.getElementById('trainingDayTargets').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      ${[['Protein',m.protein_oz,'oz'],['Carbs',m.carbs_oz,'oz'],['Fat',m.fat_oz,'oz'],['Calories',m.calories,'kcal']].map(([l,v,u])=>`
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">${l}</span>
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);letter-spacing:1px;">${v||'—'} <span style="font-size:12px;color:var(--gray);">${u}</span></span>
+        </div>`).join('')}
+    </div>`;
+
+  // Rest day targets (carbs -25%)
+  const restCarbs = m.carbs_oz ? (m.carbs_oz * 0.75).toFixed(1) : null;
+  const restCals = m.calories ? Math.round(m.calories * 0.88) : null;
+  document.getElementById('restDayTargets').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      ${[['Protein',m.protein_oz,'oz'],['Carbs',restCarbs,'oz'],['Fat',m.fat_oz,'oz'],['Calories',restCals,'kcal']].map(([l,v,u])=>`
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">${l}</span>
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);letter-spacing:1px;">${v||'—'} <span style="font-size:12px;color:var(--gray);">${u}</span></span>
+        </div>`).join('')}
+    </div>
+    <p style="font-size:11px;color:var(--gray);margin-top:12px;">Carbs reduced ~25% from training day targets.</p>`;
+}
+
+document.getElementById('signOutBtn').addEventListener('click', async () => { await sb.auth.signOut(); window.location = '../auth/login.html'; });
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+init();
+</script>
+</body>
+</html>

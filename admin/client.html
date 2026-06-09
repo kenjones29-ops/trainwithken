@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client — TrainWithKen Admin</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle"><span></span><span></span><span></span></button>
+<div class="dash-wrap">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-badge">KJ</div>
+      <div><div class="sidebar-brand">TRAINWITHKEN</div><div class="sidebar-sub">Admin Panel</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Overview</div>
+      <a class="sidebar-link" href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+      <a class="sidebar-link active" href="clients.html"><span class="icon">👥</span> All Clients</a>
+      <a class="sidebar-link" href="check-ins.html"><span class="icon">📋</span> Check-Ins</a>
+      <a class="sidebar-link" href="revenue.html"><span class="icon">💰</span> Revenue</a>
+      <div class="sidebar-section">Site</div>
+      <a class="sidebar-link" href="../index.html" target="_blank"><span class="icon">🌐</span> View Site</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user"><strong>Ken Jones</strong>Admin</div>
+      <button class="btn-signout" id="signOutBtn">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:4px;text-transform:uppercase;">
+          <a href="clients.html" style="color:var(--gold);">← All Clients</a>
+        </div>
+        <h1 id="clientName">LOADING…</h1>
+        <p id="clientMeta"></p>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-outline btn-sm" id="emailBtn">Email Client</button>
+        <span class="badge" id="statusBadge"></span>
+      </div>
+    </div>
+
+    <div class="dash-body">
+
+      <!-- TOP STATS -->
+      <div class="stat-cards">
+        <div class="stat-card"><div class="stat-card-label">Plan</div><div class="stat-card-value" id="sPlan">—</div><div class="stat-card-sub" id="sPlanStatus">—</div></div>
+        <div class="stat-card"><div class="stat-card-label">Weeks Active</div><div class="stat-card-value" id="sWeeks">—</div><div class="stat-card-sub">Since start</div></div>
+        <div class="stat-card"><div class="stat-card-label">Check-Ins</div><div class="stat-card-value" id="sCheckins">—</div><div class="stat-card-sub">Submitted</div></div>
+        <div class="stat-card"><div class="stat-card-label">Latest Weight</div><div class="stat-card-value" id="sWeight">—</div><div class="stat-card-sub">lbs</div></div>
+      </div>
+
+      <div class="grid-2">
+
+        <!-- SET MACROS -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">SET MACROS</span></div>
+          <div class="panel-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div class="field"><label>Calories</label><input type="number" id="mCalories" placeholder="e.g. 2400" /></div>
+              <div class="field"><label>Protein (oz)</label><input type="number" step="0.1" id="mProtein" placeholder="e.g. 6.5" /></div>
+              <div class="field"><label>Carbs (oz)</label><input type="number" step="0.1" id="mCarbs" placeholder="e.g. 8" /></div>
+              <div class="field"><label>Fat (oz)</label><input type="number" step="0.1" id="mFat" placeholder="e.g. 2.5" /></div>
+            </div>
+            <div class="field"><label>Nutrition Notes</label><textarea id="mNotes" rows="3" placeholder="Any notes for the client about their nutrition plan…"></textarea></div>
+            <button class="btn btn-gold" id="saveMacrosBtn">SAVE MACROS</button>
+            <span id="macrosSaved" style="display:none;color:var(--green);font-size:13px;margin-left:12px;">✓ Saved</span>
+          </div>
+        </div>
+
+        <!-- COACH NOTES ON LATEST CHECK-IN -->
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">RESPOND TO CHECK-IN</span></div>
+          <div class="panel-body">
+            <div id="latestCheckinSummary" style="background:var(--dark3);padding:16px;margin-bottom:16px;border-left:2px solid var(--gold-dim);">
+              <p style="color:var(--gray);font-size:13px;">No check-ins yet.</p>
+            </div>
+            <div class="field"><label>Coach Notes for Client</label><textarea id="coachNotes" rows="4" placeholder="Write feedback, adjustments, encouragement…"></textarea></div>
+            <button class="btn btn-gold" id="saveNotesBtn">SAVE COACH NOTES</button>
+            <span id="notesSaved" style="display:none;color:var(--green);font-size:13px;margin-left:12px;">✓ Saved</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CHECK-IN HISTORY -->
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">CHECK-IN HISTORY</span></div>
+        <div class="panel-body" style="padding:0;">
+          <table class="dash-table">
+            <thead><tr><th>Week</th><th>Weight</th><th>Body Fat</th><th>Workout %</th><th>Nutrition %</th><th>Energy</th><th>Sleep</th><th>Client Notes</th><th>Submitted</th></tr></thead>
+            <tbody id="checkinHistory"><tr><td colspan="9" style="text-align:center;color:var(--gray);padding:32px;">No check-ins yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ASSIGN / UPDATE PLAN -->
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">UPDATE PLAN STATUS</span></div>
+        <div class="panel-body" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
+          <div class="field" style="margin:0;min-width:180px;">
+            <label>Plan</label>
+            <select id="updatePlan" style="background:var(--dark3);border:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(201,168,76,0.3);color:var(--white);font-family:'Barlow',sans-serif;font-size:13px;padding:10px 12px;outline:none;width:100%;appearance:none;">
+              <option value="self-led">Self-Led</option>
+              <option value="online">Online Coaching</option>
+              <option value="vip">VIP Elite</option>
+            </select>
+          </div>
+          <div class="field" style="margin:0;min-width:160px;">
+            <label>Status</label>
+            <select id="updateStatus" style="background:var(--dark3);border:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(201,168,76,0.3);color:var(--white);font-family:'Barlow',sans-serif;font-size:13px;padding:10px 12px;outline:none;width:100%;appearance:none;">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="cancelled">Cancelled</option>
+              <option value="past_due">Past Due</option>
+            </select>
+          </div>
+          <button class="btn btn-outline" id="updatePlanBtn">UPDATE PLAN</button>
+          <span id="planUpdated" style="display:none;color:var(--green);font-size:13px;">✓ Updated</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+
+const planLabels = {'self-led':'Self-Led','online':'Online Coaching','vip':'VIP Elite'};
+const clientId = new URLSearchParams(window.location.search).get('id');
+let latestCheckinId = null;
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location = '../auth/login.html'; return; }
+  const { data: me } = await sb.from('profiles').select('role').eq('id', session.user.id).single();
+  if (me?.role !== 'admin') { window.location = '../client/dashboard.html'; return; }
+  if (!clientId) { window.location = 'clients.html'; return; }
+
+  // Load client profile
+  const { data: client } = await sb.from('profiles').select('*').eq('id', clientId).single();
+  if (!client) { window.location = 'clients.html'; return; }
+
+  const name = [client.first_name, client.last_name].filter(Boolean).join(' ') || client.email;
+  document.getElementById('clientName').textContent = name.toUpperCase();
+  document.getElementById('clientMeta').textContent = `${client.email} · Joined ${new Date(client.created_at).toLocaleDateString()}`;
+  document.getElementById('emailBtn').onclick = () => window.open(`mailto:${client.email}`);
+
+  const statusColors = { active:'badge-green', inactive:'badge-gray', cancelled:'badge-red', past_due:'badge-red' };
+  const sb2 = document.getElementById('statusBadge');
+  sb2.textContent = client.plan_status || 'inactive';
+  sb2.className = `badge ${statusColors[client.plan_status] || 'badge-gray'}`;
+
+  document.getElementById('sPlan').textContent = planLabels[client.plan] || '—';
+  document.getElementById('sPlanStatus').textContent = client.plan_status || '—';
+  if (client.start_date) {
+    const weeks = Math.floor((Date.now() - new Date(client.start_date)) / (7*24*60*60*1000));
+    document.getElementById('sWeeks').textContent = weeks;
+  }
+
+  // Pre-fill plan selects
+  document.getElementById('updatePlan').value = client.plan || 'online';
+  document.getElementById('updateStatus').value = client.plan_status || 'active';
+
+  // Load existing macros
+  const { data: macros } = await sb.from('macros').select('*').eq('client_id', clientId).order('created_at', { ascending: false }).limit(1);
+  if (macros?.length) {
+    const m = macros[0];
+    document.getElementById('mCalories').value = m.calories || '';
+    document.getElementById('mProtein').value = m.protein_oz || '';
+    document.getElementById('mCarbs').value = m.carbs_oz || '';
+    document.getElementById('mFat').value = m.fat_oz || '';
+    document.getElementById('mNotes').value = m.notes || '';
+  }
+
+  // Load check-ins
+  const { data: checkins } = await sb.from('check_ins').select('*').eq('client_id', clientId).order('week_number', { ascending: false });
+  document.getElementById('sCheckins').textContent = checkins?.length || 0;
+
+  if (checkins?.length) {
+    const latest = checkins[0];
+    latestCheckinId = latest.id;
+    document.getElementById('sWeight').textContent = latest.weight_lbs || '—';
+    if (latest.coach_notes) document.getElementById('coachNotes').value = latest.coach_notes;
+
+    document.getElementById('latestCheckinSummary').innerHTML = `
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--white);letter-spacing:2px;margin-bottom:10px;">WEEK ${latest.week_number} CHECK-IN</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;">
+        ${[['Weight',latest.weight_lbs ? latest.weight_lbs+' lbs':'—'],['Body Fat',latest.body_fat_pct ? latest.body_fat_pct+'%':'—'],['Workout',latest.workout_compliance!=null ? latest.workout_compliance+'%':'—'],['Nutrition',latest.nutrition_compliance!=null ? latest.nutrition_compliance+'%':'—']].map(([l,v])=>`
+          <div style="background:var(--dark2);padding:10px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);">${v}</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gray);text-transform:uppercase;">${l}</div>
+          </div>`).join('')}
+      </div>
+      ${latest.notes ? `<p style="font-size:13px;color:var(--gray-light);font-style:italic;">"${latest.notes}"</p>` : ''}`;
+
+    document.getElementById('checkinHistory').innerHTML = checkins.map(c => `
+      <tr>
+        <td><strong>Week ${c.week_number}</strong></td>
+        <td>${c.weight_lbs ? c.weight_lbs+' lbs' : '—'}</td>
+        <td>${c.body_fat_pct ? c.body_fat_pct+'%' : '—'}</td>
+        <td>${c.workout_compliance!=null ? c.workout_compliance+'%' : '—'}</td>
+        <td>${c.nutrition_compliance!=null ? c.nutrition_compliance+'%' : '—'}</td>
+        <td>${c.energy_level || '—'}/10</td>
+        <td>${c.sleep_quality || '—'}/10</td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.notes || '—'}</td>
+        <td>${new Date(c.submitted_at).toLocaleDateString()}</td>
+      </tr>`).join('');
+  }
+}
+
+// Save macros
+document.getElementById('saveMacrosBtn').addEventListener('click', async () => {
+  const { error } = await sb.from('macros').insert({
+    client_id: clientId,
+    calories: parseInt(document.getElementById('mCalories').value) || null,
+    protein_oz: parseFloat(document.getElementById('mProtein').value) || null,
+    carbs_oz: parseFloat(document.getElementById('mCarbs').value) || null,
+    fat_oz: parseFloat(document.getElementById('mFat').value) || null,
+    notes: document.getElementById('mNotes').value || null
+  });
+  if (!error) { document.getElementById('macrosSaved').style.display = 'inline'; setTimeout(() => document.getElementById('macrosSaved').style.display = 'none', 3000); }
+});
+
+// Save coach notes
+document.getElementById('saveNotesBtn').addEventListener('click', async () => {
+  if (!latestCheckinId) return;
+  const { error } = await sb.from('check_ins').update({ coach_notes: document.getElementById('coachNotes').value }).eq('id', latestCheckinId);
+  if (!error) { document.getElementById('notesSaved').style.display = 'inline'; setTimeout(() => document.getElementById('notesSaved').style.display = 'none', 3000); }
+});
+
+// Update plan
+document.getElementById('updatePlanBtn').addEventListener('click', async () => {
+  const { error } = await sb.from('profiles').update({
+    plan: document.getElementById('updatePlan').value,
+    plan_status: document.getElementById('updateStatus').value
+  }).eq('id', clientId);
+  if (!error) { document.getElementById('planUpdated').style.display = 'inline'; setTimeout(() => document.getElementById('planUpdated').style.display = 'none', 3000); init(); }
+});
+
+document.getElementById('signOutBtn').addEventListener('click', async () => { await sb.auth.signOut(); window.location = '../auth/login.html'; });
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+init();
+</script>
+</body>
+</html>

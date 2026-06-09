@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Progress — TrainWithKen</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle"><span></span><span></span><span></span></button>
+<div class="dash-wrap">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-badge">KJ</div>
+      <div><div class="sidebar-brand">TRAINWITHKEN</div><div class="sidebar-sub">Client Portal</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">Training</div>
+      <a class="sidebar-link" href="dashboard.html"><span class="icon">📊</span> Dashboard</a>
+      <a class="sidebar-link" href="program.html"><span class="icon">💪</span> My Program</a>
+      <a class="sidebar-link" href="nutrition.html"><span class="icon">🥗</span> Nutrition</a>
+      <a class="sidebar-link" href="check-in.html"><span class="icon">📋</span> Weekly Check-In</a>
+      <a class="sidebar-link active" href="progress.html"><span class="icon">📈</span> Progress</a>
+      <div class="sidebar-section">Account</div>
+      <a class="sidebar-link" href="profile.html"><span class="icon">👤</span> Profile</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user"><strong id="userName">Loading…</strong></div>
+      <button class="btn-signout" id="signOutBtn">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <div><h1>PROGRESS TRACKER</h1><p>Your full check-in history and trends</p></div>
+      <a href="check-in.html" class="btn btn-gold btn-sm">New Check-In</a>
+    </div>
+    <div class="dash-body">
+
+      <!-- SUMMARY STATS -->
+      <div class="stat-cards" id="summaryStats">
+        <div class="stat-card"><div class="stat-card-label">Starting Weight</div><div class="stat-card-value" id="startWeight">—</div><div class="stat-card-sub">lbs — week 1</div></div>
+        <div class="stat-card"><div class="stat-card-label">Current Weight</div><div class="stat-card-value" id="currentWeight">—</div><div class="stat-card-sub">lbs — latest check-in</div></div>
+        <div class="stat-card"><div class="stat-card-label">Total Change</div><div class="stat-card-value" id="totalChange">—</div><div class="stat-card-sub">lbs since start</div></div>
+        <div class="stat-card"><div class="stat-card-label">Weeks Checked In</div><div class="stat-card-value" id="totalWeeks">—</div><div class="stat-card-sub">of total weeks active</div></div>
+      </div>
+
+      <!-- WEIGHT CHART -->
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">WEIGHT OVER TIME</span></div>
+        <div class="panel-body">
+          <canvas id="weightChart" height="80"></canvas>
+          <div id="noChartData" style="text-align:center;padding:40px;color:var(--gray);font-size:13px;display:none;">No weight data yet. Submit your first check-in to start tracking.</div>
+        </div>
+      </div>
+
+      <!-- COMPLIANCE TREND -->
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">AVERAGE COMPLIANCE</span></div>
+          <div class="panel-body" id="compliancePanel">
+            <div style="margin-bottom:20px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">Workout</span>
+                <span id="avgWorkout" style="font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:18px;">—%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="workoutBar" style="width:0%"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+                <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">Nutrition</span>
+                <span id="avgNutrition" style="font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:18px;">—%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill" id="nutritionBar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">ENERGY & SLEEP AVG</span></div>
+          <div class="panel-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:center;">
+              <div style="background:var(--dark3);padding:24px;border-top:1px solid var(--gold-dim);">
+                <div style="font-size:24px;margin-bottom:8px;">⚡</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);" id="avgEnergy">—</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gray);text-transform:uppercase;">Avg Energy</div>
+              </div>
+              <div style="background:var(--dark3);padding:24px;border-top:1px solid var(--gold-dim);">
+                <div style="font-size:24px;margin-bottom:8px;">😴</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);" id="avgSleep">—</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gray);text-transform:uppercase;">Avg Sleep</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FULL CHECK-IN HISTORY -->
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">FULL CHECK-IN HISTORY</span></div>
+        <div class="panel-body" style="padding:0;">
+          <table class="dash-table">
+            <thead><tr><th>Week</th><th>Weight</th><th>Body Fat</th><th>Workout %</th><th>Nutrition %</th><th>Energy</th><th>Sleep</th><th>Date</th></tr></thead>
+            <tbody id="historyBody"><tr><td colspan="8" style="text-align:center;color:var(--gray);padding:32px;">No check-ins yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script>
+const { createClient } = supabase;
+const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+
+const avg = arr => arr.length ? (arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
+
+async function init() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { window.location = '../auth/login.html'; return; }
+  const uid = session.user.id;
+
+  const { data: profile } = await sb.from('profiles').select('first_name').eq('id', uid).single();
+  document.getElementById('userName').textContent = profile?.first_name || 'Athlete';
+
+  const { data: checkins } = await sb.from('check_ins').select('*').eq('client_id', uid).order('week_number');
+  if (!checkins?.length) { document.getElementById('noChartData').style.display = 'block'; return; }
+
+  // Summary stats
+  const weights = checkins.filter(c => c.weight_lbs).map(c => c.weight_lbs);
+  if (weights.length) {
+    document.getElementById('startWeight').textContent = weights[0];
+    document.getElementById('currentWeight').textContent = weights[weights.length-1];
+    const change = (weights[weights.length-1] - weights[0]).toFixed(1);
+    const el = document.getElementById('totalChange');
+    el.textContent = (change > 0 ? '+' : '') + change;
+    el.style.color = change <= 0 ? 'var(--green)' : 'var(--gold)';
+  }
+  document.getElementById('totalWeeks').textContent = checkins.length;
+
+  // Chart
+  const weightData = checkins.filter(c => c.weight_lbs);
+  if (weightData.length > 1) {
+    new Chart(document.getElementById('weightChart'), {
+      type: 'line',
+      data: {
+        labels: weightData.map(c => `Wk ${c.week_number}`),
+        datasets: [{
+          label: 'Weight (lbs)',
+          data: weightData.map(c => c.weight_lbs),
+          borderColor: '#C9A84C',
+          backgroundColor: 'rgba(201,168,76,0.08)',
+          borderWidth: 2,
+          pointBackgroundColor: '#C9A84C',
+          pointRadius: 4,
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#777' } },
+          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#777' } }
+        }
+      }
+    });
+  } else { document.getElementById('noChartData').style.display = 'block'; }
+
+  // Compliance averages
+  const wComp = checkins.filter(c=>c.workout_compliance!=null).map(c=>c.workout_compliance);
+  const nComp = checkins.filter(c=>c.nutrition_compliance!=null).map(c=>c.nutrition_compliance);
+  if (wComp.length) { const a=avg(wComp); document.getElementById('avgWorkout').textContent=a+'%'; document.getElementById('workoutBar').style.width=a+'%'; }
+  if (nComp.length) { const a=avg(nComp); document.getElementById('avgNutrition').textContent=a+'%'; document.getElementById('nutritionBar').style.width=a+'%'; }
+
+  const energy = checkins.filter(c=>c.energy_level).map(c=>c.energy_level);
+  const sleep = checkins.filter(c=>c.sleep_quality).map(c=>c.sleep_quality);
+  if (energy.length) document.getElementById('avgEnergy').textContent = avg(energy)+'/10';
+  if (sleep.length) document.getElementById('avgSleep').textContent = avg(sleep)+'/10';
+
+  // History table
+  document.getElementById('historyBody').innerHTML = [...checkins].reverse().map(c => `
+    <tr>
+      <td><strong>Week ${c.week_number}</strong></td>
+      <td>${c.weight_lbs ? c.weight_lbs+' lbs' : '—'}</td>
+      <td>${c.body_fat_pct ? c.body_fat_pct+'%' : '—'}</td>
+      <td>${c.workout_compliance!=null ? c.workout_compliance+'%' : '—'}</td>
+      <td>${c.nutrition_compliance!=null ? c.nutrition_compliance+'%' : '—'}</td>
+      <td>${c.energy_level || '—'}/10</td>
+      <td>${c.sleep_quality || '—'}/10</td>
+      <td>${new Date(c.submitted_at).toLocaleDateString()}</td>
+    </tr>`).join('');
+}
+
+document.getElementById('signOutBtn').addEventListener('click', async () => { await sb.auth.signOut(); window.location = '../auth/login.html'; });
+document.getElementById('sidebarToggle').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+init();
+</script>
+</body>
+</html>
