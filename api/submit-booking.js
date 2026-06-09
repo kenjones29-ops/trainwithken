@@ -1,4 +1,4 @@
-const { createClient } = require('@supabase/supabase-js');
+﻿const { createClient } = require('@supabase/supabase-js');
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -36,8 +36,8 @@ module.exports = async function handler(req, res) {
       body: JSON.stringify({
         from: 'TrainWithKen Bookings <onboarding@resend.dev>',
         to: 'Trainwithken@outlook.com',
-        subject: `New Booking — ${service} — ${firstName} ${lastName}`,
-        html: `<div style="font-family:Arial,sans-serif;max-width:600px;background:#0f0f0f;color:#f2f2f2;padding:40px;"><div style="border-top:3px solid #C9A84C;margin-bottom:24px;"></div><h2 style="color:#C9A84C;letter-spacing:2px;">NEW BOOKING REQUEST</h2><table style="width:100%;border-collapse:collapse;margin-top:16px;"><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;width:120px;">Name</td><td style="padding:10px 0;border-bottom:1px solid #222;">${firstName} ${lastName}</td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;">Email</td><td style="padding:10px 0;border-bottom:1px solid #222;"><a href="mailto:${email}" style="color:#C9A84C;">${email}</a></td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;">Phone</td><td style="padding:10px 0;border-bottom:1px solid #222;">${phone || '—'}</td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;">Service</td><td style="padding:10px 0;border-bottom:1px solid #222;color:#C9A84C;font-weight:bold;">${service}</td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;">Date</td><td style="padding:10px 0;border-bottom:1px solid #222;">${date || '—'}</td></tr><tr><td style="padding:10px 0;color:#777;">Goal</td><td style="padding:10px 0;">${goal || '—'}</td></tr></table></div>`
+        subject: `New Booking â€” ${service} â€” ${firstName} ${lastName}`,
+        html: `<div style="font-family:Arial,sans-serif;max-width:600px;background:#0f0f0f;color:#f2f2f2;padding:40px;"><div style="border-top:3px solid #C9A84C;margin-bottom:24px;"></div><h2 style="color:#C9A84C;letter-spacing:2px;">NEW BOOKING REQUEST</h2><table style="width:100%;border-collapse:collapse;margin-top:16px;"><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;width:120px;">Name</td><td style="padding:10px 0;border-bottom:1px solid #222;">${firstName} ${lastName}</td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;">Email</td><td style="padding:10px 0;border-bottom:1px solid #222;"><a href="mailto:${email}" style="color:#C9A84C;">${email}</a></td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;">Phone</td><td style="padding:10px 0;border-bottom:1px solid #222;">${phone || 'â€”'}</td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;">Service</td><td style="padding:10px 0;border-bottom:1px solid #222;color:#C9A84C;font-weight:bold;">${service}</td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #222;color:#777;">Date</td><td style="padding:10px 0;border-bottom:1px solid #222;">${date || 'â€”'}</td></tr><tr><td style="padding:10px 0;color:#777;">Goal</td><td style="padding:10px 0;">${goal || 'â€”'}</td></tr></table></div>`
       })
     });
   }
