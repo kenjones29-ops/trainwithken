@@ -110,6 +110,28 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-signout:hover { color: var(--gold); }
 
+/* ── FLOATING LOGOUT BUTTON (top-right, always visible) ── */
+.logout-fab {
+  position: fixed;
+  top: 16px; right: 20px;
+  z-index: 150;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(15,15,15,0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--gold-dim);
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.logout-fab:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+.logout-fab::after { content: '↗'; font-size: 13px; }
+@media (max-width: 900px) {
+  .logout-fab { top: 16px; right: 16px; padding: 8px 14px; font-size: 10px; }
+}
+
 /* ── MAIN CONTENT ── */
 .dash-main {
   margin-left: var(--sidebar-w);
