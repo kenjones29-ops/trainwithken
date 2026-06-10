@@ -109,7 +109,7 @@ module.exports = async function handler(req, res) {
         headers: { 'Authorization': `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
           from: 'TrainWithKen Payments <onboarding@resend.dev>',
-          to: 'Trainwithken@outlook.com',
+          to: process.env.NOTIFY_EMAIL || 'kenjones29@gmail.com',
           subject: `New ${planLabels[plan]} — ${firstName} ${lastName}`,
           html: `<p>New client: <strong>${firstName} ${lastName}</strong> (${email}) signed up for <strong>${planLabels[plan]}</strong>.</p>`
         })
