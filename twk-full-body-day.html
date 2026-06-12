@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TrainWithKen · Full Body Day — Free From KJ</title>
+<meta name="description" content="A free full-body training day by Coach KJ — IFBB Pro & Certified Sports Nutritionist. trainwithken.fit">
+<meta property="og:title" content="TrainWithKen · Full Body Day · Free From KJ">
+<meta property="og:description" content="Free full-body workout by Coach KJ. IFBB Pro | trainwithken.fit">
+<meta property="og:site_name" content="TrainWithKen">
+<meta name="apple-mobile-web-app-title" content="TrainWithKen">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #070707;
+  --offblack: #111;
+  --g1:       #181818;
+  --g2:       #222;
+  --g3:       #2e2e2e;
+  --white:    #f3f1ec;
+  --gold:     #c9a84c;
+  --gold2:    #e2c06a;
+  --gold3:    #f5df9a;
+  --muted:    rgba(243,241,236,0.42);
+  --W: min(480px, 100vw);
+  --H: min(700px, 96vh);
+}
+
+html, body {
+  height: 100%;
+  background: #040404;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Barlow', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.hdr {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 8px;
+}
+.logo { display: flex; align-items: center; gap: 9px; }
+.logo-hex {
+  width: 34px; height: 34px;
+  background: var(--gold);
+  clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-hex span { font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: var(--black); letter-spacing: 0.5px; }
+.logo-words strong { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 2.5px; color: var(--white); display: block; line-height: 1; }
+.logo-words small { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); }
+.ctr { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; color: var(--muted); }
+.ctr b { color: var(--gold); font-weight: 600; }
+
+/* ── PROGRESS ── */
+.prog { width: 100%; max-width: 520px; padding: 0 18px 10px; display: flex; gap: 4px; }
+.dot { flex: 1; height: 3px; border-radius: 2px; background: var(--g2); transition: background .3s; cursor: pointer; }
+.dot.done { background: var(--gold); }
+.dot.active { background: var(--gold2); }
+
+/* ── VIEWPORT ── */
+.vp {
+  width: var(--W); height: var(--H);
+  overflow: hidden; border-radius: 3px;
+  box-shadow: 0 28px 70px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,.05);
+  flex-shrink: 0;
+}
+.track { display: flex; height: 100%; transition: transform .42s cubic-bezier(.77,0,.175,1); will-change: transform; }
+
+/* ── SLIDE BASE ── */
+.slide { min-width: var(--W); height: 100%; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.t-cover { background: var(--black); }
+.t-cover::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(201,168,76,.16) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 95% 95%, rgba(201,168,76,.06) 0%, transparent 50%);
+}
+.t-dark { background: var(--offblack); }
+.t-dark::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 45% at 50% 0%, rgba(201,168,76,.07) 0%, transparent 55%);
+}
+.t-gold { background: var(--gold); }
+.t-end { background: var(--black); }
+.t-end::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 100%, rgba(201,168,76,.14) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 10% 0%, rgba(201,168,76,.05) 0%, transparent 50%);
+}
+
+.inn { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 26px 26px 20px; }
+
+.bg-word { position: absolute; font-family: 'Bebas Neue', sans-serif; color: rgba(201,168,76,.04); pointer-events: none; user-select: none; line-height: 1; z-index: 1; }
+
+.stag {
+  position: absolute; top: 20px; right: 20px; z-index: 10;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,168,76,.3); padding: 4px 10px;
+}
+.stag.dark { color: rgba(8,8,8,.5); border-color: rgba(0,0,0,.18); }
+
+.eye { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.eye.dark { color: rgba(8,8,8,.5); }
+.ttl { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; line-height: .92; color: var(--white); }
+.ttl.dark { color: var(--black); }
+.ttl.outline { -webkit-text-stroke: 1.5px var(--gold); color: transparent; }
+.sub { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+.sub.dark { color: rgba(8,8,8,.5); }
+.div { width: 36px; height: 2px; background: var(--gold); margin: 14px 0; flex-shrink: 0; }
+.div.dark { background: rgba(8,8,8,.4); }
+
+.bod { font-size: 13.5px; line-height: 1.7; color: rgba(243,241,236,.68); flex: 1; overflow-y: auto; scrollbar-width: none; padding-right: 2px; }
+.bod::-webkit-scrollbar { display: none; }
+.bod.dark { color: rgba(8,8,8,.68); }
+
+.ft { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(201,168,76,.14); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.ft-brand { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: rgba(201,168,76,.45); }
+.ft-pg { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; color: var(--muted); }
+
+/* ── EXERCISE TABLE ── */
+.ex { list-style: none; margin-top: 2px; }
+.ex li {
+  display: grid; grid-template-columns: 16px 1fr auto; gap: 8px;
+  padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+  align-items: center; font-size: 13px;
+}
+.ex li:last-child { border-bottom: none; }
+.ex-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; justify-self: center; }
+.ex-dot.outline { background: none; border: 1.5px solid var(--gold); }
+.ex-name { color: var(--white); font-weight: 400; }
+.ex-name.dark { color: var(--black); }
+.ex-sets { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: var(--gold); letter-spacing: 1px; white-space: nowrap; }
+.ex-sets.dark { color: rgba(8,8,8,.6); }
+
+.phase {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-top: 14px; margin-bottom: 6px;
+  padding-bottom: 4px; border-bottom: 1px solid rgba(201,168,76,.2);
+}
+.phase:first-child { margin-top: 0; }
+
+.tip {
+  background: rgba(201,168,76,.07); border-left: 2px solid var(--gold);
+  padding: 10px 12px; font-size: 12.5px; line-height: 1.6;
+  color: rgba(243,241,236,.7); margin-top: 10px;
+}
+.tip strong { color: var(--gold); }
+
+.rest {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-top: 4px;
+}
+.rest::before { content: ''; width: 20px; height: 1px; background: rgba(201,168,76,.3); }
+
+/* cover stats */
+.cv-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: auto; margin-bottom: 2px; }
+.cv-stat { padding: 12px 8px; border-right: 1px solid rgba(255,255,255,.06); border-top: 1px solid rgba(201,168,76,.18); }
+.cv-stat:last-child { border-right: none; }
+.cv-n { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--gold); line-height: 1; }
+.cv-l { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+
+.flow { display: grid; gap: 8px; margin-top: 6px; }
+.flow-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: rgba(201,168,76,.06); border-left: 2px solid var(--gold); }
+.flow-num { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); line-height: 1; width: 20px; flex-shrink: 0; }
+.flow-info strong { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); display: block; margin-bottom: 2px; }
+.flow-info span { font-size: 12px; color: var(--muted); }
+
+.ss-badge {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  background: rgba(201,168,76,.15); color: var(--gold);
+  padding: 2px 8px; border-radius: 2px; margin-left: 6px;
+}
+
+.burnout { background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.25); padding: 12px 14px; margin-top: 10px; text-align: center; }
+.burnout-label { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 4px; color: var(--gold); margin-bottom: 4px; }
+.burnout-ex { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--white); }
+.burnout-reps { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold2); line-height: 1; margin-top: 4px; }
+
+/* ── NAV AREA ── */
+.nav { display: flex; align-items: center; gap: 12px; padding: 14px 18px 6px; width: 100%; max-width: 520px; }
+.nb {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid rgba(201,168,76,.3); background: rgba(201,168,76,.07);
+  color: var(--gold); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s; flex-shrink: 0; -webkit-tap-highlight-color: transparent;
+}
+.nb:hover { background: rgba(201,168,76,.18); border-color: var(--gold); }
+.nb:disabled { opacity: .2; cursor: not-allowed; }
+
+.ni { flex: 1; text-align: center; }
+.ni-t { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white); display: block; }
+.ni-s { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-top: 2px; }
+
+.hint {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(201,168,76,.25); text-align: center;
+  padding-bottom: 10px;
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.4}50%{opacity:1} }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="logo">
+    <div class="logo-hex"><span>KJ</span></div>
+    <div class="logo-words">
+      <strong>TRAINWITHKEN</strong>
+      <small>trainwithken.fit</small>
+    </div>
+  </div>
+  <div class="ctr"><b id="cur">1</b> / <span id="tot">—</span></div>
+</header>
+
+<div class="prog" id="dots"></div>
+
+<div class="vp">
+<div class="track" id="track">
+
+<!-- ══════════════════════════════════
+     SLIDE 1 · COVER
+══════════════════════════════════ -->
+<div class="slide t-cover">
+  <div class="bg-word" style="font-size:260px;right:-30px;bottom:-40px;letter-spacing:-8px;">F</div>
+  <div class="stag">Enjoy</div>
+  <div class="inn">
+    <div class="eye">TrainWithKen · Free From KJ</div>
+    <div class="ttl" style="font-size:clamp(62px,16vw,90px);">FULL<br><span class="outline">BODY</span><br>DAY</div>
+    <div class="sub">One Session · Every Muscle Hit</div>
+    <div class="div"></div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.75;max-width:360px;">A full-intensity total-body session built to hit every major muscle group in one workout. Pushing, pulling, squatting, hinging, and conditioning — all in 60 minutes.</p>
+    <div class="cv-stats">
+      <div class="cv-stat"><div class="cv-n">10</div><div class="cv-l">Exercises</div></div>
+      <div class="cv-stat"><div class="cv-n">~60</div><div class="cv-l">Minutes</div></div>
+      <div class="cv-stat"><div class="cv-n">5</div><div class="cv-l">Phases</div></div>
+      <div class="cv-stat"><div class="cv-n">FREE</div><div class="cv-l">From KJ</div></div>
+    </div>
+    <div class="ft">
+      <div class="ft-brand">TRAINWITHKEN</div>
+      <div class="ft-pg">Swipe to Start →</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 2 · FLOW
+══════════════════════════════════ -->
+<div class="slide t-dark">
+  <div class="bg-word" style="font-size:180px;right:-10px;top:-20px;opacity:.03;">FLOW</div>
+  <div class="stag">Overview</div>
+  <div class="inn">
+    <div class="eye">Workout Structure</div>
+    <div class="ttl" style="font-size:50px;">SESSION<br>FLOW</div>
+    <div class="div"></div>
+    <div class="bod">
+      <div class="flow">
+        <div class="flow-row"><div class="flow-num">1</div><div class="flow-info"><strong>Dynamic Warm-Up</strong><span>8 min · mobility + activation</span></div></div>
+        <div class="flow-row"><div class="flow-num">2</div><div class="flow-info"><strong>Lower Compound</strong><span>Back Squat · primary leg lift</span></div></div>
+        <div class="flow-row"><div class="flow-num">3</div><div class="flow-info"><strong>Upper Push + Pull</strong><span>Bench press paired with rows</span></div></div>
+        <div class="flow-row"><div class="flow-num">4</div><div class="flow-info"><strong>Accessory Block</strong><span>Hinge, lunge, press, isolation</span></div></div>
+        <div class="flow-row"><div class="flow-num">5</div><div class="flow-info"><strong>Conditioning Finisher</strong><span>Metabolic burn · core finisher</span></div></div>
+      </div>
+      <div class="tip" style="margin-top:14px;">
+        <strong>Coach KJ Note:</strong> Eat 30–50g carbs + 25–30g protein 60–90 min before this session. Hydrate well — this is a high-output workout.
+      </div>
+    </div>
+    <div class="ft"><div class="ft-brand">TRAINWITHKEN</div><div class="ft-pg">2 / <span class="tot-r">—</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 3 · WARM-UP
+══════════════════════════════════ -->
+<div class="slide t-dark">
+  <div class="bg-word" style="font-size:140px;right:-10px;bottom:20px;opacity:.04;">01</div>
+  <div class="stag">Phase 1</div>
+  <div class="inn">
+    <div class="eye">Phase 1 of 5 · 8 Minutes</div>
+    <div class="ttl" style="font-size:50px;">DYNAMIC<br>WARM-UP</div>
+    <div class="sub">No Rest Between Movements</div>
+    <div class="div"></div>
+    <div class="bod">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px;">Get hot and primed before you load any bar. Skipping this is the #1 reason for tight hips and shoulders later in the session.</p>
+      <ul class="ex">
+        <li><span class="ex-dot"></span><span class="ex-name">World's Greatest Stretch</span><span class="ex-sets">2 × 6 each</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Bodyweight Squat</span><span class="ex-sets">2 × 15</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Push-Up</span><span class="ex-sets">2 × 12</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Band Pull-Apart</span><span class="ex-sets">2 × 20</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Glute Bridge</span><span class="ex-sets">2 × 15</span></li>
+      </ul>
+      <div class="tip" style="margin-top:14px;">
+        <strong>Tempo Cue:</strong> Move with intention. This isn't cardio — it's the rehearsal. Feel each muscle wake up before you load it.
+      </div>
+      <div class="rest">Rest 60 sec, then begin Phase 2</div>
+    </div>
+    <div class="ft"><div class="ft-brand">TRAINWITHKEN</div><div class="ft-pg">3 / <span class="tot-r">—</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 4 · SQUAT
+══════════════════════════════════ -->
+<div class="slide t-dark">
+  <div class="bg-word" style="font-size:140px;right:-10px;bottom:20px;opacity:.04;">02</div>
+  <div class="stag">Phase 2</div>
+  <div class="inn">
+    <div class="eye">Phase 2 of 5 · Primary Lift</div>
+    <div class="ttl" style="font-size:46px;">BACK<br>SQUAT</div>
+    <div class="sub">Foundation of the Session</div>
+    <div class="div"></div>
+    <div class="bod">
+      <ul class="ex">
+        <li><span class="ex-dot outline"></span><span class="ex-name" style="color:var(--muted);font-size:12px;">Warm-up Set (40% working weight)</span><span class="ex-sets" style="color:var(--muted);">1 × 12</span></li>
+        <li><span class="ex-dot outline"></span><span class="ex-name" style="color:var(--muted);font-size:12px;">Ramp Set (70% working weight)</span><span class="ex-sets" style="color:var(--muted);">1 × 8</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Back Squat <span class="ss-badge">Working</span></span><span class="ex-sets">4 × 6–8</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Goblet Squat (controlled)</span><span class="ex-sets">2 × 12</span></li>
+      </ul>
+      <div class="tip">
+        <strong>Form Cue:</strong> Brace your core, sit between your knees, full depth. Drive through the mid-foot — heels stay planted. Control the eccentric for 2 seconds down.
+      </div>
+      <div class="rest">Rest 2 min between working sets</div>
+    </div>
+    <div class="ft"><div class="ft-brand">TRAINWITHKEN</div><div class="ft-pg">4 / <span class="tot-r">—</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 5 · PUSH + PULL
+══════════════════════════════════ -->
+<div class="slide t-dark">
+  <div class="bg-word" style="font-size:140px;right:-10px;bottom:20px;opacity:.04;">03</div>
+  <div class="stag">Phase 3</div>
+  <div class="inn">
+    <div class="eye">Phase 3 of 5 · Upper Body</div>
+    <div class="ttl" style="font-size:44px;">PUSH<br>+ PULL</div>
+    <div class="sub">Superset · Antagonist Pairing</div>
+    <div class="div"></div>
+    <div class="bod">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px;">Pair A1 and A2 back-to-back with no rest between exercises. Rest 90 seconds between full rounds.</p>
+      <div class="phase">Superset A — 4 Rounds</div>
+      <ul class="ex">
+        <li><span class="ex-dot"></span><span class="ex-name">A1: Barbell Bench Press</span><span class="ex-sets">8–10</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">A2: Bent-Over Barbell Row</span><span class="ex-sets">8–10</span></li>
+      </ul>
+      <div class="phase">Superset B — 3 Rounds</div>
+      <ul class="ex">
+        <li><span class="ex-dot"></span><span class="ex-name">B1: Seated DB Shoulder Press</span><span class="ex-sets">10</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">B2: Lat Pulldown</span><span class="ex-sets">12</span></li>
+      </ul>
+      <div class="tip">
+        <strong>Form Cue:</strong> On every press, retract scapula first. On every row, pull elbow back — don't flex with your bicep. Quality over weight every rep.
+      </div>
+      <div class="rest">90 sec between rounds</div>
+    </div>
+    <div class="ft"><div class="ft-brand">TRAINWITHKEN</div><div class="ft-pg">5 / <span class="tot-r">—</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 6 · ACCESSORY
+══════════════════════════════════ -->
+<div class="slide t-gold">
+  <div class="bg-word" style="font-size:140px;right:-10px;bottom:20px;color:rgba(0,0,0,.04);">04</div>
+  <div class="stag dark">Phase 4</div>
+  <div class="inn">
+    <div class="eye dark">Phase 4 of 5 · Accessory Block</div>
+    <div class="ttl dark" style="font-size:44px;">ACCESSORY<br>BLOCK</div>
+    <div class="sub dark">Hinge · Lunge · Isolation</div>
+    <div class="div dark"></div>
+    <div class="bod dark">
+      <p style="font-size:12.5px;color:rgba(8,8,8,.6);margin-bottom:12px;">All-out volume to round out the session. Move efficiently between exercises.</p>
+      <div class="phase" style="color:rgba(8,8,8,.55);border-bottom-color:rgba(0,0,0,.12);">Posterior Chain</div>
+      <ul class="ex">
+        <li><span class="ex-dot" style="background:rgba(0,0,0,.3)"></span><span class="ex-name dark">Romanian Deadlift</span><span class="ex-sets dark">3 × 10</span></li>
+        <li><span class="ex-dot" style="background:rgba(0,0,0,.3)"></span><span class="ex-name dark">Walking DB Lunge</span><span class="ex-sets dark">3 × 12 each</span></li>
+      </ul>
+      <div class="phase" style="color:rgba(8,8,8,.55);border-bottom-color:rgba(0,0,0,.12);">Arms & Shoulders</div>
+      <ul class="ex">
+        <li><span class="ex-dot" style="background:rgba(0,0,0,.3)"></span><span class="ex-name dark">DB Bicep Curl</span><span class="ex-sets dark">3 × 12</span></li>
+        <li><span class="ex-dot" style="background:rgba(0,0,0,.3)"></span><span class="ex-name dark">Tricep Rope Pushdown</span><span class="ex-sets dark">3 × 15</span></li>
+      </ul>
+      <div class="tip" style="background:rgba(0,0,0,.08);border-left-color:rgba(0,0,0,.3);color:rgba(8,8,8,.68);">
+        <strong style="color:rgba(8,8,8,.8);">Pump Goal:</strong> By the end of accessory work you should feel a deep pump everywhere. If not — increase the weight or focus on the squeeze.
+      </div>
+    </div>
+    <div class="ft" style="border-top-color:rgba(0,0,0,.12);">
+      <div class="ft-brand" style="color:rgba(8,8,8,.35);">TRAINWITHKEN</div>
+      <div class="ft-pg" style="color:rgba(8,8,8,.4);">6 / <span class="tot-r">—</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 7 · FINISHER
+══════════════════════════════════ -->
+<div class="slide t-dark">
+  <div class="bg-word" style="font-size:130px;right:-10px;bottom:10px;opacity:.04;">05</div>
+  <div class="stag">Phase 5</div>
+  <div class="inn">
+    <div class="eye">Phase 5 of 5 · Conditioning</div>
+    <div class="ttl" style="font-size:50px;">METABOLIC<br>FINISHER<br><span class="outline">🔥</span></div>
+    <div class="div"></div>
+    <div class="bod">
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px;">10-minute AMRAP — As Many Rounds As Possible. Leave nothing in the tank.</p>
+      <ul class="ex">
+        <li><span class="ex-dot"></span><span class="ex-name">Kettlebell Swing</span><span class="ex-sets">15</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Push-Up</span><span class="ex-sets">10</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Air Squat</span><span class="ex-sets">20</span></li>
+        <li><span class="ex-dot"></span><span class="ex-name">Plank Hold</span><span class="ex-sets">30 sec</span></li>
+      </ul>
+      <div class="burnout">
+        <div class="burnout-label">⚡ Cap-Off Set</div>
+        <div class="burnout-ex">Burpees</div>
+        <div class="burnout-reps">25 REPS</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">Straight through · no breaks · finish strong</div>
+      </div>
+      <div class="rest" style="margin-top:12px;">10-min AMRAP, then 25 burpees · session done</div>
+    </div>
+    <div class="ft"><div class="ft-brand">TRAINWITHKEN</div><div class="ft-pg">7 / <span class="tot-r">—</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 8 · RECOVERY
+══════════════════════════════════ -->
+<div class="slide t-dark">
+  <div class="bg-word" style="font-size:160px;right:-10px;bottom:0;opacity:.03;">EAT</div>
+  <div class="stag">Recovery</div>
+  <div class="inn">
+    <div class="eye">Post-Session Protocol</div>
+    <div class="ttl" style="font-size:48px;">FUEL &<br>RECOVER</div>
+    <div class="div"></div>
+    <div class="bod">
+      <div class="phase">Within 60 Minutes Post-Workout</div>
+      <div style="display:grid;gap:8px;margin-bottom:14px;">
+        <div class="tip">🥩 <strong>Protein:</strong> 35–50g fast-digesting protein. Whey shake + 8oz milk, or chicken breast + rice. Start MPS now.</div>
+        <div class="tip">🍚 <strong>Carbs:</strong> 50–80g simple/fast carbs. White rice, banana, honey, or a sports drink. Replenish glycogen.</div>
+        <div class="tip">💧 <strong>Water:</strong> Minimum 20oz immediately. Add electrolytes if you sweat heavily.</div>
+      </div>
+      <div class="phase">Tonight Before Bed</div>
+      <div class="tip">🌙 <strong>Casein Protein:</strong> 30–40g slow-digesting protein — cottage cheese, Greek yogurt, or casein shake. Muscle grows while you sleep.</div>
+      <div class="tip" style="margin-top:8px;">😴 <strong>Sleep:</strong> 7–9 hours. Growth hormone peaks in deep sleep. That's when today's work pays off.</div>
+    </div>
+    <div class="ft"><div class="ft-brand">TRAINWITHKEN</div><div class="ft-pg">8 / <span class="tot-r">—</span></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SLIDE 9 · CTA
+══════════════════════════════════ -->
+<div class="slide t-end">
+  <div class="bg-word" style="font-size:200px;right:-20px;bottom:-30px;opacity:.04;letter-spacing:-6px;">KJ</div>
+  <div class="inn" style="justify-content:center;text-align:center;">
+    <div class="eye" style="text-align:center;">You Finished — Want More?</div>
+    <div class="ttl" style="font-size:clamp(50px,13vw,72px);text-align:center;">CUSTOM<br>PLAN<br><span class="outline">FROM KJ?</span></div>
+    <div class="div" style="margin:16px auto;"></div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.75;max-width:320px;margin:0 auto;">This was one workout. Imagine custom programming built for YOUR body, YOUR goals, and YOUR schedule — with Coach KJ checking in every week.</p>
+
+    <div style="display:grid;gap:8px;margin:20px 0;text-align:left;">
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(201,168,76,.07);border-left:2px solid var(--gold);">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);">$297</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--white);">Online Coaching /mo</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(201,168,76,.07);border-left:2px solid var(--gold);">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);">$500</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--white);">Competition Prep /mo</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(201,168,76,.12);border-left:2px solid var(--gold2);">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold2);">$450</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--white);">Small Group Training /mo</span>
+      </div>
+    </div>
+
+    <a href="https://trainwithken.fit/pages/programs.html" style="background:var(--gold);padding:14px 24px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--black);text-decoration:none;display:inline-block;">SEE ALL PLANS</a>
+
+    <div class="ft" style="margin-top:18px;">
+      <div class="ft-brand">TRAINWITHKEN</div>
+      <div class="ft-pg" style="color:var(--muted);">9 / <span class="tot-r">—</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="nav">
+  <button class="nb" id="prev" onclick="move(-1)" disabled>&#8592;</button>
+  <div class="ni">
+    <span class="ni-t" id="ntitle">Cover</span>
+    <span class="ni-s" id="nsub">TrainWithKen · Full Body Day</span>
+  </div>
+  <button class="nb" id="next" onclick="move(1)">&#8594;</button>
+</div>
+
+<div class="hint" id="hint">← swipe or use arrows →</div>
+
+<script>
+const meta = [
+  { t:"Cover",          s:"Full Body Day · Free From KJ" },
+  { t:"Session Flow",   s:"5-Phase Overview" },
+  { t:"Phase 1",        s:"Dynamic Warm-Up" },
+  { t:"Phase 2",        s:"Back Squat" },
+  { t:"Phase 3",        s:"Push + Pull Superset" },
+  { t:"Phase 4",        s:"Accessory Block" },
+  { t:"Phase 5",        s:"Metabolic Finisher 🔥" },
+  { t:"Post-Workout",   s:"Fuel & Recovery Protocol" },
+  { t:"Get Coached",    s:"trainwithken.fit" },
+];
+
+const N = meta.length;
+document.getElementById('tot').textContent = N;
+document.querySelectorAll('.tot-r').forEach(e => e.textContent = N);
+
+const dotsEl = document.getElementById('dots');
+meta.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => go(i);
+  dotsEl.appendChild(d);
+});
+
+let cur = 0;
+
+function render() {
+  document.getElementById('track').style.transform = `translateX(calc(-${cur} * var(--W)))`;
+  document.getElementById('cur').textContent = cur+1;
+  document.getElementById('ntitle').textContent = meta[cur].t;
+  document.getElementById('nsub').textContent = meta[cur].s;
+  document.getElementById('prev').disabled = cur===0;
+  document.getElementById('next').disabled = cur===N-1;
+  dotsEl.querySelectorAll('.dot').forEach((d,i) => {
+    d.className = 'dot'+(i<cur?' done':i===cur?' active':'');
+  });
+  if(cur>0) document.getElementById('hint').style.opacity='0';
+}
+
+function move(d) { cur = Math.max(0,Math.min(N-1,cur+d)); render(); }
+function go(i)   { cur=i; render(); }
+
+let sx=0;
+const vp = document.querySelector('.vp');
+vp.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+vp.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-sx;
+  if(Math.abs(dx)>40) move(dx<0?1:-1);
+},{passive:true});
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight') move(1);
+  if(e.key==='ArrowLeft')  move(-1);
+});
+
+render();
+</script>
+</body>
+</html>

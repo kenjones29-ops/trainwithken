@@ -404,7 +404,42 @@ html, body {
 @keyframes pulse { 0%,100%{opacity:.4}50%{opacity:1} }
 </style>
 </head>
-<body>
+<body style="visibility:hidden;">
+
+<!-- AUTH GATE -->
+<div id="gateScreen" style="display:none;position:fixed;inset:0;background:#040404;z-index:10000;align-items:center;justify-content:center;padding:24px;">
+  <div style="max-width:420px;text-align:center;">
+    <div style="width:56px;height:56px;background:#c9a84c;clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:#080808;margin:0 auto 24px;">🔒</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:#f2f2f2;line-height:1;margin-bottom:12px;">PAID GUIDE</h1>
+    <p style="font-size:14px;color:#aaa;line-height:1.7;margin-bottom:24px;">The Glute &amp; Hamstring Growth Day Guide is a paid product. Purchase to unlock lifetime access in your dashboard.</p>
+    <a href="https://trainwithken.fit/pages/programs.html#guides" style="display:inline-block;background:#c9a84c;color:#080808;padding:14px 32px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;text-decoration:none;margin-bottom:12px;">Buy Guide — $39.99</a>
+    <div><a href="https://trainwithken.fit/auth/login.html" style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c9a84c;">Already bought it? Sign in →</a></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(async () => {
+  const { createClient } = window.supabase;
+  const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
+  const { data: { session } } = await sb.auth.getSession();
+  let unlocked = false;
+  if (session) {
+    const { data: me } = await sb.from('profiles').select('role').eq('id', session.user.id).single();
+    if (me?.role === 'admin') unlocked = true;
+    else {
+      const { data: p } = await sb.from('guide_purchases').select('id').eq('user_id', session.user.id).eq('guide_slug','glute-ham-day').limit(1);
+      if (p && p.length) unlocked = true;
+    }
+  }
+  if (unlocked) {
+    document.body.style.visibility = 'visible';
+  } else {
+    document.getElementById('gateScreen').style.display = 'flex';
+    document.body.style.visibility = 'visible';
+  }
+})();
+</script>
 
 <!-- HEADER -->
 <header class="hdr">
