@@ -47,9 +47,9 @@
         <input class="search-input" type="text" id="searchInput" placeholder="Search by name or email…" />
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="active">Active</button>
-        <button class="filter-btn" data-filter="vip">VIP Elite</button>
+        <button class="filter-btn" data-filter="vip">Comp Prep</button>
         <button class="filter-btn" data-filter="online">Online</button>
-        <button class="filter-btn" data-filter="self-led">Self-Led</button>
+        <button class="filter-btn" data-filter="self-led">Coach's Curriculum</button>
         <button class="filter-btn" data-filter="inactive">Inactive</button>
       </div>
 
@@ -83,7 +83,7 @@
 const { createClient } = supabase;
 const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
 
-const planLabels = {'self-led':'Self-Led','online':'Online Coaching','vip':'VIP Elite'};
+const planLabels = {'self-led':"Coach's Curriculum",'online':'Online Coaching','vip':'Competition Prep','group':'Small Group'};
 let allClients = [], checkinCounts = {};
 let currentFilter = 'all', currentSearch = '';
 
@@ -95,9 +95,9 @@ function statusBadge(s) {
 }
 
 function planBadge(p) {
-  if (p === 'vip') return '<span class="badge badge-gold">VIP Elite</span>';
+  if (p === 'vip') return '<span class="badge badge-gold">Comp Prep</span>';
   if (p === 'online') return '<span class="badge" style="background:rgba(126,184,247,0.1);color:#7eb8f7;border:1px solid rgba(126,184,247,0.3);">Online</span>';
-  if (p === 'self-led') return '<span class="badge badge-gray">Self-Led</span>';
+  if (p === 'self-led') return '<span class="badge badge-gray">Curriculum</span>';
   return '<span class="badge badge-gray">—</span>';
 }
 

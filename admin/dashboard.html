@@ -107,8 +107,8 @@
 const { createClient } = supabase;
 const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
 
-const planLabels = {'self-led':'Self-Led','online':'Online','vip':'VIP Elite'};
-const planMRR = {'online':297,'vip':597};
+const planLabels = {'self-led':"Coach's Curriculum",'online':'Online','vip':'Comp Prep','group':'Group'};
+const planMRR = {'online':297,'vip':500,'group':450};
 
 async function init() {
   const { data: { session } } = await sb.auth.getSession();
@@ -140,11 +140,11 @@ async function init() {
     </tr>`).join('') || '<tr><td colspan="4" style="text-align:center;color:var(--gray);padding:24px;">No active clients yet.</td></tr>';
 
   // Plan breakdown
-  const counts = { 'self-led':0, 'online':0, 'vip':0 };
+  const counts = { 'self-led':0, 'online':0, 'vip':0, 'group':0 };
   active.forEach(c => { if (counts[c.plan] !== undefined) counts[c.plan]++; });
   document.getElementById('planBreakdown').innerHTML = `
     <div style="display:flex;flex-direction:column;gap:16px;">
-      ${[['VIP Elite','vip',597],['Online Coaching','online',297],['Self-Led','self-led',97]].map(([label,key,price])=>`
+      ${[['Competition Prep','vip',500],['Small Group','group',450],['Online Coaching','online',297],["Coach's Curriculum",'self-led',1500]].map(([label,key,price])=>`
         <div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
             <span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);">${label}</span>

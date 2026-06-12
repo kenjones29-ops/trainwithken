@@ -45,7 +45,7 @@
 
   const params = new URLSearchParams(window.location.search);
   const plan = params.get('plan') || '';
-  const planLabels = { 'self-led':'Self-Led System','online':'Online Coaching','vip':'VIP Elite Access' };
+  const planLabels = { 'self-led':"The Coach's Curriculum",'online':'Online Coaching','vip':'Competition Prep Coaching','group':'Small Group Training' };
   document.getElementById('planLabel').textContent = planLabels[plan] || 'TrainWithKen';
 
   // If user arrived from Supabase magic link (password reset flow), they're already authed

@@ -91,7 +91,7 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    const planLabels = { 'self-led': 'Self-Led System', 'online': 'Online Coaching', 'vip': 'VIP Elite Access' };
+    const planLabels = { 'self-led': "The Coach's Curriculum", 'online': 'Online Coaching', 'vip': 'Competition Prep Coaching', 'group': 'Small Group Training' };
     if (process.env.RESEND_API_KEY) {
       const baseUrl = process.env.SITE_URL || 'https://trainwithken.vercel.app';
       await fetch('https://api.resend.com/emails', {

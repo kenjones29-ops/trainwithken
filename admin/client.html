@@ -106,9 +106,9 @@
           <div class="field" style="margin:0;min-width:180px;">
             <label>Plan</label>
             <select id="updatePlan" style="background:var(--dark3);border:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(201,168,76,0.3);color:var(--white);font-family:'Barlow',sans-serif;font-size:13px;padding:10px 12px;outline:none;width:100%;appearance:none;">
-              <option value="self-led">Self-Led</option>
+              <option value="self-led">Coach's Curriculum</option>
               <option value="online">Online Coaching</option>
-              <option value="vip">VIP Elite</option>
+              <option value="vip">Competition Prep</option>
             </select>
           </div>
           <div class="field" style="margin:0;min-width:160px;">
@@ -134,7 +134,7 @@
 const { createClient } = supabase;
 const sb = createClient('https://rwsmplnbxdcioyklbqes.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw');
 
-const planLabels = {'self-led':'Self-Led','online':'Online Coaching','vip':'VIP Elite'};
+const planLabels = {'self-led':"Coach's Curriculum",'online':'Online Coaching','vip':'Competition Prep','group':'Small Group'};
 const clientId = new URLSearchParams(window.location.search).get('id');
 let latestCheckinId = null;
 
