@@ -3,136 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apparel — AIE Lifestyle Wear | TrainWithKen</title>
-  <meta name="description" content="Shop AIE Lifestyle Wear — KJ's premium athletic apparel brand. Performance gear built for the gym and the lifestyle." />
+  <title>Apparel — TrainWithKen</title>
+  <meta name="description" content="TrainWithKen Apparel — KJ's signature athletic wear line. Premium, performance-built, made for the lifestyle." />
   <link rel="stylesheet" href="../css/styles.css" />
   <style>
-    /* ── PRODUCT GRID ── */
-    .product-section {
-      padding: 100px 80px;
-      background: var(--black);
-    }
+    .product-section { padding: 80px 80px 60px; background: var(--black); }
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
       margin-top: 48px;
+      max-width: 1100px;
     }
     .product-card {
       background: var(--dark2);
       border-top: 2px solid var(--gold-dim);
-      overflow: hidden;
       transition: border-top-color 0.2s;
+      position: relative;
+      overflow: hidden;
     }
     .product-card:hover { border-top-color: var(--gold); }
-    .product-img {
+
+    .product-mock {
       aspect-ratio: 4/3;
-      background: var(--dark3);
+      background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
     }
-    .product-img-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-    .product-img-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 80px;
-      color: rgba(201,168,76,0.08);
-      letter-spacing: 4px;
-      line-height: 1;
-    }
-    .product-tag {
+    .product-mock svg { width: 80%; height: 80%; max-height: 320px; }
+
+    /* SOLD OUT badge */
+    .sold-out {
       position: absolute;
       top: 16px;
-      left: 16px;
+      right: 16px;
       background: var(--gold);
       color: var(--black);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 9px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
       letter-spacing: 3px;
-      text-transform: uppercase;
-      padding: 4px 10px;
+      padding: 6px 14px;
+      z-index: 5;
     }
-    .product-info {
-      padding: 24px 28px 32px;
+    .sold-out-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8,8,8,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      pointer-events: none;
     }
+    .sold-out-overlay span {
+      transform: rotate(-15deg);
+      background: rgba(201,168,76,0.9);
+      color: var(--black);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 6px;
+      padding: 8px 36px;
+      border: 2px solid var(--black);
+    }
+
+    .product-info { padding: 28px 28px 32px; }
     .product-category {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .product-name {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
+      font-size: 24px;
       letter-spacing: 3px;
       color: var(--white);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       line-height: 1.1;
     }
     .product-desc {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--gray);
       line-height: 1.7;
       margin-bottom: 20px;
     }
-    .product-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .product-price {
+    .product-bottom { display: flex; justify-content: space-between; align-items: center; }
+    .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 2px; color: var(--gold); }
+    .product-btn-disabled {
+      background: var(--dark3);
+      color: var(--gray);
+      border: 1px solid rgba(255,255,255,0.08);
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px;
-      letter-spacing: 2px;
-      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 3px;
+      padding: 11px 22px;
+      cursor: not-allowed;
+      pointer-events: none;
     }
 
-    /* ── BRAND STORY ── */
     .brand-story {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 500px;
+      min-height: 480px;
     }
     .brand-story-img {
       position: relative;
       overflow: hidden;
       background: var(--dark3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .brand-story-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
       filter: brightness(0.65) contrast(1.05);
       transition: transform 0.5s;
     }
     .brand-story-img:hover img { transform: scale(1.03); }
-    .aie-watermark {
+    .twk-watermark {
       position: absolute;
       font-family: 'Bebas Neue', sans-serif;
       font-size: 120px;
       color: rgba(201,168,76,0.05);
-      letter-spacing: 8px;
+      letter-spacing: 6px;
       pointer-events: none;
+      left: 24px; bottom: 24px;
+      line-height: 0.9;
     }
     .brand-story-content {
       background: var(--dark);
-      padding: 80px;
+      padding: 72px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -153,47 +156,20 @@
       max-width: 480px;
     }
 
-    /* ── COLLECTION CALLOUTS ── */
-    .collection-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-    .collection-item {
-      background: var(--dark3);
-      padding: 40px;
-      border-bottom: 2px solid var(--gold-dim);
-      text-align: center;
-      transition: border-bottom-color 0.2s;
-    }
-    .collection-item:hover { border-bottom-color: var(--gold); }
-    .collection-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
-    }
-    .collection-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      letter-spacing: 3px;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-    .collection-desc {
-      font-size: 12px;
-      color: var(--gray);
-      line-height: 1.7;
-    }
-
     @media (max-width: 1024px) {
-      .product-section { padding: 60px 40px; }
-      .product-grid { grid-template-columns: 1fr 1fr; }
+      .product-section { padding: 60px 32px; }
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
       .brand-story { grid-template-columns: 1fr; }
-      .brand-story-content { padding: 60px 40px; }
-      .collection-row { grid-template-columns: 1fr; }
+      .brand-story-content { padding: 48px 32px; }
     }
     @media (max-width: 768px) {
-      .product-section { padding: 48px 24px; }
-      .product-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .product-section { padding: 48px 20px; }
+      .product-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+      .product-info { padding: 22px 20px 26px; }
+      .product-name { font-size: 22px; }
+      .product-price { font-size: 26px; }
+      .sold-out-overlay span { font-size: 28px; letter-spacing: 4px; padding: 6px 28px; }
+      .twk-watermark { font-size: 64px; left: 16px; bottom: 16px; }
     }
   </style>
 </head>
@@ -225,162 +201,168 @@
 <!-- HERO -->
 <div class="page-hero">
   <div class="page-hero-img">
-    <img src="../images/kj-coaching.jpg" alt="AIE Lifestyle Wear" />
+    <img src="../images/kj-coaching.jpg" alt="TrainWithKen Apparel" />
   </div>
   <div class="page-hero-content">
-    <div class="sec-label">AIE Lifestyle Wear</div>
-    <h1>WEAR THE<br><span style="color:var(--gold);">LIFESTYLE</span></h1>
-    <p>KJ's premium athletic apparel brand — built for the gym, designed for the lifestyle. Every piece carries the same standard of excellence KJ brings to the stage.</p>
+    <div class="sec-label">TrainWithKen Apparel</div>
+    <h1>WEAR THE<br><span style="color:var(--gold);">CHAIN</span></h1>
+    <p>KJ's signature athletic wear line — premium, performance-built, made for the lifestyle. Every piece carries the TrainWithKen brand and the same standard of excellence KJ brings to the stage.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
-      <a class="btn-gold" href="https://aielifestyle.com" target="_blank" rel="noopener">Shop at aielifestyle.com</a>
-      <a class="btn-outline" href="#products">Preview Collection</a>
+      <a class="btn-gold" href="#products">View Collection</a>
+      <a class="btn-outline" href="booking.html">Get Notified</a>
     </div>
-  </div>
-</div>
-
-<!-- COLLECTION CALLOUTS -->
-<div class="collection-row">
-  <div class="collection-item">
-    <div class="collection-icon">👕</div>
-    <div class="collection-name">PERFORMANCE TOPS</div>
-    <p class="collection-desc">Moisture-wicking, form-fitting athletic tops engineered for heavy training sessions and all-day wear.</p>
-  </div>
-  <div class="collection-item">
-    <div class="collection-icon">🩳</div>
-    <div class="collection-name">TRAINING SHORTS</div>
-    <p class="collection-desc">Flexible, durable shorts designed for maximum range of motion through squats, deadlifts, and conditioning work.</p>
-  </div>
-  <div class="collection-item">
-    <div class="collection-icon">🧢</div>
-    <div class="collection-name">ACCESSORIES</div>
-    <p class="collection-desc">Hats, bags, and lifestyle accessories that carry the AIE brand identity beyond the gym floor.</p>
   </div>
 </div>
 
 <!-- BRAND STORY -->
 <div class="brand-story">
   <div class="brand-story-img">
-    <img src="../images/kj-hero.jpg" alt="KJ — AIE Lifestyle" />
-    <div class="aie-watermark">AIE</div>
+    <img src="../images/kj-hero.jpg" alt="TrainWithKen — Built for the Athlete" />
+    <div class="twk-watermark">TWK</div>
   </div>
   <div class="brand-story-content">
     <div class="sec-label">The Brand</div>
-    <h2>ATHLETICISM<br>IS THE<br><span style="color:var(--gold);">IDENTITY</span></h2>
-    <p>AIE Lifestyle Wear is more than apparel — it's an expression of the athlete identity. KJ built AIE to reflect what it actually feels like to train with purpose, compete with discipline, and live the lifestyle 24/7.</p>
-    <p>Every drop is designed to bridge the gap between peak performance gear and everyday wear — so you look the part whether you're in the gym, on stage, or in the streets of H-TWN.</p>
-    <div style="margin-top:8px;">
-      <a class="btn-gold" href="https://aielifestyle.com" target="_blank" rel="noopener">Visit aielifestyle.com</a>
-    </div>
+    <h2>BUILT FOR<br>THE<br><span style="color:var(--gold);">ATHLETE</span></h2>
+    <p>TrainWithKen Apparel is more than gear — it's a uniform. Built to be worn in the squat rack, on the posing platform, or on the way to your next session.</p>
+    <p>Every piece is clean black with the signature TrainWithKen chain logo — designed so you can throw it on and look the part, anywhere.</p>
   </div>
 </div>
 
-<!-- PRODUCT PREVIEW -->
+<!-- PRODUCTS -->
 <section class="product-section" id="products">
   <div class="sec-label">Current Collection</div>
-  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:4px;color:var(--white);line-height:1;">AIE SIGNATURE<br>COLLECTION</h2>
-  <div class="product-grid">
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:4px;color:var(--white);line-height:1;">TWK SIGNATURE<br>COLLECTION</h2>
+  <p style="font-size:13px;color:var(--gray);max-width:520px;margin-top:14px;">First drop is sold out — every piece below is currently unavailable. Want one? <a href="booking.html" style="color:var(--gold);border-bottom:1px solid var(--gold-dim);">Let KJ know</a> to be notified of the next drop.</p>
 
+  <div class="product-grid" style="margin-left:auto;margin-right:auto;">
+
+    <!-- T-SHIRT -->
     <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">
-          <div class="product-img-num">01</div>
-        </div>
-        <div class="product-tag">New</div>
+      <div class="product-mock">
+        <div class="sold-out">Sold Out</div>
+        <div class="sold-out-overlay"><span>SOLD OUT</span></div>
+        <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg">
+          <!-- T-shirt silhouette -->
+          <path d="M80 60 L60 70 L40 130 L70 145 L80 130 L80 250 L240 250 L240 130 L250 145 L280 130 L260 70 L240 60 L210 50 Q160 80 110 50 Z" fill="#0a0a0a" stroke="#1f1f1f" stroke-width="1.5"/>
+          <!-- Collar -->
+          <path d="M130 50 Q160 78 190 50" fill="none" stroke="#1f1f1f" stroke-width="2"/>
+          <!-- Sleeve seam -->
+          <path d="M80 90 L80 130 M240 90 L240 130" stroke="#1a1a1a" stroke-width="1" fill="none"/>
+          <!-- Chest logo: hexagon + TRAINWITHKEN -->
+          <g transform="translate(160 120)">
+            <polygon points="0,-9 8,-4 8,4 0,9 -8,4 -8,-4" fill="#c9a84c"/>
+            <text y="2" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="9" fill="#080808" letter-spacing="0.5">KJ</text>
+            <text y="26" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="11" fill="#c9a84c" letter-spacing="2.2">TRAINWITHKEN</text>
+          </g>
+        </svg>
       </div>
       <div class="product-info">
-        <div class="product-category">Tops</div>
-        <div class="product-name">AIE SIGNATURE TEE</div>
-        <p class="product-desc">Heavyweight 100% cotton tee with the AIE wordmark. Relaxed fit for the lifestyle — cut for the athlete.</p>
+        <div class="product-category">Tops · Heavyweight Cotton</div>
+        <div class="product-name">TWK CHAIN TEE</div>
+        <p class="product-desc">Heavyweight black tee with the TrainWithKen chain logo — 3" across the heart. Relaxed fit, soft drape, built for the gym and the streets.</p>
         <div class="product-bottom">
-          <div class="product-price">$42</div>
-          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
+          <div class="product-price">$35</div>
+          <button class="product-btn-disabled">Sold Out</button>
         </div>
       </div>
     </div>
 
+    <!-- SHORTS -->
     <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">
-          <div class="product-img-num">02</div>
-        </div>
+      <div class="product-mock">
+        <div class="sold-out">Sold Out</div>
+        <div class="sold-out-overlay"><span>SOLD OUT</span></div>
+        <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg">
+          <!-- Shorts silhouette -->
+          <path d="M80 50 L80 220 L140 220 L155 110 L165 110 L180 220 L240 220 L240 50 Z" fill="#0a0a0a" stroke="#1f1f1f" stroke-width="1.5"/>
+          <!-- Waistband -->
+          <rect x="80" y="50" width="160" height="14" fill="#161616" stroke="#1f1f1f" stroke-width="1"/>
+          <!-- Drawstring -->
+          <line x1="148" y1="64" x2="148" y2="78" stroke="#c9a84c" stroke-width="1.5"/>
+          <line x1="172" y1="64" x2="172" y2="78" stroke="#c9a84c" stroke-width="1.5"/>
+          <!-- Crotch seam -->
+          <path d="M160 64 L160 110" stroke="#1a1a1a" stroke-width="1"/>
+          <!-- Left thigh logo (small hex) -->
+          <g transform="translate(108 130)">
+            <polygon points="0,-7 6,-3.5 6,3.5 0,7 -6,3.5 -6,-3.5" fill="#c9a84c"/>
+            <text y="2" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="7" fill="#080808" letter-spacing="0.3">KJ</text>
+          </g>
+        </svg>
       </div>
       <div class="product-info">
-        <div class="product-category">Tops</div>
-        <div class="product-name">PRO COMPRESSION TOP</div>
-        <p class="product-desc">Performance compression top with AIE branding. Designed to support muscle groups and enhance blood flow during heavy training.</p>
+        <div class="product-category">Bottoms · 7" Inseam</div>
+        <div class="product-name">TWK TRAINING SHORTS</div>
+        <p class="product-desc">Black training shorts with a small chain logo on the left thigh. 4-way stretch fabric, drawstring waist — built for squats, lunges, and conditioning.</p>
         <div class="product-bottom">
-          <div class="product-price">$58</div>
-          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
+          <div class="product-price">$35</div>
+          <button class="product-btn-disabled">Sold Out</button>
         </div>
       </div>
     </div>
 
+    <!-- SPORTS BRA -->
     <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">
-          <div class="product-img-num">03</div>
-        </div>
-        <div class="product-tag">Best Seller</div>
+      <div class="product-mock">
+        <div class="sold-out">Sold Out</div>
+        <div class="sold-out-overlay"><span>SOLD OUT</span></div>
+        <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sports bra silhouette -->
+          <path d="M90 70 Q90 50 110 45 L130 60 Q160 55 190 60 L210 45 Q230 50 230 70 L228 160 Q200 175 160 175 Q120 175 92 160 Z" fill="#0a0a0a" stroke="#1f1f1f" stroke-width="1.5"/>
+          <!-- Racerback strap hint -->
+          <path d="M130 60 Q140 80 160 80 Q180 80 190 60" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+          <!-- Underband -->
+          <path d="M92 155 Q160 172 228 155" fill="none" stroke="#161616" stroke-width="3"/>
+          <!-- Center logo: hexagon + TRAINWITHKEN -->
+          <g transform="translate(160 115)">
+            <polygon points="0,-11 10,-5.5 10,5.5 0,11 -10,5.5 -10,-5.5" fill="#c9a84c"/>
+            <text y="3" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="11" fill="#080808" letter-spacing="0.5">KJ</text>
+            <text y="30" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="10" fill="#c9a84c" letter-spacing="2">TRAINWITHKEN</text>
+          </g>
+        </svg>
       </div>
       <div class="product-info">
-        <div class="product-category">Bottoms</div>
-        <div class="product-name">ELITE TRAINING SHORTS</div>
-        <p class="product-desc">7" inseam training shorts with a 4-way stretch fabric. Built for squats, lunges, and conditioning circuits.</p>
+        <div class="product-category">Tops · Compression</div>
+        <div class="product-name">TWK CHAIN SPORTS BRA</div>
+        <p class="product-desc">Racerback compression bra with the chain logo dead center. Supportive, breathable, and cut for performance — black with gold detail.</p>
         <div class="product-bottom">
-          <div class="product-price">$54</div>
-          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
+          <div class="product-price">$49</div>
+          <button class="product-btn-disabled">Sold Out</button>
         </div>
       </div>
     </div>
 
+    <!-- JOGGER PANTS -->
     <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">
-          <div class="product-img-num">04</div>
-        </div>
+      <div class="product-mock">
+        <div class="sold-out">Sold Out</div>
+        <div class="sold-out-overlay"><span>SOLD OUT</span></div>
+        <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg">
+          <!-- Jogger silhouette - tapered -->
+          <path d="M80 30 L80 240 L135 250 L145 130 L155 130 L160 250 L185 250 L195 130 L205 130 L215 250 L240 240 L240 30 Z" fill="#0a0a0a" stroke="#1f1f1f" stroke-width="1.5"/>
+          <!-- Waistband -->
+          <rect x="80" y="30" width="160" height="14" fill="#161616" stroke="#1f1f1f" stroke-width="1"/>
+          <!-- Drawstring -->
+          <line x1="148" y1="44" x2="148" y2="58" stroke="#c9a84c" stroke-width="1.5"/>
+          <line x1="172" y1="44" x2="172" y2="58" stroke="#c9a84c" stroke-width="1.5"/>
+          <!-- Center seam -->
+          <line x1="160" y1="44" x2="160" y2="125" stroke="#1a1a1a" stroke-width="1"/>
+          <!-- Ankle cuff -->
+          <rect x="135" y="238" width="50" height="12" fill="#161616"/>
+          <rect x="185" y="238" width="55" height="12" fill="#161616"/>
+          <!-- Upper left thigh logo -->
+          <g transform="translate(108 80)">
+            <polygon points="0,-8 7,-4 7,4 0,8 -7,4 -7,-4" fill="#c9a84c"/>
+            <text y="2.5" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="8" fill="#080808" letter-spacing="0.4">KJ</text>
+          </g>
+        </svg>
       </div>
       <div class="product-info">
-        <div class="product-category">Outerwear</div>
-        <div class="product-name">AIE LIFESTYLE HOODIE</div>
-        <p class="product-desc">Premium heavyweight hoodie with the full AIE branding. Built for recovery days, travel, and everyday wear.</p>
+        <div class="product-category">Bottoms · Tapered Fit</div>
+        <div class="product-name">TWK JOGGER PANTS</div>
+        <p class="product-desc">Tapered black joggers with the chain logo on the upper left thigh. Cuffed ankles, side pockets, performance fleece — for warm-ups, recovery, and lifestyle wear.</p>
         <div class="product-bottom">
-          <div class="product-price">$78</div>
-          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">
-          <div class="product-img-num">05</div>
-        </div>
-      </div>
-      <div class="product-info">
-        <div class="product-category">Accessories</div>
-        <div class="product-name">SNAPBACK CAP</div>
-        <p class="product-desc">Structured snapback with embroidered AIE logo. One size fits all. Available in black/gold and all-black colorways.</p>
-        <div class="product-bottom">
-          <div class="product-price">$36</div>
-          <a class="btn-outline" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Now</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">
-          <div class="product-img-num">06</div>
-        </div>
-        <div class="product-tag">Limited</div>
-      </div>
-      <div class="product-info">
-        <div class="product-category">Bundle</div>
-        <div class="product-name">KJ SIGNATURE BUNDLE</div>
-        <p class="product-desc">The complete AIE starter pack — signature tee, training shorts, and snapback. Handpicked by KJ. Limited quantities.</p>
-        <div class="product-bottom">
-          <div class="product-price">$118</div>
-          <a class="btn-gold" href="https://aielifestyle.com" target="_blank" rel="noopener" style="padding:10px 20px;font-size:12px;">Shop Bundle</a>
+          <div class="product-price">$49</div>
+          <button class="product-btn-disabled">Sold Out</button>
         </div>
       </div>
     </div>
@@ -388,13 +370,13 @@
   </div>
 </section>
 
-<!-- CTA BANNER -->
+<!-- NOTIFY ME CTA -->
 <div class="cta-banner">
-  <div class="sec-label" style="justify-content:center;">Shop the Full Store</div>
-  <h2>VIEW THE FULL<br>AIE COLLECTION</h2>
-  <p>New drops, limited editions, and the complete AIE Lifestyle Wear catalog are available at the official store.</p>
+  <div class="sec-label" style="justify-content:center;">First Drop Sold Out</div>
+  <h2>NEXT DROP<br>COMING SOON</h2>
+  <p>Want to be first when the next batch lands? Drop your email and KJ will let you know when restocks go live.</p>
   <div class="btn-row">
-    <a class="btn-gold" href="https://aielifestyle.com" target="_blank" rel="noopener">Shop aielifestyle.com</a>
+    <a class="btn-gold" href="booking.html">Get Notified</a>
     <a class="btn-outline" href="programs.html">View Coaching Plans</a>
   </div>
 </div>
@@ -419,9 +401,9 @@
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Ventures</h4>
+      <h4>Brand</h4>
       <ul>
-        <li><a href="https://aielifestyle.com" target="_blank" rel="noopener">AIE Lifestyle Wear</a></li>
+        <li><a href="apparel.html">TrainWithKen Apparel</a></li>
         <li><a href="#" target="_blank" rel="noopener">Kure Recovery & Wellness</a></li>
         <li><a href="https://www.instagram.com/trainwithken" target="_blank" rel="noopener">Instagram</a></li>
       </ul>
