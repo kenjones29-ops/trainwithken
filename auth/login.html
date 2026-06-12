@@ -65,9 +65,17 @@
     .pw-hint { font-size:11px; color:var(--gray); margin-top:6px; }
 
     @media (max-width:768px) {
+      .auth-wrap { grid-template-columns:1fr; min-height:auto; }
       .auth-left { display:none; }
-      .auth-right { padding:40px 24px; }
-      .field-row { grid-template-columns:1fr; }
+      .auth-right { padding:32px 20px; min-height:100vh; }
+      .auth-logo { margin-bottom:28px; }
+      .auth-tabs { margin-bottom:24px; }
+      .auth-tab { font-size:18px; letter-spacing:2px; padding:0 0 10px; margin-right:24px; }
+      .field-row { grid-template-columns:1fr; gap:0; }
+      .field { margin-bottom:14px; }
+      .field input { padding:13px 14px; min-height:48px; }
+      .auth-btn { padding:16px; font-size:15px; min-height:52px; }
+      .forgot { font-size:13px; margin-bottom:18px; }
     }
   </style>
 </head>

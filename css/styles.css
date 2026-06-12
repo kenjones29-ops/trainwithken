@@ -29,6 +29,17 @@ body {
 a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
 
+/* Prevent iOS zoom on input focus — inputs must be >= 16px */
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+
+/* Minimum tap target sizes for mobile */
+button, .btn-gold, .btn-outline, .nav-cta, .nav-login {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 /* ─── NAV ─────────────────────────────────────────────── */
 nav {
   position: fixed;

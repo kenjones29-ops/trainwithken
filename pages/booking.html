@@ -252,10 +252,17 @@
       .service-item:nth-child(2) { border-right: none; }
     }
     @media (max-width: 768px) {
-      .booking-right { padding: 40px 24px; }
-      .form-row { grid-template-columns: 1fr; }
+      .booking-left { min-height: 60vw; }
+      .booking-left-overlay { padding: 32px 20px; }
+      .booking-left-overlay h2 { font-size: 36px; letter-spacing: 2px; }
+      .booking-right { padding: 32px 20px; }
+      .form-header h1 { font-size: 30px; letter-spacing: 3px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .form-group { margin-bottom: 16px; }
+      .form-group input, .form-group select, .form-group textarea { font-size: 16px; padding: 13px 14px; min-height: 48px; }
+      .form-submit button { padding: 16px; font-size: 15px; min-height: 52px; letter-spacing: 3px; }
       .services-strip { grid-template-columns: 1fr; }
-      .service-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+      .service-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 24px 20px; }
       .service-item:last-child { border-bottom: none; }
     }
   </style>

@@ -300,16 +300,62 @@ a { text-decoration: none; color: inherit; }
 }
 .sidebar-toggle span { width: 18px; height: 2px; background: var(--black); display: block; }
 
+/* ── TABLE WRAPPER for horizontal scroll on mobile ── */
+.panel-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.dash-table { min-width: 100%; }
+
+/* iOS input zoom prevention */
+.field input, .field select, .field textarea,
+.search-input { font-size: 16px !important; }
+@media (min-width: 769px) {
+  .field input, .field select, .field textarea,
+  .search-input { font-size: 14px !important; }
+}
+
+/* ── SIDEBAR BACKDROP ── */
+.sidebar-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 90;
+  backdrop-filter: blur(2px);
+}
+.sidebar.open ~ .sidebar-backdrop,
+.sidebar-backdrop.show { display: block; }
+
 @media (max-width: 900px) {
   .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
-  .sidebar.open { transform: translateX(0); }
+  .sidebar.open { transform: translateX(0); box-shadow: 8px 0 30px rgba(0,0,0,0.5); }
   .dash-main { margin-left: 0; }
   .sidebar-toggle { display: flex; }
   .stat-cards { grid-template-columns: 1fr 1fr; }
-  .grid-2 { grid-template-columns: 1fr; }
-  .dash-body { padding: 24px 20px; }
-  .dash-header { padding: 16px 20px; }
+  .grid-2 { grid-template-columns: 1fr; gap: 16px; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .dash-body { padding: 20px 16px; }
+  .dash-header {
+    padding: 64px 16px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .dash-header h1 { font-size: 22px; letter-spacing: 2px; }
+  .dash-header p { font-size: 12px; }
+  .stat-card { padding: 18px 16px; }
+  .stat-card-value { font-size: 28px; }
+  .panel-header { padding: 16px 18px; }
+  .panel-body { padding: 18px; }
+  .panel-title { font-size: 15px; letter-spacing: 1.5px; }
+  .dash-table th, .dash-table td { padding: 10px 12px; font-size: 12px; }
+  .btn { font-size: 13px; padding: 11px 22px; min-height: 44px; }
+  .btn-sm { font-size: 11px; padding: 8px 14px; min-height: 36px; }
+  .logout-fab { top: 16px; right: 16px; padding: 10px 16px; font-size: 11px; min-height: 40px; }
 }
+
 @media (max-width: 480px) {
-  .stat-cards { grid-template-columns: 1fr; }
+  .stat-cards { grid-template-columns: 1fr 1fr; gap: 2px; }
+  .stat-card-value { font-size: 24px; }
+  .stat-card-label { font-size: 9px; letter-spacing: 2px; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .dash-body { padding: 16px 12px; }
+  .panel { margin-bottom: 16px; }
 }
