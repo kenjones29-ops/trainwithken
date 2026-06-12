@@ -220,7 +220,66 @@ html, body {
 @keyframes pulse { 0%,100%{opacity:.4}50%{opacity:1} }
 </style>
 </head>
-<body>
+<body style="visibility:hidden;">
+
+<!-- EMAIL GATE -->
+<div id="emailGate" style="display:none;position:fixed;inset:0;background:#040404;z-index:10000;align-items:center;justify-content:center;padding:24px;overflow-y:auto;">
+  <div style="max-width:440px;width:100%;text-align:center;padding:32px 0;">
+    <div style="width:48px;height:48px;background:#c9a84c;clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#080808;margin:0 auto 20px;letter-spacing:1px;">KJ</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:#c9a84c;text-transform:uppercase;margin-bottom:12px;">Free From KJ</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:#f3f1ec;line-height:1;margin-bottom:14px;">FULL BODY<br>WORKOUT</h1>
+    <p style="font-size:13px;color:rgba(243,241,236,0.55);line-height:1.7;margin-bottom:28px;padding:0 8px;">Enter your email to unlock the workout — a 5-phase total-body session from Coach KJ. No spam, just training.</p>
+    <form id="gateForm" style="display:flex;flex-direction:column;gap:12px;">
+      <input id="gateFirst" type="text" placeholder="First Name" required style="background:#1f1f1f;border:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(201,168,76,0.4);color:#f3f1ec;font-family:'Barlow',sans-serif;font-size:16px;padding:14px 16px;outline:none;width:100%;min-height:50px;" />
+      <input id="gateEmail" type="email" inputmode="email" autocapitalize="off" placeholder="you@email.com" required style="background:#1f1f1f;border:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(201,168,76,0.4);color:#f3f1ec;font-family:'Barlow',sans-serif;font-size:16px;padding:14px 16px;outline:none;width:100%;min-height:50px;" />
+      <button id="gateBtn" type="submit" style="background:#c9a84c;color:#080808;border:none;padding:16px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;cursor:pointer;margin-top:6px;min-height:52px;">UNLOCK FREE WORKOUT</button>
+    </form>
+    <p style="font-size:11px;color:rgba(243,241,236,0.35);margin-top:14px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1.5px;text-transform:uppercase;">No charge · No login required</p>
+    <p id="gateErr" style="display:none;font-size:12px;color:#e05c5c;margin-top:10px;"></p>
+  </div>
+</div>
+
+<script>
+(async () => {
+  if (localStorage.getItem('kj_email_unlocked') === '1') {
+    document.body.style.visibility = 'visible';
+    return;
+  }
+  document.getElementById('emailGate').style.display = 'flex';
+  document.body.style.visibility = 'visible';
+
+  document.getElementById('gateForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('gateBtn');
+    const err = document.getElementById('gateErr');
+    err.style.display = 'none';
+    const email = document.getElementById('gateEmail').value.trim();
+    const firstName = document.getElementById('gateFirst').value.trim();
+    if (!email || !firstName) return;
+    btn.textContent = 'UNLOCKING…'; btn.disabled = true;
+
+    try {
+      const res = await fetch('https://rwsmplnbxdcioyklbqes.supabase.co/rest/v1/email_captures', {
+        method: 'POST',
+        headers: {
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3c21wbG5ieGRjaW95a2xicWVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwMjkxMTAsImV4cCI6MjA5NjYwNTExMH0.hsKeMeRcYywoEYOsdUAtqII1Q3ajpVtf6KkJQ_FiZpw',
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ email, first_name: firstName, source: 'full-body-workout' })
+      });
+      if (!res.ok && res.status !== 201 && res.status !== 200) throw new Error('Could not save');
+    } catch (e) {
+      // Even on save failure, let them in — don't penalize the user for our DB
+      console.warn('Email save failed', e);
+    }
+
+    localStorage.setItem('kj_email_unlocked', '1');
+    localStorage.setItem('kj_email', email);
+    document.getElementById('emailGate').style.display = 'none';
+  });
+})();
+</script>
 
 <!-- HEADER -->
 <header class="hdr">
@@ -559,12 +618,14 @@ function render() {
 function move(d) { cur = Math.max(0,Math.min(N-1,cur+d)); render(); }
 function go(i)   { cur=i; render(); }
 
-let sx=0;
+let sx=0,sy=0;
 const vp = document.querySelector('.vp');
-vp.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+vp.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
 vp.addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-sx;
-  if(Math.abs(dx)>40) move(dx<0?1:-1);
+  const dy=e.changedTouches[0].clientY-sy;
+  // Only swipe horizontally if X movement > Y movement (ignore vertical scrolls)
+  if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)*1.5) move(dx<0?1:-1);
 },{passive:true});
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight') move(1);

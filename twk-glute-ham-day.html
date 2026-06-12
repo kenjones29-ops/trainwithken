@@ -982,12 +982,13 @@ function render() {
 function move(d) { cur = Math.max(0,Math.min(N-1,cur+d)); render(); }
 function go(i)   { cur=i; render(); }
 
-let sx=0;
+let sx=0,sy=0;
 const vp = document.querySelector('.vp');
-vp.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+vp.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
 vp.addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-sx;
-  if(Math.abs(dx)>40) move(dx<0?1:-1);
+  const dy=e.changedTouches[0].clientY-sy;
+  if(Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)*1.5) move(dx<0?1:-1);
 },{passive:true});
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight') move(1);
